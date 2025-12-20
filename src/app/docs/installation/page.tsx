@@ -27,7 +27,7 @@ export default function InstallationPage() {
         Adding the Dependency
       </h2>
       <p className="leading-7">
-        You can add GPT Markdown to your project using either Flutter's CLI tool
+        You can add GPT Markdown to your project using either Flutter&apos;s CLI tool
         or by manually editing your pubspec.yaml file:
       </p>
 

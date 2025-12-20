@@ -132,12 +132,12 @@ export function HomeWrapper() {
               <Sparkles className="h-10 w-10 mb-2 text-primary" />
               <CardTitle>Highly Customizable</CardTitle>
               <CardDescription>
-                Extensive theme and styling options to match your app's design.
+                Extensive theme and styling options to match your app&apos;s design.
               </CardDescription>
             </CardHeader>
             <CardContent>
               Customize every aspect of the rendering from colors and typography
-              to spacing and layout to perfectly match your app's design system.
+              to spacing and layout to perfectly match your app&apos;s design system.
             </CardContent>
             <CardFooter>
               <Button variant="ghost" asChild className="gap-1">
