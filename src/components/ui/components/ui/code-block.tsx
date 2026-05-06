@@ -1,8 +1,26 @@
 "use client";
 import React from "react";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
 import { atomDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import { IconCheck, IconCopy } from "@tabler/icons-react";
+
+import dart from "react-syntax-highlighter/dist/cjs/languages/prism/dart";
+import bash from "react-syntax-highlighter/dist/cjs/languages/prism/bash";
+import python from "react-syntax-highlighter/dist/cjs/languages/prism/python";
+import javascript from "react-syntax-highlighter/dist/cjs/languages/prism/javascript";
+import typescript from "react-syntax-highlighter/dist/cjs/languages/prism/typescript";
+import jsx from "react-syntax-highlighter/dist/cjs/languages/prism/jsx";
+import json from "react-syntax-highlighter/dist/cjs/languages/prism/json";
+import yaml from "react-syntax-highlighter/dist/cjs/languages/prism/yaml";
+
+SyntaxHighlighter.registerLanguage("dart", dart);
+SyntaxHighlighter.registerLanguage("bash", bash);
+SyntaxHighlighter.registerLanguage("python", python);
+SyntaxHighlighter.registerLanguage("javascript", javascript);
+SyntaxHighlighter.registerLanguage("typescript", typescript);
+SyntaxHighlighter.registerLanguage("jsx", jsx);
+SyntaxHighlighter.registerLanguage("json", json);
+SyntaxHighlighter.registerLanguage("yaml", yaml);
 
 type CodeBlockProps = {
   language: string;
@@ -57,7 +75,7 @@ export const CodeBlock = ({
     <div className="relative w-full rounded-lg bg-[#131212] p-4 font-mono text-sm">
       <div className="flex flex-col gap-2">
         {tabsExist && (
-          <div className="flex  overflow-x-auto">
+          <div className="flex overflow-x-auto">
             {tabs.map((tab, index) => (
               <button
                 key={index}
@@ -90,7 +108,7 @@ export const CodeBlock = ({
           margin: 0,
           padding: 0,
           background: "transparent",
-          fontSize: "0.875rem", // text-sm equivalent
+          fontSize: "0.875rem",
         }}
         wrapLines={true}
         showLineNumbers={true}
