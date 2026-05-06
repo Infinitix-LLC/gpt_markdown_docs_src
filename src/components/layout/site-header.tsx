@@ -17,7 +17,7 @@ const mainNav = [
   },
   {
     title: "Playground",
-    href: "/examples",
+    href: "/playground",
   },
 ];
 
