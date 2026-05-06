@@ -1,5 +1,13 @@
+import type { Metadata } from "next";
 import { CodeBlock } from "@/components/ui/components/ui/code-block";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Custom Components — Extend Flutter Markdown Rendering",
+  description:
+    "Register custom Flutter widgets as Markdown elements in gpt_markdown. Use block components and inline components to render custom tags, badges, callouts, and AI citation references.",
+  alternates: { canonical: "https://gptmarkdown.com/docs/custom-components" },
+};
 
 const blockComponentCode = `import 'package:flutter/material.dart';
 import 'package:gpt_markdown/gpt_markdown.dart';
