@@ -195,7 +195,7 @@ export default function CustomComponentsPage() {
         <p className="font-medium text-amber-800 dark:text-amber-300 mb-1">Tip — prompt your AI to use custom tags</p>
         <p className="text-amber-700 dark:text-amber-400 text-xs leading-relaxed">
           Custom components work best when you include tag instructions in your system prompt.
-          For example: <em>"When highlighting a warning, wrap it in <code className="bg-amber-100 dark:bg-amber-900 rounded px-1">{`<callout type="warning">...</callout>`}</code>."</em>
+          For example: <em>&quot;When highlighting a warning, wrap it in <code className="bg-amber-100 dark:bg-amber-900 rounded px-1">{`<callout type="warning">...</callout>`}</code>.&quot;</em>
         </p>
       </div>
 
