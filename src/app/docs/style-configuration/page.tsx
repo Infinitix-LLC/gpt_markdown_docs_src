@@ -1,5 +1,13 @@
+import type { Metadata } from "next";
 import { CodeBlock } from "@/components/ui/components/ui/code-block";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "GptMarkdown Parameters — Full API Reference",
+  description:
+    "Complete API reference for the GptMarkdown Flutter widget. All 22 parameters documented: style, textDirection, onLinkTap, latexBuilder, codeBuilder, imageBuilder, and more.",
+  alternates: { canonical: "https://gptmarkdown.com/docs/style-configuration" },
+};
 
 const fullSignatureCode = `GptMarkdown(
   'your markdown string',           // required, positional
