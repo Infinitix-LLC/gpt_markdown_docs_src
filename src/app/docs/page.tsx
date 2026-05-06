@@ -1,6 +1,14 @@
+import type { Metadata } from "next";
 import { CodeBlock } from "@/components/ui/components/ui/code-block";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Getting Started — Flutter Markdown & LaTeX Renderer",
+  description:
+    "Get started with gpt_markdown, the Flutter package for rendering Markdown and LaTeX. One widget renders AI-generated content from ChatGPT, Gemini, and Claude beautifully.",
+  alternates: { canonical: "https://gptmarkdown.com/docs" },
+};
 
 const quickStart = `import 'package:gpt_markdown/gpt_markdown.dart';
 
@@ -9,13 +17,14 @@ GptMarkdown(
 )`;
 
 const sections = [
-  { href: "/docs/installation",       title: "Installation",         desc: "Add the package to your project in one command." },
-  { href: "/docs/usage",              title: "Basic Usage",          desc: "Simple and advanced usage examples." },
-  { href: "/docs/markdown-features",  title: "Markdown Features",    desc: "Full list of supported Markdown elements." },
-  { href: "/docs/latex-support",      title: "LaTeX Support",        desc: "Inline and block math, dollar-sign syntax, custom builder." },
-  { href: "/docs/syntax-highlighting",title: "Syntax Highlighting",  desc: "Built-in code highlighting and custom codeBuilder." },
-  { href: "/docs/themes",             title: "Themes",               desc: "Dark/light theming with GptMarkdownTheme." },
-  { href: "/docs/style-configuration",title: "Style & Parameters",   desc: "Complete reference for every widget parameter." },
+  { href: "/docs/installation",        title: "Installation",         desc: "Add the package to your project in one command." },
+  { href: "/docs/usage",               title: "Basic Usage",          desc: "Simple and advanced usage examples." },
+  { href: "/docs/markdown-features",   title: "Markdown Features",    desc: "Full list of supported Markdown elements." },
+  { href: "/docs/latex-support",       title: "LaTeX Support",        desc: "Inline and block math, dollar-sign syntax, custom builder." },
+  { href: "/docs/syntax-highlighting", title: "Syntax Highlighting",  desc: "Built-in code highlighting and custom codeBuilder." },
+  { href: "/docs/themes",              title: "Themes",               desc: "Dark/light theming with GptMarkdownTheme." },
+  { href: "/docs/style-configuration", title: "Style & Params",       desc: "Complete reference for every widget parameter." },
+  { href: "/docs/custom-components",   title: "Custom Components",    desc: "Register your own block and inline Markdown elements." },
 ];
 
 export default function DocsPage() {
