@@ -1,6 +1,14 @@
+import type { Metadata } from "next";
 import { CodeBlock } from "@/components/ui/components/ui/code-block";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Syntax Highlighting — Flutter Markdown Code Blocks",
+  description:
+    "Render syntax-highlighted code blocks in Flutter with gpt_markdown. Supports 50+ languages out of the box. Customize with codeBuilder for full control, including streaming-aware rendering.",
+  alternates: { canonical: "https://gptmarkdown.com/docs/syntax-highlighting" },
+};
 
 const defaultCode = `// Syntax highlighting works out of the box.
 // Just include a fenced code block in your Markdown:
