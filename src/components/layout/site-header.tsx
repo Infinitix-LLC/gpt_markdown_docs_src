@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Github } from "lucide-react";
+import { Github, BookOpen, Gamepad2, Menu, ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
 
 import { cn } from "@/lib/utils";
@@ -11,14 +11,8 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { usePathname } from "next/navigation";
 
 const mainNav = [
-  {
-    title: "Documentation",
-    href: "/docs",
-  },
-  {
-    title: "Playground",
-    href: "/playground",
-  },
+  { title: "Documentation", href: "/docs", icon: BookOpen },
+  { title: "Playground", href: "/playground", icon: Gamepad2 },
 ];
 
 export function SiteHeader() {
@@ -69,47 +63,78 @@ export function SiteHeader() {
               </a>
             </Button>
             <ThemeToggle />
+
+            {/* Mobile menu */}
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant="outline" size="icon" className="md:hidden">
-                  <svg
-                    strokeWidth="1.5"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5">
-                    <path d="M3 5H11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    <path d="M3 12H16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    <path d="M3 19H21" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
+                <Button variant="ghost" size="icon" className="md:hidden">
+                  <Menu className="h-5 w-5" />
                   <span className="sr-only">Toggle Menu</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="pr-0">
-                <div className="flex flex-col gap-4 px-2">
-                  <Link href="/" className="flex items-center">
-                    <span className="font-bold inline-block">GPT Markdown</span>
+              <SheetContent side="right" className="w-72 p-0 flex flex-col">
+                {/* Header */}
+                <div className="px-6 py-5 border-b">
+                  <Link href="/" className="flex items-center gap-2">
+                    <span className="font-bold text-lg">GPT Markdown</span>
                   </Link>
-                  <div className="flex flex-col space-y-3">
-                    {mainNav.map((item) => (
+                  <p className="text-xs text-muted-foreground mt-1">Markdown & LaTeX for Flutter</p>
+                </div>
+
+                {/* Nav links */}
+                <nav className="flex flex-col px-3 py-4 gap-1">
+                  {mainNav.map((item) => {
+                    const Icon = item.icon;
+                    const active = pathname?.startsWith(item.href);
+                    return (
                       <Link
                         key={item.href}
                         href={item.href}
                         className={cn(
-                          "text-muted-foreground hover:text-foreground",
-                          pathname?.startsWith(item.href) && "text-foreground"
+                          "flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium transition-colors",
+                          active
+                            ? "bg-accent text-accent-foreground"
+                            : "text-muted-foreground hover:bg-accent/50 hover:text-foreground"
                         )}>
+                        <Icon className="h-4 w-4 shrink-0" />
                         {item.title}
+                        {active && (
+                          <span className="ml-auto h-1.5 w-1.5 rounded-full bg-foreground" />
+                        )}
                       </Link>
-                    ))}
-                    <a
-                      href="https://pub.dev/packages/gpt_markdown"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-500 font-semibold text-sm">
-                      pub.dev
-                    </a>
-                  </div>
+                    );
+                  })}
+                </nav>
+
+                {/* Divider */}
+                <div className="mx-6 border-t" />
+
+                {/* External links */}
+                <div className="flex flex-col px-3 py-4 gap-1">
+                  <a
+                    href="https://pub.dev/packages/gpt_markdown"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium text-blue-500 hover:bg-accent/50 hover:text-blue-600 transition-colors">
+                    <span className="text-xs font-bold border border-blue-500/50 rounded px-1.5 py-0.5 leading-none">pub</span>
+                    pub.dev
+                    <ExternalLink className="h-3.5 w-3.5 ml-auto text-muted-foreground" />
+                  </a>
+                  <a
+                    href="https://github.com/Infinitix-LLC/gpt_markdown"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium text-muted-foreground hover:bg-accent/50 hover:text-foreground transition-colors">
+                    <Github className="h-4 w-4 shrink-0" />
+                    GitHub
+                    <ExternalLink className="h-3.5 w-3.5 ml-auto" />
+                  </a>
+                </div>
+
+                {/* Footer */}
+                <div className="mt-auto px-6 py-4 border-t flex items-center justify-between">
+                  <span className="text-xs text-muted-foreground">v1.1.7</span>
+                  <ThemeToggle />
                 </div>
               </SheetContent>
             </Sheet>
