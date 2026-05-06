@@ -1,6 +1,14 @@
+import type { Metadata } from "next";
 import { CodeBlock } from "@/components/ui/components/ui/code-block";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "LaTeX Support — Render Math Equations in Flutter",
+  description:
+    "Render inline and block LaTeX math in Flutter with gpt_markdown. Supports \\( \\) and $...$ syntax, block equations, custom LaTeX builders, and AI output normalization.",
+  alternates: { canonical: "https://gptmarkdown.com/docs/latex-support" },
+};
 
 const inlineCode = `// Backslash-paren syntax (always enabled)
 GptMarkdown(r'The formula is \\( E = mc^2 \\) — inline.')
