@@ -15,6 +15,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/docs/themes`,                  lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${base}/docs/style-configuration`,     lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${base}/docs/custom-components`,       lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${base}/examples`,                     lastModified: now, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${base}/playground`,                    lastModified: now, changeFrequency: "monthly", priority: 0.8 },
   ];
 }
