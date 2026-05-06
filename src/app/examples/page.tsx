@@ -1,7 +1,14 @@
-"use client";
+import type { Metadata } from "next";
 import { SiteHeader } from "@/components/layout/site-header";
 import { ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
+
+export const metadata: Metadata = {
+  title: "Live Playground — Interactive Flutter Markdown Demo",
+  description:
+    "Try gpt_markdown live in the browser. Type any Markdown or LaTeX and see it rendered instantly — headings, bold, tables, code blocks, inline and block LaTeX math, and more.",
+  alternates: { canonical: "https://gptmarkdown.com/examples" },
+};
 
 export default function ExamplesPage() {
   return (
@@ -30,7 +37,7 @@ export default function ExamplesPage() {
             src="/playground/index.html"
             className="w-full rounded-lg border"
             style={{ height: "calc(100vh - 160px)" }}
-            title="gpt_markdown playground"
+            title="GPT Markdown Playground — Interactive Flutter Markdown and LaTeX Demo"
           />
         </div>
       </main>
