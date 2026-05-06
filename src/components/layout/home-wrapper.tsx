@@ -38,10 +38,20 @@ function InstallCommand() {
 }
 
 const stats = [
-  { icon: Heart,    label: "pub.dev likes",      value: "289"     },
-  { icon: Download, label: "downloads / month",  value: "75K+"    },
-  { icon: Award,    label: "pub points",          value: "160/160" },
-  { icon: Star,     label: "GitHub stars",        value: "171"     },
+  { icon: Heart,    label: "pub.dev likes",     value: "289",     href: "https://pub.dev/packages/gpt_markdown" },
+  { icon: Download, label: "downloads / month", value: "75K+",    href: "https://pub.dev/packages/gpt_markdown" },
+  { icon: Award,    label: "pub points",        value: "160/160", href: "https://pub.dev/packages/gpt_markdown/score" },
+  { icon: Star,     label: "GitHub stars",      value: "171",     href: "https://github.com/Infinitix-LLC/gpt_markdown" },
+];
+
+const compareRows = [
+  { feature: "LaTeX math (built-in)",      ours: true,  theirs: false },
+  { feature: "Inline HTML (<u>, etc.)",    ours: true,  theirs: false },
+  { feature: "AI output optimized",        ours: true,  theirs: false },
+  { feature: "Custom builder callbacks",   ours: true,  theirs: true  },
+  { feature: "Selectable text",            ours: true,  theirs: true  },
+  { feature: "RTL support",                ours: true,  theirs: false },
+  { feature: "Radio & checkbox inputs",    ours: true,  theirs: false },
 ];
 
 const demoSnippets = [
@@ -139,7 +149,7 @@ export function HomeWrapper() {
                 </Link>
               </Button>
               <Button asChild variant="ghost" size="lg">
-                <a href="https://pub.dev/packages/gpt_markdown" target="_blank" rel="noopener noreferrer" className="gap-2">
+                <a href="https://pub.dev/packages/gpt_markdown" target="_blank" rel="noopener noreferrer" className="gap-2 text-blue-500 hover:text-blue-600 dark:text-blue-400">
                   View on pub.dev <ArrowRight className="h-4 w-4" />
                 </a>
               </Button>
@@ -151,18 +161,31 @@ export function HomeWrapper() {
       {/* Stats Bar */}
       <section className="w-full border-b bg-muted/40">
         <div className="container mx-auto px-4">
+          <div className="flex items-center justify-center gap-1.5 pt-3">
+            <span className="text-xs text-muted-foreground">Trusted by Flutter developers on</span>
+            <a
+              href="https://pub.dev/packages/gpt_markdown"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs font-bold text-blue-500 hover:text-blue-600 dark:text-blue-400 hover:underline">
+              pub.dev
+            </a>
+          </div>
           <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-border">
-            {stats.map(({ icon: Icon, label, value }, i) => (
-              <motion.div
+            {stats.map(({ icon: Icon, label, value, href }, i) => (
+              <motion.a
                 key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.1 * i }}
-                className="flex flex-col items-center gap-1 py-6 px-4 text-center">
+                className="flex flex-col items-center gap-1 py-6 px-4 text-center hover:bg-muted/60 transition-colors cursor-pointer">
                 <Icon className="h-5 w-5 text-muted-foreground mb-1" />
                 <span className="text-3xl font-bold tracking-tight">{value}</span>
                 <span className="text-xs text-muted-foreground uppercase tracking-wide">{label}</span>
-              </motion.div>
+              </motion.a>
             ))}
           </div>
         </div>
@@ -343,6 +366,47 @@ export function HomeWrapper() {
         </div>
       </section>
 
+      {/* Compare */}
+      <section className="w-full py-16 md:py-20 border-b bg-muted/20">
+        <div className="container mx-auto px-4 max-w-[56rem]">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold mb-3">How does it compare?</h2>
+            <p className="text-muted-foreground">
+              The only Flutter Markdown package with built-in LaTeX and full AI output support.
+            </p>
+          </div>
+          <div className="rounded-xl border overflow-hidden">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b bg-muted/60">
+                  <th className="text-left px-6 py-4 font-semibold text-muted-foreground w-1/2">Feature</th>
+                  <th className="px-6 py-4 font-bold text-center w-1/4">
+                    <span className="text-foreground">gpt_markdown</span>
+                  </th>
+                  <th className="px-6 py-4 font-semibold text-center text-muted-foreground w-1/4">flutter_markdown</th>
+                </tr>
+              </thead>
+              <tbody>
+                {compareRows.map(({ feature, ours, theirs }, i) => (
+                  <tr key={feature} className={i % 2 === 0 ? "bg-background" : "bg-muted/20"}>
+                    <td className="px-6 py-3 text-muted-foreground">{feature}</td>
+                    <td className="px-6 py-3 text-center text-base">{ours ? "✅" : "❌"}</td>
+                    <td className="px-6 py-3 text-center text-base">{theirs ? "✅" : "❌"}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="text-center mt-6">
+            <Button asChild variant="outline">
+              <a href="https://pub.dev/packages/gpt_markdown" target="_blank" rel="noopener noreferrer" className="gap-2 text-blue-500 hover:text-blue-600 dark:text-blue-400">
+                View full details on pub.dev <ArrowRight className="h-4 w-4" />
+              </a>
+            </Button>
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="w-full py-16 md:py-24">
         <div className="container mx-auto px-4 max-w-[58rem] flex flex-col items-center text-center gap-6">
@@ -356,6 +420,11 @@ export function HomeWrapper() {
               <Link href="/docs" className="gap-2">Read the docs <ArrowRight className="h-4 w-4" /></Link>
             </Button>
             <Button asChild variant="outline" size="lg">
+              <a href="https://pub.dev/packages/gpt_markdown" target="_blank" rel="noopener noreferrer" className="gap-2 text-blue-500 hover:text-blue-600 dark:text-blue-400">
+                View on pub.dev <ArrowRight className="h-4 w-4" />
+              </a>
+            </Button>
+            <Button asChild variant="ghost" size="lg">
               <a href="https://github.com/Infinitix-LLC/gpt_markdown" target="_blank" rel="noopener noreferrer" className="gap-2">
                 View on GitHub <ArrowRight className="h-4 w-4" />
               </a>
