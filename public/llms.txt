@@ -4,6 +4,13 @@
 
 GPT Markdown (`gpt_markdown`) is an open-source Flutter/Dart package published on pub.dev. It provides a single widget — `GptMarkdown` — that renders full Markdown and inline/block LaTeX math expressions. It is designed specifically for displaying AI assistant output in Flutter mobile, desktop, and web applications.
 
+## Team
+
+- Mohammad Asfour (co-founder)
+- Samin Sohag (co-founder)
+- Laith Siam (co-founder)
+- Organization: Infinitix LLC
+
 ## Package Details
 
 - Package name: `gpt_markdown`
