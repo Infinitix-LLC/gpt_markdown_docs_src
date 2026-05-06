@@ -17,7 +17,7 @@ export default function ExamplesPage() {
           </div>
           <Button asChild variant="outline" size="sm">
             <a
-              href="/playground/"
+              href="/playground/index.html"
               target="_blank"
               rel="noopener noreferrer"
               className="gap-2">
@@ -27,7 +27,7 @@ export default function ExamplesPage() {
         </div>
         <div className="flex-1 px-4 pb-4">
           <iframe
-            src="/playground/"
+            src="/playground/index.html"
             className="w-full rounded-lg border"
             style={{ height: "calc(100vh - 160px)" }}
             title="gpt_markdown playground"
