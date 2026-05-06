@@ -144,7 +144,7 @@ export function HomeWrapper() {
                 </Link>
               </Button>
               <Button asChild variant="outline" size="lg">
-                <Link href="/examples" className="gap-2">
+                <Link href="/playground" className="gap-2">
                   Try the playground <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
@@ -289,7 +289,7 @@ export function HomeWrapper() {
           </div>
           <div className="text-center mt-8">
             <Button asChild variant="outline" size="lg">
-              <Link href="/examples" className="gap-2">
+              <Link href="/playground" className="gap-2">
                 Try it yourself in the live playground <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
