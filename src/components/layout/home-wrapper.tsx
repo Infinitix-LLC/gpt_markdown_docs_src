@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, Code, FileText, GitFork, Sparkles, Copy, Check, Star, Download, Award, Heart } from "lucide-react";
+import { ArrowRight, Code, FileText, GitFork, Sparkles, Copy, Check, Star, Download, Award, Heart, Cpu, Palette } from "lucide-react";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -307,61 +307,64 @@ export function HomeWrapper() {
             </p>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <Card className="border-b-4 border-primary">
-              <CardHeader>
-                <Sparkles className="h-8 w-8 mb-2 text-primary" />
-                <CardTitle>Rich Markdown</CardTitle>
-                <CardDescription>Full Markdown spec — tables, task lists, blockquotes, links, images, and more.</CardDescription>
-              </CardHeader>
-              <CardContent className="text-sm text-muted-foreground">
-                Including inline HTML like &lt;u&gt;underline&lt;/u&gt; and radio/checkbox inputs — features other packages skip.
-              </CardContent>
-            </Card>
-            <Card className="border-b-4 border-primary">
-              <CardHeader>
-                <FileText className="h-8 w-8 mb-2 text-primary" />
-                <CardTitle>LaTeX Math</CardTitle>
-                <CardDescription>Built-in LaTeX rendering via flutter_math_fork — no extra setup needed.</CardDescription>
-              </CardHeader>
-              <CardContent className="text-sm text-muted-foreground">
-                Inline and block math, complex equations, and matrices. Supports both \( \) and $ $ syntax.
-              </CardContent>
-            </Card>
-            <Card className="border-b-4 border-primary">
-              <CardHeader>
-                <Code className="h-8 w-8 mb-2 text-primary" />
-                <CardTitle>Code Highlighting</CardTitle>
-                <CardDescription>Syntax highlighted code blocks for multiple languages.</CardDescription>
-              </CardHeader>
-              <CardContent className="text-sm text-muted-foreground">
-                Beautiful code blocks with proper syntax coloring and full support for custom renderers.
-              </CardContent>
-            </Card>
-            <Card className="border-b-4 border-primary">
-              <CardHeader>
-                <GitFork className="h-8 w-8 mb-2 text-primary" />
-                <CardTitle>AI-Ready</CardTitle>
-                <CardDescription>Optimized for ChatGPT, Gemini, and Claude outputs.</CardDescription>
-              </CardHeader>
-              <CardContent className="text-sm text-muted-foreground">
-                Handles mixed Markdown and LaTeX the way LLMs actually output it — no preprocessing needed.
-              </CardContent>
-            </Card>
-            <Card className="border-b-4 border-primary sm:col-span-2">
-              <CardHeader>
-                <Sparkles className="h-8 w-8 mb-2 text-primary" />
-                <CardTitle>Fully Customizable</CardTitle>
-                <CardDescription>Builder callbacks for every element — code blocks, LaTeX, links, and more.</CardDescription>
-              </CardHeader>
-              <CardContent className="text-sm text-muted-foreground">
-                Override any component with your own widget. RTL support, selectable text, and theming all built in.
-              </CardContent>
-              <CardFooter>
-                <Button variant="ghost" asChild className="gap-1 -ml-3">
-                  <Link href="/docs">See all parameters <ArrowRight className="h-4 w-4" /></Link>
-                </Button>
-              </CardFooter>
-            </Card>
+            {[
+              {
+                icon: Sparkles,
+                color: "bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400",
+                title: "Rich Markdown",
+                desc: "Full spec — headings, tables, task lists, blockquotes, images, inline HTML, and more. Features other packages skip.",
+              },
+              {
+                icon: FileText,
+                color: "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400",
+                title: "LaTeX Math",
+                desc: "Built-in inline and block equations via flutter_math_fork. Supports both \\( \\) and $ $ syntax with no extra setup.",
+              },
+              {
+                icon: Code,
+                color: "bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400",
+                title: "Code Highlighting",
+                desc: "Syntax-highlighted blocks for Python, Dart, JS, and more — with full support for custom renderers.",
+              },
+              {
+                icon: GitFork,
+                color: "bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400",
+                title: "AI-Ready",
+                desc: "Handles the exact mixed Markdown + LaTeX that ChatGPT, Gemini, and Claude produce — no preprocessing needed.",
+              },
+              {
+                icon: Palette,
+                color: "bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400",
+                title: "Fully Customizable",
+                desc: "Builder callbacks for every element. Override any component with your own widget, with RTL and selectable text built in.",
+              },
+              {
+                icon: Cpu,
+                color: "bg-cyan-100 dark:bg-cyan-900/30 text-cyan-600 dark:text-cyan-400",
+                title: "WASM Ready",
+                desc: "Compiles to WebAssembly for high-performance Flutter web. 160/160 pub points — production-grade quality guaranteed.",
+              },
+            ].map(({ icon: Icon, color, title, desc }, i) => (
+              <motion.div
+                key={title}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.35, delay: 0.05 * i }}
+                className="group rounded-xl border bg-card p-6 flex flex-col gap-4 hover:-translate-y-1 hover:shadow-lg transition-all duration-200 cursor-default">
+                <div className={`h-10 w-10 rounded-lg flex items-center justify-center shrink-0 ${color}`}>
+                  <Icon className="h-5 w-5" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-base mb-1">{title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+          <div className="text-center mt-8">
+            <Button variant="ghost" asChild className="gap-1">
+              <Link href="/docs">See all parameters & options <ArrowRight className="h-4 w-4" /></Link>
+            </Button>
           </div>
         </div>
       </section>
