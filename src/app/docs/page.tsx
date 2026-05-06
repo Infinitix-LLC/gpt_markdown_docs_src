@@ -1,4 +1,4 @@
-import { CodeBlock } from "@/components/ui/code_block";
+import { CodeBlock } from "@/components/ui/components/ui/code-block";
 import React from "react";
 
 const DocsPage = () => {
