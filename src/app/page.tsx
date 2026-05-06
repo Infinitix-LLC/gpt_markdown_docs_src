@@ -40,7 +40,12 @@ const softwareAppSchema = {
   softwareVersion: "1.1.6",
   datePublished: "2023-01-01",
   license: "https://opensource.org/licenses/MIT",
-  author: { "@type": "Organization", name: "Infinitix LLC", url: "https://github.com/Infinitix-LLC" },
+  author: [
+    { "@type": "Organization", name: "Infinitix LLC", url: "https://github.com/Infinitix-LLC" },
+    { "@type": "Person", name: "Mohammad Asfour" },
+    { "@type": "Person", name: "Samin Sohag" },
+    { "@type": "Person", name: "Laith Siam" },
+  ],
   offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
   aggregateRating: {
     "@type": "AggregateRating",
