@@ -23,7 +23,12 @@ export const metadata: Metadata = {
   description:
     "A Flutter package for rendering rich Markdown and LaTeX content in your apps. Optimized for AI-generated text from ChatGPT, Gemini, and Claude. 160/160 pub points, WASM ready.",
   keywords: ["flutter", "markdown", "latex", "dart", "gpt", "ai", "chatgpt", "gemini", "pub.dev"],
-  authors: [{ name: "Infinitix LLC" }],
+  authors: [
+    { name: "Mohammad Asfour" },
+    { name: "Samin Sohag" },
+    { name: "Laith Siam" },
+    { name: "Infinitix LLC" },
+  ],
   openGraph: {
     type: "website",
     url: "https://gptmarkdown.com",
