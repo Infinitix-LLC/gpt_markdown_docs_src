@@ -15,9 +15,29 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "GPT Markdown - Flutter Markdown and LaTeX Renderer",
+  metadataBase: new URL("https://gptmarkdown.com"),
+  title: {
+    default: "GPT Markdown — Markdown & LaTeX for Flutter",
+    template: "%s | GPT Markdown",
+  },
   description:
-    "A comprehensive Flutter package for rendering rich Markdown and LaTeX content in your apps, designed for seamless integration with AI outputs like ChatGPT and Gemini.",
+    "A Flutter package for rendering rich Markdown and LaTeX content in your apps. Optimized for AI-generated text from ChatGPT, Gemini, and Claude. 160/160 pub points, WASM ready.",
+  keywords: ["flutter", "markdown", "latex", "dart", "gpt", "ai", "chatgpt", "gemini", "pub.dev"],
+  authors: [{ name: "Infinitix LLC" }],
+  openGraph: {
+    type: "website",
+    url: "https://gptmarkdown.com",
+    title: "GPT Markdown — Markdown & LaTeX for Flutter",
+    description:
+      "Render Markdown and LaTeX in Flutter apps with one widget. Optimized for AI output. 160/160 pub points · 75K+ downloads/mo · WASM ready.",
+    siteName: "GPT Markdown",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "GPT Markdown — Markdown & LaTeX for Flutter",
+    description:
+      "Render Markdown and LaTeX in Flutter apps with one widget. Optimized for AI output. 160/160 pub points · 75K+ downloads/mo · WASM ready.",
+  },
 };
 
 export default function RootLayout({
