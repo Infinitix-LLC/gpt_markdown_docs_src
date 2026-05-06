@@ -1,6 +1,14 @@
+import type { Metadata } from "next";
 import { CodeBlock } from "@/components/ui/components/ui/code-block";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Install gpt_markdown — Flutter Markdown Package",
+  description:
+    "Add gpt_markdown to your Flutter project in one command: flutter pub add gpt_markdown. No extra dependencies needed — LaTeX rendering is bundled automatically.",
+  alternates: { canonical: "https://gptmarkdown.com/docs/installation" },
+};
 
 const pubspecCode = `dependencies:
   gpt_markdown: ^1.1.6`;
