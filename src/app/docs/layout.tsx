@@ -1,5 +1,6 @@
 import { SidebarNav } from "@/components/layout/sidebar-nav";
 import { SiteHeader } from "@/components/layout/site-header";
+import { BreadcrumbJsonLd } from "@/components/BreadcrumbJsonLd";
 
 const sidebarNavItems = [
   { title: "Getting Started", href: "/docs",                       icon: "Rocket",           section: "Introduction" },
@@ -16,6 +17,7 @@ const sidebarNavItems = [
 export default function DocsLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-screen flex-col">
+      <BreadcrumbJsonLd />
       <SiteHeader />
       <div className="container flex-1">
         <div className="flex flex-col md:grid md:grid-cols-[220px_1fr] md:gap-6 lg:grid-cols-[240px_1fr] lg:gap-10">
