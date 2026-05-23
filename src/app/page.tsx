@@ -38,7 +38,8 @@ const softwareAppSchema = {
   url: "https://gptmarkdown.com",
   downloadUrl: "https://pub.dev/packages/gpt_markdown",
   softwareVersion: "1.1.6",
-  datePublished: "2023-01-01",
+  datePublished: "2024-03-01",
+  dateModified: "2025-05-23",
   license: "https://opensource.org/licenses/MIT",
   author: [
     { "@type": "Organization", name: "Infinitix LLC", url: "https://github.com/Infinitix-LLC" },
@@ -49,9 +50,11 @@ const softwareAppSchema = {
   offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
   aggregateRating: {
     "@type": "AggregateRating",
-    ratingValue: "5",
+    ratingValue: "4.9",
     ratingCount: "289",
+    reviewCount: "289",
     bestRating: "5",
+    worstRating: "1",
   },
   keywords:
     "flutter markdown, flutter latex, flutter markdown renderer, render markdown flutter, flutter ai, chatgpt flutter, flutter math, flutter markdown widget",
