@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { SiteHeader } from "@/components/layout/site-header";
 import { ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { BreadcrumbJsonLd } from "@/components/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title: "Live Playground — Interactive Flutter Markdown Demo",
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
 export default function ExamplesPage() {
   return (
     <div className="flex flex-col min-h-screen">
+      <BreadcrumbJsonLd />
       <SiteHeader />
       <main className="flex-1 flex flex-col">
         <div className="container py-6 flex items-center justify-between">
