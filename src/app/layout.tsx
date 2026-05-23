@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -14,6 +14,13 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+  ],
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://gptmarkdown.com"),
   title: {
@@ -23,6 +30,10 @@ export const metadata: Metadata = {
   description:
     "A Flutter package for rendering rich Markdown and LaTeX content in your apps. Optimized for AI-generated text from ChatGPT, Gemini, and Claude. 160/160 pub points, WASM ready.",
   keywords: ["flutter", "markdown", "latex", "dart", "gpt", "ai", "chatgpt", "gemini", "pub.dev"],
+  applicationName: "GPT Markdown",
+  category: "technology",
+  creator: "Infinitix LLC",
+  publisher: "Infinitix LLC",
   authors: [
     { name: "Mohammad Asfour" },
     { name: "Samin Sohag" },
@@ -36,12 +47,21 @@ export const metadata: Metadata = {
     description:
       "Render Markdown and LaTeX in Flutter apps with one widget. Optimized for AI output. 160/160 pub points · 75K+ downloads/mo · WASM ready.",
     siteName: "GPT Markdown",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "GPT Markdown — Markdown & LaTeX for Flutter",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "GPT Markdown — Markdown & LaTeX for Flutter",
     description:
       "Render Markdown and LaTeX in Flutter apps with one widget. Optimized for AI output. 160/160 pub points · 75K+ downloads/mo · WASM ready.",
+    images: ["/twitter-image"],
   },
 };
 
