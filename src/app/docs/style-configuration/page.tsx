@@ -7,6 +7,20 @@ export const metadata: Metadata = {
   description:
     "Complete API reference for the GptMarkdown Flutter widget. All 22 parameters documented: style, textDirection, onLinkTap, latexBuilder, codeBuilder, imageBuilder, and more.",
   alternates: { canonical: "https://gptmarkdown.com/docs/style-configuration" },
+  openGraph: {
+    title: "GptMarkdown Parameters — Full API Reference",
+    description:
+      "Complete API reference for the GptMarkdown Flutter widget. All 22 parameters documented: style, textDirection, onLinkTap, latexBuilder, codeBuilder, imageBuilder, and more.",
+    url: "https://gptmarkdown.com/docs/style-configuration",
+    images: ["/opengraph-image"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "GptMarkdown Parameters — Full API Reference",
+    description:
+      "Complete API reference for the GptMarkdown Flutter widget. All 22 parameters documented: style, textDirection, onLinkTap, latexBuilder, codeBuilder, imageBuilder, and more.",
+    images: ["/twitter-image"],
+  },
 };
 
 const fullSignatureCode = `GptMarkdown(
