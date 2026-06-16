@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import sharedOpenGraph from "@/lib/og";
 import { CodeBlock } from "@/components/ui/components/ui/code-block";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
@@ -9,11 +10,11 @@ export const metadata: Metadata = {
     "Customize the appearance of GptMarkdown in Flutter. Style headings, links, code highlights, and horizontal rules with GptMarkdownTheme or as a ThemeData extension.",
   alternates: { canonical: "https://gptmarkdown.com/docs/themes" },
   openGraph: {
+    ...sharedOpenGraph,
     title: "Theme Customization — Flutter Markdown Styling",
     description:
       "Customize the appearance of GptMarkdown in Flutter. Style headings, links, code highlights, and horizontal rules with GptMarkdownTheme or as a ThemeData extension.",
     url: "https://gptmarkdown.com/docs/themes",
-    images: ["/opengraph-image"],
   },
   twitter: {
     card: "summary_large_image",
