@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import sharedOpenGraph from "@/lib/og";
 import { CodeBlock } from "@/components/ui/components/ui/code-block";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
@@ -10,11 +11,11 @@ export const metadata: Metadata = {
     "Add gpt_markdown to your Flutter project in one command: flutter pub add gpt_markdown. No extra dependencies needed — LaTeX rendering is bundled automatically.",
   alternates: { canonical: "https://gptmarkdown.com/docs/installation" },
   openGraph: {
+    ...sharedOpenGraph,
     title: "Install gpt_markdown — Flutter Markdown Package",
     description:
       "Add gpt_markdown to your Flutter project in one command: flutter pub add gpt_markdown. No extra dependencies needed — LaTeX rendering is bundled automatically.",
     url: "https://gptmarkdown.com/docs/installation",
-    images: ["/opengraph-image"],
   },
   twitter: {
     card: "summary_large_image",
