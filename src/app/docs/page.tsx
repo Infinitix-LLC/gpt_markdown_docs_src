@@ -8,6 +8,20 @@ export const metadata: Metadata = {
   description:
     "Get started with gpt_markdown, the Flutter package for rendering Markdown and LaTeX. One widget renders AI-generated content from ChatGPT, Gemini, and Claude beautifully.",
   alternates: { canonical: "https://gptmarkdown.com/docs" },
+  openGraph: {
+    title: "Getting Started — Flutter Markdown & LaTeX Renderer",
+    description:
+      "Get started with gpt_markdown, the Flutter package for rendering Markdown and LaTeX. One widget renders AI-generated content from ChatGPT, Gemini, and Claude beautifully.",
+    url: "https://gptmarkdown.com/docs",
+    images: ["/opengraph-image"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Getting Started — Flutter Markdown & LaTeX Renderer",
+    description:
+      "Get started with gpt_markdown, the Flutter package for rendering Markdown and LaTeX. One widget renders AI-generated content from ChatGPT, Gemini, and Claude beautifully.",
+    images: ["/twitter-image"],
+  },
 };
 
 const quickStart = `import 'package:gpt_markdown/gpt_markdown.dart';
