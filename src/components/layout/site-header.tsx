@@ -5,6 +5,7 @@ import { Github, BookOpen, Gamepad2, Menu, ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
 
 import { cn } from "@/lib/utils";
+import { PACKAGE_VERSION } from "@/lib/package-version";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -133,7 +134,7 @@ export function SiteHeader() {
 
                 {/* Footer */}
                 <div className="mt-auto px-6 py-4 border-t flex items-center justify-between">
-                  <span className="text-xs text-muted-foreground">v1.1.7</span>
+                  <span className="text-xs text-muted-foreground">v{PACKAGE_VERSION}</span>
                   <ThemeToggle />
                 </div>
               </SheetContent>
