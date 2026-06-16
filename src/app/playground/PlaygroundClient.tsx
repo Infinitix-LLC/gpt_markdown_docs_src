@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { PACKAGE_VERSION } from "@/lib/package-version";
 
 export default function PlaygroundClient() {
   const [launched, setLaunched] = useState(false);
@@ -54,7 +55,7 @@ Install the package:
 
 \`\`\`yaml
 dependencies:
-  gpt_markdown: ^1.1.6
+  gpt_markdown: ^${PACKAGE_VERSION}
 \`\`\`
 
 Then render any string:
