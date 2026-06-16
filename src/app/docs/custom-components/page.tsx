@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import sharedOpenGraph from "@/lib/og";
 import { CodeBlock } from "@/components/ui/components/ui/code-block";
 import Link from "next/link";
 
@@ -8,11 +9,11 @@ export const metadata: Metadata = {
     "Register custom Flutter widgets as Markdown elements in gpt_markdown. Use block components and inline components to render custom tags, badges, callouts, and AI citation references.",
   alternates: { canonical: "https://gptmarkdown.com/docs/custom-components" },
   openGraph: {
+    ...sharedOpenGraph,
     title: "Custom Components — Extend Flutter Markdown Rendering",
     description:
       "Register custom Flutter widgets as Markdown elements in gpt_markdown. Use block components and inline components to render custom tags, badges, callouts, and AI citation references.",
     url: "https://gptmarkdown.com/docs/custom-components",
-    images: ["/opengraph-image"],
   },
   twitter: {
     card: "summary_large_image",
