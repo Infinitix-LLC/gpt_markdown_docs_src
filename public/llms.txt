@@ -83,7 +83,7 @@ gpt_markdown adds: built-in LaTeX math rendering, inline HTML (<u> tags), AI out
 - Theme Customization: https://gptmarkdown.com/docs/themes
 - Style & Parameters (full API): https://gptmarkdown.com/docs/style-configuration
 - Custom Components: https://gptmarkdown.com/docs/custom-components
-- Interactive Playground: https://gptmarkdown.com/examples
+- Interactive Playground: https://gptmarkdown.com/playground
 
 ## Frequently Asked Questions
 
