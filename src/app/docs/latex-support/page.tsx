@@ -8,6 +8,20 @@ export const metadata: Metadata = {
   description:
     "Render inline and block LaTeX math in Flutter with gpt_markdown. Supports \\( \\) and $...$ syntax, block equations, custom LaTeX builders, and AI output normalization.",
   alternates: { canonical: "https://gptmarkdown.com/docs/latex-support" },
+  openGraph: {
+    title: "LaTeX Support — Render Math Equations in Flutter",
+    description:
+      "Render inline and block LaTeX math in Flutter with gpt_markdown. Supports \\( \\) and $...$ syntax, block equations, custom LaTeX builders, and AI output normalization.",
+    url: "https://gptmarkdown.com/docs/latex-support",
+    images: ["/opengraph-image"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "LaTeX Support — Render Math Equations in Flutter",
+    description:
+      "Render inline and block LaTeX math in Flutter with gpt_markdown. Supports \\( \\) and $...$ syntax, block equations, custom LaTeX builders, and AI output normalization.",
+    images: ["/twitter-image"],
+  },
 };
 
 const inlineCode = `// Backslash-paren syntax (always enabled)
