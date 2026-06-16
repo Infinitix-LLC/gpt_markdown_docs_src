@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import sharedOpenGraph from "@/lib/og";
 import { CodeBlock } from "@/components/ui/components/ui/code-block";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
@@ -9,11 +10,11 @@ export const metadata: Metadata = {
     "Render inline and block LaTeX math in Flutter with gpt_markdown. Supports \\( \\) and $...$ syntax, block equations, custom LaTeX builders, and AI output normalization.",
   alternates: { canonical: "https://gptmarkdown.com/docs/latex-support" },
   openGraph: {
+    ...sharedOpenGraph,
     title: "LaTeX Support — Render Math Equations in Flutter",
     description:
       "Render inline and block LaTeX math in Flutter with gpt_markdown. Supports \\( \\) and $...$ syntax, block equations, custom LaTeX builders, and AI output normalization.",
     url: "https://gptmarkdown.com/docs/latex-support",
-    images: ["/opengraph-image"],
   },
   twitter: {
     card: "summary_large_image",
