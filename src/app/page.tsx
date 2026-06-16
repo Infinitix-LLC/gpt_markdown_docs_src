@@ -49,14 +49,6 @@ const softwareAppSchema = {
     { "@type": "Person", name: "Laith Siam" },
   ],
   offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "4.9",
-    ratingCount: "289",
-    reviewCount: "289",
-    bestRating: "5",
-    worstRating: "1",
-  },
   keywords:
     "flutter markdown, flutter latex, flutter markdown renderer, render markdown flutter, flutter ai, chatgpt flutter, flutter math, flutter markdown widget",
 };
