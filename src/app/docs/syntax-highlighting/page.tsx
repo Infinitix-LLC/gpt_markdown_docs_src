@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import sharedOpenGraph from "@/lib/og";
 import { CodeBlock } from "@/components/ui/components/ui/code-block";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
@@ -9,11 +10,11 @@ export const metadata: Metadata = {
     "Render syntax-highlighted code blocks in Flutter with gpt_markdown. Supports 50+ languages out of the box. Customize with codeBuilder for full control, including streaming-aware rendering.",
   alternates: { canonical: "https://gptmarkdown.com/docs/syntax-highlighting" },
   openGraph: {
+    ...sharedOpenGraph,
     title: "Syntax Highlighting — Flutter Markdown Code Blocks",
     description:
       "Render syntax-highlighted code blocks in Flutter with gpt_markdown. Supports 50+ languages out of the box. Customize with codeBuilder for full control, including streaming-aware rendering.",
     url: "https://gptmarkdown.com/docs/syntax-highlighting",
-    images: ["/opengraph-image"],
   },
   twitter: {
     card: "summary_large_image",
