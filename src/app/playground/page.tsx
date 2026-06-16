@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import sharedOpenGraph from "@/lib/og";
 import { SiteHeader } from "@/components/layout/site-header";
 import { BreadcrumbJsonLd } from "@/components/BreadcrumbJsonLd";
 import PlaygroundClient from "./PlaygroundClient";
@@ -9,11 +10,11 @@ export const metadata: Metadata = {
     "Try gpt_markdown live in the browser. Type any Markdown or LaTeX and see it rendered instantly — headings, bold, tables, code blocks, inline and block LaTeX math, and more.",
   alternates: { canonical: "https://gptmarkdown.com/playground" },
   openGraph: {
+    ...sharedOpenGraph,
     title: "Live Playground — Interactive Flutter Markdown & LaTeX Demo",
     description:
       "Try gpt_markdown live in the browser. Type any Markdown or LaTeX and see it rendered instantly — headings, bold, tables, code blocks, inline and block LaTeX math, and more.",
     url: "https://gptmarkdown.com/playground",
-    images: ["/opengraph-image"],
   },
   twitter: {
     card: "summary_large_image",
