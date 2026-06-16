@@ -8,6 +8,20 @@ export const metadata: Metadata = {
   description:
     "Add gpt_markdown to your Flutter project in one command: flutter pub add gpt_markdown. No extra dependencies needed — LaTeX rendering is bundled automatically.",
   alternates: { canonical: "https://gptmarkdown.com/docs/installation" },
+  openGraph: {
+    title: "Install gpt_markdown — Flutter Markdown Package",
+    description:
+      "Add gpt_markdown to your Flutter project in one command: flutter pub add gpt_markdown. No extra dependencies needed — LaTeX rendering is bundled automatically.",
+    url: "https://gptmarkdown.com/docs/installation",
+    images: ["/opengraph-image"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Install gpt_markdown — Flutter Markdown Package",
+    description:
+      "Add gpt_markdown to your Flutter project in one command: flutter pub add gpt_markdown. No extra dependencies needed — LaTeX rendering is bundled automatically.",
+    images: ["/twitter-image"],
+  },
 };
 
 const pubspecCode = `dependencies:
