@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import sharedOpenGraph from "@/lib/og";
 import { CodeBlock } from "@/components/ui/components/ui/code-block";
 import Link from "next/link";
 
@@ -8,11 +9,11 @@ export const metadata: Metadata = {
     "Complete API reference for the GptMarkdown Flutter widget. All 22 parameters documented: style, textDirection, onLinkTap, latexBuilder, codeBuilder, imageBuilder, and more.",
   alternates: { canonical: "https://gptmarkdown.com/docs/style-configuration" },
   openGraph: {
+    ...sharedOpenGraph,
     title: "GptMarkdown Parameters — Full API Reference",
     description:
       "Complete API reference for the GptMarkdown Flutter widget. All 22 parameters documented: style, textDirection, onLinkTap, latexBuilder, codeBuilder, imageBuilder, and more.",
     url: "https://gptmarkdown.com/docs/style-configuration",
-    images: ["/opengraph-image"],
   },
   twitter: {
     card: "summary_large_image",
