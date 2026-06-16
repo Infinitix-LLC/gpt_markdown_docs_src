@@ -7,6 +7,20 @@ export const metadata: Metadata = {
   description:
     "Register custom Flutter widgets as Markdown elements in gpt_markdown. Use block components and inline components to render custom tags, badges, callouts, and AI citation references.",
   alternates: { canonical: "https://gptmarkdown.com/docs/custom-components" },
+  openGraph: {
+    title: "Custom Components — Extend Flutter Markdown Rendering",
+    description:
+      "Register custom Flutter widgets as Markdown elements in gpt_markdown. Use block components and inline components to render custom tags, badges, callouts, and AI citation references.",
+    url: "https://gptmarkdown.com/docs/custom-components",
+    images: ["/opengraph-image"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Custom Components — Extend Flutter Markdown Rendering",
+    description:
+      "Register custom Flutter widgets as Markdown elements in gpt_markdown. Use block components and inline components to render custom tags, badges, callouts, and AI citation references.",
+    images: ["/twitter-image"],
+  },
 };
 
 const blockComponentCode = `import 'package:flutter/material.dart';
