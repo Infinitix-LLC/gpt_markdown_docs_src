@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { CodeBlock } from "@/components/ui/components/ui/code-block";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { PACKAGE_VERSION } from "@/lib/package-version";
 
 export const metadata: Metadata = {
   title: "Install gpt_markdown — Flutter Markdown Package",
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
 };
 
 const pubspecCode = `dependencies:
-  gpt_markdown: ^1.1.6`;
+  gpt_markdown: ^${PACKAGE_VERSION}`;
 
 const importCode = `import 'package:gpt_markdown/gpt_markdown.dart';`;
 
