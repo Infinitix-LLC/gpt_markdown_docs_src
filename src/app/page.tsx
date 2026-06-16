@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { HomeWrapper } from "@/components/layout/home-wrapper";
 import { JsonLd } from "@/components/JsonLd";
+import { PACKAGE_VERSION } from "@/lib/package-version";
 
 export const metadata: Metadata = {
   title: "GPT Markdown — Flutter Markdown & LaTeX Renderer",
@@ -37,7 +38,7 @@ const softwareAppSchema = {
     "A Flutter package for rendering Markdown and LaTeX content in your apps. Optimized for AI-generated text from ChatGPT, Gemini, and Claude. Supports full Markdown syntax, inline and block LaTeX math, syntax-highlighted code blocks, and custom builder callbacks.",
   url: "https://gptmarkdown.com",
   downloadUrl: "https://pub.dev/packages/gpt_markdown",
-  softwareVersion: "1.1.6",
+  softwareVersion: PACKAGE_VERSION,
   datePublished: "2024-03-01",
   dateModified: "2025-05-23",
   license: "https://opensource.org/licenses/MIT",
