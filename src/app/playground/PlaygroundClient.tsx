@@ -88,19 +88,19 @@ Works with AI-streamed partial tokens too.`}
 
         {/* ── Contextual links ── */}
         <nav aria-label="Related documentation" className="flex flex-wrap gap-x-6 gap-y-1 text-sm mb-8">
-          <Link href="/docs#installation" className="text-primary hover:underline">
+          <Link href="/docs/installation" className="text-primary hover:underline">
             Installation guide →
           </Link>
-          <Link href="/docs#usage" className="text-primary hover:underline">
+          <Link href="/docs/usage" className="text-primary hover:underline">
             Basic usage →
           </Link>
-          <Link href="/docs#features" className="text-primary hover:underline">
+          <Link href="/docs/markdown-features" className="text-primary hover:underline">
             Supported Markdown features →
           </Link>
-          <Link href="/docs#latex" className="text-primary hover:underline">
+          <Link href="/docs/latex-support" className="text-primary hover:underline">
             LaTeX / math rendering →
           </Link>
-          <Link href="/docs#parameters" className="text-primary hover:underline">
+          <Link href="/docs/style-configuration" className="text-primary hover:underline">
             Widget parameters →
           </Link>
         </nav>
