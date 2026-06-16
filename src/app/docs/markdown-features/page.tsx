@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import sharedOpenGraph from "@/lib/og";
 import FeatureTable from "@/components/ui/FeatureTable";
 
 export const metadata: Metadata = {
@@ -7,11 +8,11 @@ export const metadata: Metadata = {
     "Complete list of Markdown syntax supported by gpt_markdown in Flutter: headings, bold, italic, tables, code blocks, lists, task lists, blockquotes, images, links, LaTeX, and more.",
   alternates: { canonical: "https://gptmarkdown.com/docs/markdown-features" },
   openGraph: {
+    ...sharedOpenGraph,
     title: "Markdown Features — Flutter Markdown Support",
     description:
       "Complete list of Markdown syntax supported by gpt_markdown in Flutter: headings, bold, italic, tables, code blocks, lists, task lists, blockquotes, images, links, LaTeX, and more.",
     url: "https://gptmarkdown.com/docs/markdown-features",
-    images: ["/opengraph-image"],
   },
   twitter: {
     card: "summary_large_image",
