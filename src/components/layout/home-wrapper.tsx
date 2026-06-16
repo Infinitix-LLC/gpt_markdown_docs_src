@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Code, FileText, GitFork, Sparkles, Copy, Check, Star, Download, Award, Heart, Cpu, Palette } from "lucide-react";
 import { useState } from "react";
+import { PACKAGE_VERSION } from "@/lib/package-version";
 
 import { Button } from "@/components/ui/button";
 import { SiteHeader } from "@/components/layout/site-header";
@@ -116,7 +117,7 @@ export function HomeWrapper() {
             transition={{ duration: 0.5 }}>
             <span className="inline-flex items-center gap-2 rounded-full bg-muted px-4 py-1.5 text-sm font-medium mb-4 border">
               <span className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
-              v1.1.6 &mdash; 160/160 pub points &middot; WASM ready
+              v{PACKAGE_VERSION} &mdash; 160/160 pub points &middot; WASM ready
             </span>
             <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mt-4">
               GPT Markdown
