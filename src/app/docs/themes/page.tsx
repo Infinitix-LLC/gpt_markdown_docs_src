@@ -8,6 +8,20 @@ export const metadata: Metadata = {
   description:
     "Customize the appearance of GptMarkdown in Flutter. Style headings, links, code highlights, and horizontal rules with GptMarkdownTheme or as a ThemeData extension.",
   alternates: { canonical: "https://gptmarkdown.com/docs/themes" },
+  openGraph: {
+    title: "Theme Customization — Flutter Markdown Styling",
+    description:
+      "Customize the appearance of GptMarkdown in Flutter. Style headings, links, code highlights, and horizontal rules with GptMarkdownTheme or as a ThemeData extension.",
+    url: "https://gptmarkdown.com/docs/themes",
+    images: ["/opengraph-image"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Theme Customization — Flutter Markdown Styling",
+    description:
+      "Customize the appearance of GptMarkdown in Flutter. Style headings, links, code highlights, and horizontal rules with GptMarkdownTheme or as a ThemeData extension.",
+    images: ["/twitter-image"],
+  },
 };
 
 const themeExtensionCode = `import 'package:flutter/material.dart';
