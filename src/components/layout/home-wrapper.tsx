@@ -2,21 +2,12 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, Code, FileText, GitFork, Sparkles, Copy, Check, Star, Download, Award, Heart, Cpu, Palette } from "lucide-react";
-import { useState } from "react";
+import { ArrowRight, GitFork, Sparkles, Copy, Check, Star, Download, Award, Heart, Cpu, Palette, Radio, RotateCcw } from "lucide-react";
+import { useEffect, useState } from "react";
 import { PACKAGE_VERSION } from "@/lib/package-version";
 
 import { Button } from "@/components/ui/button";
 import { SiteHeader } from "@/components/layout/site-header";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-
 function InstallCommand() {
   const [copied, setCopied] = useState(false);
   const cmd = "flutter pub add gpt_markdown";
@@ -31,96 +22,325 @@ function InstallCommand() {
     <div className="flex items-center gap-2 bg-muted rounded-lg px-4 py-3 font-mono text-sm w-full max-w-md border">
       <span className="text-muted-foreground select-none">$</span>
       <span className="flex-1 text-left">{cmd}</span>
-      <button onClick={copy} className="text-muted-foreground hover:text-foreground transition-colors shrink-0" title="Copy">
+      <button
+        onClick={copy}
+        className="text-muted-foreground hover:text-foreground transition-colors shrink-0"
+        aria-label={copied ? "Install command copied" : "Copy install command"}
+        title={copied ? "Copied" : "Copy install command"}>
         {copied ? <Check className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
       </button>
+      <span className="sr-only" aria-live="polite">
+        {copied ? "Install command copied" : ""}
+      </span>
     </div>
   );
 }
 
 const stats = [
-  { icon: Heart,    label: "pub.dev likes",     value: "289",     href: "https://pub.dev/packages/gpt_markdown" },
-  { icon: Download, label: "downloads / month", value: "75K+",    href: "https://pub.dev/packages/gpt_markdown" },
+  { icon: Heart,    label: "pub.dev likes",     value: "310",     href: "https://pub.dev/packages/gpt_markdown" },
+  { icon: Download, label: "downloads",         value: "150K+",   href: "https://pub.dev/packages/gpt_markdown" },
   { icon: Award,    label: "pub points",        value: "160/160", href: "https://pub.dev/packages/gpt_markdown/score" },
-  { icon: Star,     label: "GitHub stars",      value: "171",     href: "https://github.com/Infinitix-LLC/gpt_markdown" },
+  { icon: Star,     label: "GitHub stars",      value: "175",     href: "https://github.com/Infinitix-LLC/gpt_markdown" },
 ];
 
-const compareRows = [
-  { feature: "LaTeX math (built-in)",      ours: true,  theirs: false },
-  { feature: "Inline HTML (<u>, etc.)",    ours: true,  theirs: false },
-  { feature: "AI output optimized",        ours: true,  theirs: false },
-  { feature: "Custom builder callbacks",   ours: true,  theirs: true  },
-  { feature: "Selectable text",            ours: true,  theirs: true  },
-  { feature: "RTL support",                ours: true,  theirs: false },
-  { feature: "Radio & checkbox inputs",    ours: true,  theirs: false },
-];
-
-const demoSnippets = [
+const demoScenarios = [
   {
+    id: "streaming",
+    label: "Streaming",
+    input: `## Release brief
+
+A streaming renderer should feel like a considered part of the interface, not text arriving in chunks.
+
+It keeps the readable rhythm intact as the answer becomes useful.`,
+  },
+  {
+    id: "markdown",
     label: "Markdown",
-    input: `# Hello World
+    input: `## Launch checklist
 
-**Bold**, _italic_, and ~~strikethrough~~.
+**Ready for review** — the renderer keeps rich AI output readable.
 
-- Item one
-- Item two
-- Item three
+- [x] Headings and emphasis
+- [x] Links and inline code
+- [ ] Add a custom builder
 
-> A blockquote with \`inline code\`
+> Keep the response useful before it is complete.
 
-| Feature | Supported |
-|---------|-----------|
-| Tables  | ✅        |
-| LaTeX   | ✅        |`,
+See https://gptmarkdown.com for the full guide.
+
+\`\`\`dart
+GptMarkdown(response);
+\`\`\`
+
+| Format | Status |
+| --- | --- |
+| Tables | Ready |`,
   },
   {
-    label: "LaTeX",
-    input: `Inline math: \\( E = mc^2 \\)
+    id: "math",
+    label: "Math",
+    input: `## Distribution
 
-Block equation:
-\\[ \\int_0^\\infty e^{-x^2} dx = \\frac{\\sqrt{\\pi}}{2} \\]
+For independent events:
 
-Matrix:
-\\[ A = \\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix} \\]`,
+\\[ P(A \\cap B) = P(A) \\cdot P(B) \\]
+
+So the result is \\( \\frac{3}{7} \\).`,
   },
   {
-    label: "Mixed (AI output)",
-    input: `## Summary
+    id: "code",
+    label: "Code + tables",
+    input: `## Deployment check
 
-The **gradient descent** update rule is:
+\`\`\`dart
+final answer = GptMarkdown(reply);
+\`\`\`
 
-\\[ \\theta := \\theta - \\alpha \\nabla J(\\theta) \\]
-
-where \\( \\alpha \\) is the learning rate.
-
-\`\`\`python
-for epoch in range(100):
-    grad = compute_gradient(X, y, theta)
-    theta -= alpha * grad
-\`\`\``,
+| Signal | Status |
+| --- | --- |
+| Streaming | Ready |
+| Selection | Ready |`,
   },
-];
+  {
+    id: "citations",
+    label: "Citations",
+    input: `@maya: The model's confidence improved after the evaluation pass. [1]
+
+[1] Evaluation report, §4`,
+  },
+  {
+    id: "rtl",
+    label: "RTL",
+    input: `## ملخص
+
+تُعرض المعادلة \\( E = mc^2 \\) والنص المضمّن بالترتيب البصري الصحيح.`,
+  },
+] as const;
+
+type DemoScenario = (typeof demoScenarios)[number]["id"];
+
+const streamingAnswer =
+  "A streaming renderer should feel like a considered part of your interface, not text arriving in chunks.";
+
+function DemoOutput({
+  scenario,
+  streamedText,
+  isStreaming,
+  extensionsEnabled,
+}: {
+  scenario: DemoScenario;
+  streamedText: string;
+  isStreaming: boolean;
+  extensionsEnabled: boolean;
+}) {
+  if (scenario === "markdown") {
+    return (
+      <div className="space-y-3">
+        <h3 className="text-xl font-bold">Launch checklist</h3>
+        <p className="text-sm">
+          <strong>Ready for review</strong> — the renderer keeps rich AI output readable.
+        </p>
+        <ul className="list-none space-y-1.5 text-sm">
+          <li><span className="mr-2 text-green-600 dark:text-green-400">✓</span>Headings and emphasis</li>
+          <li><span className="mr-2 text-green-600 dark:text-green-400">✓</span>Links and inline code</li>
+          <li><span className="mr-2 text-muted-foreground">○</span>Add a custom builder</li>
+        </ul>
+        <blockquote className="border-l-4 pl-3 text-sm italic text-muted-foreground">
+          Keep the response useful before it is complete.
+        </blockquote>
+        <p className="text-sm">
+          See{" "}
+          <a href="https://gptmarkdown.com" target="_blank" rel="noopener noreferrer" className="font-medium text-blue-600 underline underline-offset-2 dark:text-blue-400">
+            gptmarkdown.com
+          </a>{" "}
+          for the full guide.
+        </p>
+        <div className="rounded-lg bg-[#131212] p-3 font-mono text-xs leading-relaxed text-green-400">
+          <span className="text-zinc-500">GptMarkdown</span>(response);
+        </div>
+        <table className="w-full border-collapse text-xs">
+          <thead>
+            <tr className="border-b text-left text-muted-foreground">
+              <th className="py-1.5 font-medium">Format</th>
+              <th className="py-1.5 font-medium">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="py-1.5">Tables</td>
+              <td className="py-1.5 font-medium text-green-600 dark:text-green-400">Ready</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    );
+  }
+
+  if (scenario === "math") {
+    return (
+      <div className="space-y-4">
+        <h3 className="text-lg font-bold">Distribution</h3>
+        <p className="text-sm text-muted-foreground">For independent events:</p>
+        <div className="rounded-lg bg-muted p-4 text-center font-mono text-sm">
+          P(A ∩ B) = P(A) · P(B)
+        </div>
+        <p className="text-sm">
+          So the result is{" "}
+          <span className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs font-medium">3/7</span>.
+        </p>
+      </div>
+    );
+  }
+
+  if (scenario === "code") {
+    return (
+      <div className="space-y-4">
+        <h3 className="text-lg font-bold">Deployment check</h3>
+        <div className="rounded-lg bg-[#131212] p-3 font-mono text-xs leading-relaxed text-green-400">
+          <div className="text-zinc-500">final answer =</div>
+          <div className="pl-4 text-blue-300">GptMarkdown(reply);</div>
+        </div>
+        <table className="w-full border-collapse text-sm">
+          <thead>
+            <tr className="border-b text-left text-muted-foreground">
+              <th className="py-2 font-medium">Signal</th>
+              <th className="py-2 font-medium">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="border-b">
+              <td className="py-2">Streaming</td>
+              <td className="py-2 font-medium text-green-600 dark:text-green-400">Ready</td>
+            </tr>
+            <tr>
+              <td className="py-2">Selection</td>
+              <td className="py-2 font-medium text-green-600 dark:text-green-400">Ready</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    );
+  }
+
+  if (scenario === "citations") {
+    return (
+      <div className="space-y-4">
+        <h3 className="text-lg font-bold">Evaluation update</h3>
+        <p className="text-sm leading-7">
+          {extensionsEnabled ? (
+            <span className="mr-1 inline-flex items-center rounded-full bg-blue-100 px-2 py-0.5 text-xs font-semibold text-blue-700 dark:bg-blue-950/50 dark:text-blue-300">
+              Maya
+            </span>
+          ) : (
+            <span className="font-medium">@maya</span>
+          )}
+          : The model&apos;s confidence improved after the evaluation pass.{" "}
+          {extensionsEnabled ? (
+            <span className="inline-flex rounded bg-muted px-1.5 py-0.5 text-xs font-medium text-foreground">[1] Source</span>
+          ) : (
+            <span className="font-medium">[1]</span>
+          )}
+        </p>
+        <div className="rounded-lg border bg-muted/50 p-3 text-xs text-muted-foreground">
+          Evaluation report, §4
+        </div>
+      </div>
+    );
+  }
+
+  if (scenario === "rtl") {
+    return (
+      <div dir="rtl" className="space-y-4 text-right">
+        <h3 className="text-lg font-bold">ملخص</h3>
+        <p className="text-sm leading-7">
+          تُعرض المعادلة{" "}
+          <span dir="ltr" className="inline-block rounded bg-muted px-1.5 py-0.5 font-mono text-xs">E = mc²</span>{" "}
+          والنص المضمّن بالترتيب البصري الصحيح.
+        </p>
+        <p className="border-r-4 pr-3 text-sm italic text-muted-foreground">
+          دعم الاتجاه الصحيح جزء من تجربة القراءة، وليس تفصيلاً ثانوياً.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
+        <span className="grid h-6 w-6 place-items-center rounded-full bg-blue-100 text-[10px] font-bold text-blue-700 dark:bg-blue-950/50 dark:text-blue-300">
+          AI
+        </span>
+        Assistant response
+      </div>
+      <p className="text-base leading-7">
+        {streamedText}
+        {isStreaming && <span aria-hidden="true" className="ml-1 inline-block h-4 w-0.5 animate-pulse bg-blue-500 align-[-2px]" />}
+      </p>
+      {!isStreaming && streamedText && (
+        <p className="text-sm text-muted-foreground">
+          The final answer preserves the readable rhythm your product needs.
+        </p>
+      )}
+    </div>
+  );
+}
 
 export function HomeWrapper() {
-  const [activeSnippet, setActiveSnippet] = useState(0);
+  const [activeScenario, setActiveScenario] = useState<DemoScenario>("streaming");
+  const [streamIndex, setStreamIndex] = useState(0);
+  const [streamRun, setStreamRun] = useState(0);
+  const [extensionsEnabled, setExtensionsEnabled] = useState(true);
+  const activeDemo = demoScenarios.find((scenario) => scenario.id === activeScenario) ?? demoScenarios[0];
+  const isStreaming = activeScenario === "streaming" && streamIndex < streamingAnswer.length;
+
+  useEffect(() => {
+    if (activeScenario !== "streaming") return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setStreamIndex(streamingAnswer.length);
+      return;
+    }
+
+    setStreamIndex(0);
+    const timer = window.setInterval(() => {
+      setStreamIndex((current) => {
+        if (current >= streamingAnswer.length) {
+          window.clearInterval(timer);
+          return current;
+        }
+        return current + 2;
+      });
+    }, 26);
+
+    return () => window.clearInterval(timer);
+  }, [activeScenario, streamRun]);
 
   return (
     <div className="flex min-h-screen flex-col w-full items-center">
       <SiteHeader />
 
       {/* Hero */}
-      <section className="w-full py-16 md:py-24 lg:py-32 border-b">
-        <div className="container flex max-w-[64rem] flex-col items-center gap-6 text-center mx-auto px-4">
+      <section className="relative w-full overflow-hidden py-16 md:py-24 lg:py-32 border-b">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 h-96 opacity-70 dark:opacity-30"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 25% 10%, rgba(59, 130, 246, 0.13), transparent 34%), radial-gradient(circle at 75% 5%, rgba(139, 92, 246, 0.10), transparent 32%)",
+          }}
+        />
+        <div className="container relative flex max-w-[64rem] flex-col items-center gap-6 text-center mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}>
             <span className="inline-flex items-center gap-2 rounded-full bg-muted px-4 py-1.5 text-sm font-medium mb-4 border">
-              <span className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
-              v{PACKAGE_VERSION} &mdash; 160/160 pub points &middot; WASM ready
+              <span className="h-2 w-2 rounded-full bg-blue-500 shadow-[0_0_0_4px_rgba(59,130,246,0.12)]" />
+              New in v{PACKAGE_VERSION} &mdash; streaming, themes, and inline patterns
             </span>
             <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mt-4">
-              GPT Markdown
+              The Flutter renderer
+              <br className="hidden sm:block" /> for AI output.
             </h1>
           </motion.div>
           <motion.p
@@ -128,9 +348,11 @@ export function HomeWrapper() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
             className="max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8">
-            Markdown and LaTeX renderer for Flutter &mdash; built for AI-generated
-            content. Drop in one widget and render ChatGPT, Gemini, or Claude
-            responses beautifully.
+            <span className="font-medium text-foreground">
+              Built for production Flutter AI interfaces.
+            </span>{" "}
+            Render streaming assistant replies, Markdown, LaTeX, code, tables,
+            citations, and custom inline UI with one widget.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -162,15 +384,10 @@ export function HomeWrapper() {
       {/* Stats Bar */}
       <section className="w-full border-b bg-muted/40">
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-center gap-1.5 pt-3">
-            <span className="text-xs text-muted-foreground">Trusted by Flutter developers on</span>
-            <a
-              href="https://pub.dev/packages/gpt_markdown"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs font-bold text-blue-500 hover:text-blue-600 dark:text-blue-400 hover:underline">
-              pub.dev
-            </a>
+          <div className="flex items-center justify-center pt-4">
+            <span className="text-xs font-medium text-muted-foreground">
+              Trusted in production by Flutter apps reaching millions of users.
+            </span>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-border">
             {stats.map(({ icon: Icon, label, value, href }, i) => (
@@ -192,98 +409,96 @@ export function HomeWrapper() {
         </div>
       </section>
 
-      {/* Live Demo */}
-      <section className="w-full py-16 md:py-20 border-b">
+      {/* Interactive AI output demo */}
+      <section className="w-full border-b bg-gradient-to-b from-blue-50/40 via-background to-background py-16 dark:from-blue-950/10 md:py-20">
         <div className="container mx-auto px-4 max-w-[64rem]">
           <div className="text-center mb-10">
-            <h2 className="text-3xl font-bold mb-3">See what it renders</h2>
+            <p className="text-sm font-semibold text-blue-500 dark:text-blue-400 mb-3">AI output lab</p>
+            <h2 className="text-3xl font-bold mb-3">See real AI output render</h2>
             <p className="text-muted-foreground">
-              Select a sample — this is exactly what your users will see.
+              Compare incoming model text with the native Flutter experience your users receive.
             </p>
           </div>
           <div className="flex gap-2 mb-6 justify-center flex-wrap">
-            {demoSnippets.map((s, i) => (
+            {demoScenarios.map((scenario) => (
               <button
-                key={s.label}
-                onClick={() => setActiveSnippet(i)}
-                className={`px-4 py-1.5 rounded-full text-sm font-medium border transition-colors ${
-                  activeSnippet === i
-                    ? "bg-foreground text-background border-foreground"
-                    : "bg-background text-muted-foreground border-border hover:border-foreground"
-                }`}>
-                {s.label}
+                key={scenario.id}
+                onClick={() => setActiveScenario(scenario.id)}
+                className={`px-4 py-1.5 rounded-full text-sm font-medium border transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 ${
+                  activeScenario === scenario.id
+                    ? "border-blue-600 bg-blue-600 text-white shadow-sm shadow-blue-500/20"
+                    : "border-border bg-background text-muted-foreground hover:border-blue-300 hover:text-foreground dark:hover:border-blue-700"
+                }`}
+                aria-pressed={activeScenario === scenario.id}>
+                {scenario.label}
               </button>
             ))}
           </div>
           <div className="grid md:grid-cols-2 gap-4 items-start">
             {/* Input pane */}
-            <div className="rounded-lg border bg-muted/50 overflow-hidden">
+            <div className="overflow-hidden rounded-xl border bg-muted/40 shadow-sm">
               <div className="px-4 py-2 border-b bg-muted text-xs text-muted-foreground font-mono flex items-center gap-2">
                 <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
                 <span className="h-2.5 w-2.5 rounded-full bg-yellow-400" />
                 <span className="h-2.5 w-2.5 rounded-full bg-green-400" />
-                <span className="ml-2">Raw text from LLM</span>
+                <span className="ml-2">Incoming model output</span>
               </div>
               <pre className="p-4 text-xs font-mono leading-relaxed overflow-auto whitespace-pre-wrap text-muted-foreground min-h-[200px]">
-                {demoSnippets[activeSnippet].input}
+                {activeDemo.input}
               </pre>
             </div>
             {/* Output pane */}
-            <div className="rounded-lg border overflow-hidden">
-              <div className="px-4 py-2 border-b bg-muted text-xs text-muted-foreground font-mono flex items-center gap-2">
+            <div className="overflow-hidden rounded-xl border bg-background shadow-[0_20px_60px_-42px_rgba(59,130,246,0.55)]">
+              <div className="px-4 py-2 border-b bg-muted text-xs text-muted-foreground font-mono flex items-center justify-between gap-2">
+                <div className="flex items-center gap-2">
                 <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
                 <span className="h-2.5 w-2.5 rounded-full bg-yellow-400" />
                 <span className="h-2.5 w-2.5 rounded-full bg-green-400" />
                 <span className="ml-2">GptMarkdown widget output</span>
+                </div>
+                {activeScenario === "streaming" && (
+                  <span className="flex items-center gap-1.5 text-[10px] font-semibold text-blue-600 dark:text-blue-400" role="status" aria-live="polite">
+                    {isStreaming ? <Radio className="h-3 w-3 animate-pulse" /> : <Check className="h-3 w-3" />}
+                    {isStreaming ? "Streaming" : "Complete"}
+                  </span>
+                )}
               </div>
-              <div className="p-4 text-sm leading-relaxed min-h-[200px]">
-                {activeSnippet === 0 && (
-                  <div className="space-y-3">
-                    <h3 className="text-xl font-bold">Hello World</h3>
-                    <p><strong>Bold</strong>, <em>italic</em>, and <span className="line-through">strikethrough</span>.</p>
-                    <ul className="list-disc list-inside space-y-1 text-sm">
-                      <li>Item one</li><li>Item two</li><li>Item three</li>
-                    </ul>
-                    <blockquote className="border-l-4 pl-3 text-muted-foreground italic text-sm">
-                      A blockquote with <code className="bg-muted px-1 rounded text-xs">inline code</code>
-                    </blockquote>
-                    <table className="text-xs w-full border-collapse">
-                      <thead><tr className="border-b"><th className="text-left py-1 pr-4 font-semibold">Feature</th><th className="text-left py-1 font-semibold">Supported</th></tr></thead>
-                      <tbody>
-                        <tr className="border-b"><td className="py-1 pr-4">Tables</td><td>✅</td></tr>
-                        <tr><td className="py-1 pr-4">LaTeX</td><td>✅</td></tr>
-                      </tbody>
-                    </table>
-                  </div>
+              <motion.div
+                key={activeScenario}
+                initial={{ opacity: 0, y: 4 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.2 }}
+                className="p-4 text-sm leading-relaxed min-h-[200px]">
+                <DemoOutput
+                  scenario={activeScenario}
+                  streamedText={streamingAnswer.slice(0, streamIndex)}
+                  isStreaming={isStreaming}
+                  extensionsEnabled={extensionsEnabled}
+                />
+              </motion.div>
+              <div className="flex flex-wrap items-center justify-between gap-3 border-t bg-muted/30 px-4 py-3">
+                {activeScenario === "streaming" ? (
+                  <button
+                    onClick={() => setStreamRun((run) => run + 1)}
+                    className="inline-flex items-center gap-2 rounded text-xs font-semibold text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                    aria-label="Replay streaming answer">
+                    <RotateCcw className="h-3.5 w-3.5" />
+                    Replay stream
+                  </button>
+                ) : (
+                  <span className="text-xs text-muted-foreground">Rendered as native Flutter content</span>
                 )}
-                {activeSnippet === 1 && (
-                  <div className="space-y-4">
-                    <p className="text-sm">Inline math: <span className="font-mono bg-muted px-2 py-0.5 rounded text-xs font-medium">E = mc²</span></p>
-                    <div className="bg-muted rounded-lg p-4 text-center font-mono text-sm">
-                      ∫₀<sup>∞</sup> e<sup>-x²</sup> dx = √π / 2
-                    </div>
-                    <div className="bg-muted rounded-lg p-4 text-center font-mono text-sm">
-                      A = <span className="inline-flex items-center gap-1">
-                        <span className="border-t border-b border-l px-1 py-2 text-xs leading-none">a b<br/>c d</span>
-                        <span className="border-t border-b border-r px-0.5 py-2 text-xs"> </span>
-                      </span>
-                    </div>
-                  </div>
-                )}
-                {activeSnippet === 2 && (
-                  <div className="space-y-3">
-                    <h3 className="text-lg font-bold">Summary</h3>
-                    <p className="text-sm">The <strong>gradient descent</strong> update rule is:</p>
-                    <div className="bg-muted rounded-lg p-3 text-center font-mono text-xs">
-                      θ := θ &minus; α ∇J(θ)
-                    </div>
-                    <p className="text-sm">where <code className="bg-muted px-1 rounded text-xs">α</code> is the learning rate.</p>
-                    <div className="bg-[#131212] text-green-400 rounded-lg p-3 font-mono text-xs leading-relaxed">
-                      <div className="text-zinc-500">for epoch in range(100):</div>
-                      <div className="pl-4 text-blue-400">    grad = compute_gradient(X, y, theta)</div>
-                      <div className="pl-4 text-blue-400">    theta -= alpha * grad</div>
-                    </div>
-                  </div>
+                {activeScenario === "citations" && (
+                  <button
+                    onClick={() => setExtensionsEnabled((enabled) => !enabled)}
+                    role="switch"
+                    aria-checked={extensionsEnabled}
+                    className="inline-flex items-center gap-2 rounded text-xs font-semibold text-blue-600 transition-colors hover:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:text-blue-400 dark:hover:text-blue-300">
+                    <span className={`h-4 w-7 rounded-full p-0.5 transition-colors ${extensionsEnabled ? "bg-blue-500" : "bg-muted-foreground/40"}`}>
+                      <span className={`block h-3 w-3 rounded-full bg-white shadow-sm transition-transform ${extensionsEnabled ? "translate-x-3" : "translate-x-0"}`} />
+                    </span>
+                    App-native inline UI
+                  </button>
                 )}
               </div>
             </div>
@@ -302,48 +517,36 @@ export function HomeWrapper() {
       <section className="w-full py-16 md:py-20 border-b">
         <div className="container mx-auto px-4 max-w-[64rem]">
           <div className="text-center mb-10">
-            <h2 className="text-3xl font-bold mb-3">Everything you need</h2>
+            <h2 className="text-3xl font-bold mb-3">Built for production AI output</h2>
             <p className="text-muted-foreground">
-              One widget. Full support for the content AI actually outputs.
+              The rendering details that make assistant output feel native to your product.
             </p>
           </div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2">
             {[
               {
                 icon: Sparkles,
                 color: "bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400",
-                title: "Rich Markdown",
-                desc: "Full spec — headings, tables, task lists, blockquotes, images, inline HTML, and more. Features other packages skip.",
+                title: "AI-ready rendering",
+                desc: "Markdown, LaTeX, code, tables, citations, RTL, and selectable text render together without preprocessing the model response.",
               },
               {
-                icon: FileText,
-                color: "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400",
-                title: "LaTeX Math",
-                desc: "Built-in inline and block equations via flutter_math_fork. Supports both \\( \\) and $ $ syntax with no extra setup.",
-              },
-              {
-                icon: Code,
+                icon: Cpu,
                 color: "bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400",
-                title: "Code Highlighting",
-                desc: "Syntax-highlighted blocks for Python, Dart, JS, and more — with full support for custom renderers.",
-              },
-              {
-                icon: GitFork,
-                color: "bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400",
-                title: "AI-Ready",
-                desc: "Handles the exact mixed Markdown + LaTeX that ChatGPT, Gemini, and Claude produce — no preprocessing needed.",
+                title: "Streaming that stays fast",
+                desc: "Reveal replies with intentional pacing while only the unfinished tail rebuilds, then finish cleanly when generation stops.",
               },
               {
                 icon: Palette,
                 color: "bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400",
-                title: "Fully Customizable",
-                desc: "Builder callbacks for every element. Override any component with your own widget, with RTL and selectable text built in.",
+                title: "Fits your design system",
+                desc: "Twelve component style classes, app-wide theme support, builders, and callbacks give appearance and structure separate controls.",
               },
               {
-                icon: Cpu,
-                color: "bg-cyan-100 dark:bg-cyan-900/30 text-cyan-600 dark:text-cyan-400",
-                title: "WASM Ready",
-                desc: "Compiles to WebAssembly for high-performance Flutter web. 160/160 pub points — production-grade quality guaranteed.",
+                icon: GitFork,
+                color: "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400",
+                title: "Extensible by default",
+                desc: "Autolinks, inline patterns, and scoped custom components add app-specific UI without claiming the wrong text.",
               },
             ].map(({ icon: Icon, color, title, desc }, i) => (
               <motion.div
@@ -370,41 +573,35 @@ export function HomeWrapper() {
         </div>
       </section>
 
-      {/* Compare */}
+      {/* Release highlights */}
       <section className="w-full py-16 md:py-20 border-b bg-muted/20">
         <div className="container mx-auto px-4 max-w-[56rem]">
           <div className="text-center mb-10">
-            <h2 className="text-3xl font-bold mb-3">How does it compare?</h2>
+            <p className="text-sm font-semibold text-blue-500 dark:text-blue-400 mb-3">
+              New in v{PACKAGE_VERSION}
+            </p>
+            <h2 className="text-3xl font-bold mb-3">A stronger rendering layer</h2>
             <p className="text-muted-foreground">
-              The only Flutter Markdown package with built-in LaTeX and full AI output support.
+              v1.2.0 focuses on streaming behavior, design-system control, and safer extension points.
             </p>
           </div>
-          <div className="rounded-xl border overflow-hidden">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b bg-muted/60">
-                  <th className="text-left px-6 py-4 font-semibold text-muted-foreground w-1/2">Feature</th>
-                  <th className="px-6 py-4 font-bold text-center w-1/4">
-                    <span className="text-foreground">gpt_markdown</span>
-                  </th>
-                  <th className="px-6 py-4 font-semibold text-center text-muted-foreground w-1/4">flutter_markdown</th>
-                </tr>
-              </thead>
-              <tbody>
-                {compareRows.map(({ feature, ours, theirs }, i) => (
-                  <tr key={feature} className={i % 2 === 0 ? "bg-background" : "bg-muted/20"}>
-                    <td className="px-6 py-3 text-muted-foreground">{feature}</td>
-                    <td className="px-6 py-3 text-center text-base">{ours ? "✅" : "❌"}</td>
-                    <td className="px-6 py-3 text-center text-base">{theirs ? "✅" : "❌"}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {[
+              ["Streaming reveal", "Split-document caching keeps settled content stable while the live tail rebuilds."],
+              ["Component style sheet", "Style Markdown parts per widget or app-wide without replacing their structure."],
+              ["Inline patterns and scopes", "Add mentions, channels, and custom components with explicit nesting rules."],
+              ["Better edge-case handling", "Autolinks, RTL ordering, text scaling, reduced motion, and runtime theme changes."],
+            ].map(([title, description]) => (
+              <div key={title} className="rounded-xl border bg-background p-5">
+                <h3 className="font-semibold">{title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{description}</p>
+              </div>
+            ))}
           </div>
           <div className="text-center mt-6">
             <Button asChild variant="outline">
-              <a href="https://pub.dev/packages/gpt_markdown" target="_blank" rel="noopener noreferrer" className="gap-2 text-blue-500 hover:text-blue-600 dark:text-blue-400">
-                View full details on pub.dev <ArrowRight className="h-4 w-4" />
+              <a href="https://github.com/Infinitix-LLC/gpt_markdown/blob/main/MIGRATION.md" target="_blank" rel="noopener noreferrer" className="gap-2 text-blue-500 hover:text-blue-600 dark:text-blue-400">
+                Read the v1.2.0 migration guide <ArrowRight className="h-4 w-4" />
               </a>
             </Button>
           </div>
@@ -414,9 +611,9 @@ export function HomeWrapper() {
       {/* CTA */}
       <section className="w-full py-16 md:py-24">
         <div className="container mx-auto px-4 max-w-[58rem] flex flex-col items-center text-center gap-6">
-          <h2 className="text-3xl md:text-5xl font-bold">Start in 30 seconds</h2>
+          <h2 className="text-3xl md:text-5xl font-bold">Give AI output the same care as the rest of your app.</h2>
           <p className="text-muted-foreground sm:text-lg max-w-[36rem]">
-            Add the package, drop in the widget, done. Your AI responses render beautifully on every platform.
+            Add one widget, keep control of the details, and ship a response surface that feels native on every Flutter platform.
           </p>
           <InstallCommand />
           <div className="flex flex-wrap items-center justify-center gap-3">

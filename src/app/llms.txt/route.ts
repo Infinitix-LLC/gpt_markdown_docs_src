@@ -3,9 +3,9 @@ import { PACKAGE_VERSION } from "@/lib/package-version";
 export function GET() {
   const body = `# GPT Markdown
 
-> A Flutter package for rendering Markdown and LaTeX content. Optimized for AI-generated text from ChatGPT, Gemini, and Claude. One widget. No configuration needed.
+> The Flutter renderer for AI output. Built for production Flutter AI interfaces.
 
-GPT Markdown (\`gpt_markdown\`) is an open-source Flutter/Dart package published on pub.dev. It provides a single widget — \`GptMarkdown\` — that renders full Markdown and inline/block LaTeX math expressions. It is designed specifically for displaying AI assistant output in Flutter mobile, desktop, and web applications.
+GPT Markdown (\`gpt_markdown\`) is an open-source Flutter/Dart package published on pub.dev. Its \`GptMarkdown\` widget renders streaming assistant replies, Markdown, LaTeX, code, tables, citations, autolinks, and custom inline UI in Flutter mobile, desktop, and web applications.
 
 ## Team
 
@@ -26,8 +26,9 @@ GPT Markdown (\`gpt_markdown\`) is an open-source Flutter/Dart package published
 - License: MIT
 - Pub points: 160 / 160
 - Monthly downloads: 75,000+
-- pub.dev likes: 289+
-- GitHub stars: 171+
+- Downloads: 150,000+
+- pub.dev likes: 310
+- GitHub stars: 175
 - WASM compatible: Yes
 
 ## Quick Start
@@ -47,33 +48,39 @@ Use:
 GptMarkdown(r'**Hello!** Inline math: \\( E = mc^2 \\)')
 \`\`\`
 
-That is all that is required. LaTeX rendering is bundled automatically.
+That is all that is required. Markdown and LaTeX render by default; add a \`latexBuilder\` only to replace the math widget.
 
 ## What It Renders
 
 - Markdown: headings (H1-H6), bold, italic, strikethrough, underline via <u>, tables, blockquotes, ordered/unordered lists, task lists (checkboxes), radio buttons, horizontal rules, images, links, inline code, fenced code blocks, indents, highlighted text
 - LaTeX math: inline \\( ... \\) or $...$ (opt-in), block \\[ ... \\] or $$...$$ (opt-in)
-- Code syntax highlighting: built-in for 50+ languages
+- Fenced code blocks: language label, copy action, and a streaming-aware \`closed\` flag; apps can replace rendering with \`codeBuilder\`
 - Custom elements: register custom block and inline components via regex
+- Streaming reveal: paced output with split-document caching and reduced-motion support
+- Inline syntax: autolinks and app-specific \`InlinePattern\` tokens
 
 ## Key Widget Parameters
 
 - \`data\` (String, required) — the Markdown/LaTeX string to render
 - \`style\` (TextStyle?) — base text style
+- \`styleSheet\` (GptMarkdownStyleSheet?) — per-component appearance
 - \`textDirection\` (TextDirection) — LTR or RTL
 - \`useDollarSignsForLatex\` (bool) — enable $...$ syntax
+- \`animation\` (GptMarkdownAnimation?) — streaming reveal behavior
+- \`isStreaming\` (bool) — whether generation is still active
 - \`onLinkTap\` (Function?) — handle link taps
 - \`latexBuilder\` — custom LaTeX renderer widget
 - \`codeBuilder\` — custom code block renderer widget
-- \`highlightBuilder\` — custom inline code renderer
+- \`inlineCodeBuilder\` — custom inline code renderer
 - \`imageBuilder\` — custom image renderer
 - \`linkBuilder\` — custom link renderer
 - \`components\` — custom block-level Markdown elements
 - \`inlineComponents\` — custom inline Markdown elements
+- \`inlinePatterns\` — app-specific inline tokens
 
-## Compared to flutter_markdown
+## Package focus
 
-gpt_markdown adds: built-in LaTeX math rendering, inline HTML (<u> tags), AI output optimization, RTL support, radio/checkbox inputs, custom component system.
+gpt_markdown is designed for mixed AI output: it renders Markdown and LaTeX by default, supports custom inline/block UI, and handles streaming, RTL, text scaling, citations, task/radio lists, and autolinks. Use \`latexBuilder\` to replace the default math widget.
 
 ## Documentation Pages
 
@@ -83,6 +90,7 @@ gpt_markdown adds: built-in LaTeX math rendering, inline HTML (<u> tags), AI out
 - Markdown Features: https://gptmarkdown.com/docs/markdown-features
 - LaTeX Support: https://gptmarkdown.com/docs/latex-support
 - Syntax Highlighting: https://gptmarkdown.com/docs/syntax-highlighting
+- Streaming: https://gptmarkdown.com/docs/streaming
 - Theme Customization: https://gptmarkdown.com/docs/themes
 - Style & Parameters (full API): https://gptmarkdown.com/docs/style-configuration
 - Custom Components: https://gptmarkdown.com/docs/custom-components
@@ -90,11 +98,11 @@ gpt_markdown adds: built-in LaTeX math rendering, inline HTML (<u> tags), AI out
 
 ## Frequently Asked Questions
 
-Q: What is the best Flutter package for rendering Markdown?
-A: gpt_markdown is the most feature-complete Flutter Markdown package, with 160/160 pub points and 75K+ monthly downloads. It is the only package with built-in LaTeX math rendering.
+Q: What is gpt_markdown designed for?
+A: gpt_markdown is designed for production Flutter interfaces that render mixed AI output, including Markdown, LaTeX, code, tables, citations, links, and custom inline UI.
 
 Q: How do I render LaTeX in Flutter?
-A: Use gpt_markdown. Install with \`flutter pub add gpt_markdown\`, then use \`GptMarkdown(r'\\( E = mc^2 \\)')\`. No extra dependencies needed.
+A: Install gpt_markdown, then use \`GptMarkdown(r'\\( E = mc^2 \\)')\`. A \`latexBuilder\` is optional when you need a custom math widget.
 
 Q: How do I render Markdown in Flutter?
 A: Use \`GptMarkdown('**your markdown**')\` from the gpt_markdown package. It renders all standard Markdown syntax plus LaTeX math.
@@ -106,10 +114,10 @@ Q: Does gpt_markdown support Flutter web?
 A: Yes. It compiles to WebAssembly (WASM) and works on all Flutter platforms: iOS, Android, Web, macOS, Windows, and Linux.
 
 Q: Does gpt_markdown support streaming responses?
-A: Yes. Pass the accumulated string to \`GptMarkdown\` and call setState on each chunk. The widget re-renders incrementally.
+A: Yes. Pass the accumulated string with \`animation: GptMarkdownAnimation.fade\` and \`isStreaming: true\`. Only the unfinished tail rebuilds; set \`isStreaming\` to false when generation ends.
 
 Q: How do I customize the appearance of rendered Markdown?
-A: Use \`GptMarkdownTheme\` or register \`GptMarkdownThemeData\` as a ThemeData extension. You can style headings, links, code highlights, and horizontal rules independently.
+A: Use \`GptMarkdownStyleSheet\` per widget or \`GptMarkdownThemeData\` as a ThemeData extension. Use component builders when structure, rather than appearance, needs to change.
 `;
 
   return new Response(body, {

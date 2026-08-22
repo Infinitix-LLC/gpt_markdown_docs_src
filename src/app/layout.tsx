@@ -24,11 +24,11 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://gptmarkdown.com"),
   title: {
-    default: "GPT Markdown — Markdown & LaTeX for Flutter",
+    default: "GPT Markdown — Flutter Renderer for AI Output",
     template: "%s | GPT Markdown",
   },
   description:
-    "A Flutter package for rendering rich Markdown and LaTeX content in your apps. Optimized for AI-generated text from ChatGPT, Gemini, and Claude. 160/160 pub points, WASM ready.",
+    "The Flutter renderer for AI output. Render streaming Markdown, LaTeX, code, tables, citations, and custom inline UI in production Flutter apps.",
   keywords: ["flutter", "markdown", "latex", "dart", "gpt", "ai", "chatgpt", "gemini", "pub.dev"],
   applicationName: "GPT Markdown",
   category: "technology",
@@ -43,24 +43,24 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: "https://gptmarkdown.com",
-    title: "GPT Markdown — Markdown & LaTeX for Flutter",
+    title: "GPT Markdown — Flutter Renderer for AI Output",
     description:
-      "Render Markdown and LaTeX in Flutter apps with one widget. Optimized for AI output. 160/160 pub points · 75K+ downloads/mo · WASM ready.",
+      "Built for production Flutter AI interfaces. Render streaming Markdown, LaTeX, code, tables, citations, and custom inline UI with one widget.",
     siteName: "GPT Markdown",
     images: [
       {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "GPT Markdown — Markdown & LaTeX for Flutter",
+        alt: "GPT Markdown — the Flutter renderer for AI output",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "GPT Markdown — Markdown & LaTeX for Flutter",
+    title: "GPT Markdown — Flutter Renderer for AI Output",
     description:
-      "Render Markdown and LaTeX in Flutter apps with one widget. Optimized for AI output. 160/160 pub points · 75K+ downloads/mo · WASM ready.",
+      "Built for production Flutter AI interfaces. Render streaming Markdown, LaTeX, code, tables, citations, and custom inline UI with one widget.",
     images: ["/twitter-image"],
   },
 };

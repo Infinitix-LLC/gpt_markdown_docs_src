@@ -3,15 +3,16 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { BreadcrumbJsonLd } from "@/components/BreadcrumbJsonLd";
 
 const sidebarNavItems = [
-  { title: "Getting Started", href: "/docs",                       icon: "Rocket",           section: "Introduction" },
+  { title: "Getting Started", href: "/docs",                       icon: "Rocket",             section: "Get started" },
   { title: "Installation",    href: "/docs/installation",          icon: "Package" },
-  { title: "Basic Usage",     href: "/docs/usage",                 icon: "Code2" },
-  { title: "Markdown",        href: "/docs/markdown-features",     icon: "FileText",         section: "Features" },
-  { title: "LaTeX Support",   href: "/docs/latex-support",         icon: "Sigma" },
-  { title: "Syntax Highlighting", href: "/docs/syntax-highlighting", icon: "Braces" },
-  { title: "Themes",          href: "/docs/themes",                icon: "Palette",          section: "Customization" },
-  { title: "Style & Params",  href: "/docs/style-configuration",   icon: "SlidersHorizontal" },
-  { title: "Custom Components", href: "/docs/custom-components",   icon: "Puzzle" },
+  { title: "Render a response", href: "/docs/usage",               icon: "Code2" },
+  { title: "Markdown & AI output", href: "/docs/markdown-features", icon: "FileText",           section: "Core guides" },
+  { title: "LaTeX",           href: "/docs/latex-support",         icon: "Sigma" },
+  { title: "Code blocks",     href: "/docs/syntax-highlighting",   icon: "Braces" },
+  { title: "Streaming",       href: "/docs/streaming",             icon: "Waves" },
+  { title: "Themes & styles", href: "/docs/themes",                icon: "Palette",            section: "Customize" },
+  { title: "Custom inline UI", href: "/docs/custom-components",    icon: "Puzzle" },
+  { title: "Widget API & builders", href: "/docs/style-configuration", icon: "SlidersHorizontal", section: "Reference" },
 ];
 
 export default function DocsLayout({ children }: { children: React.ReactNode }) {

@@ -8,20 +8,20 @@ import { PACKAGE_VERSION } from "@/lib/package-version";
 export const metadata: Metadata = {
   title: "Install gpt_markdown — Flutter Markdown Package",
   description:
-    "Add gpt_markdown to your Flutter project in one command: flutter pub add gpt_markdown. No extra dependencies needed — LaTeX rendering is bundled automatically.",
+    "Add gpt_markdown to your Flutter project in one command: flutter pub add gpt_markdown. Render Markdown and LaTeX immediately, then use a builder only when you need custom math UI.",
   alternates: { canonical: "https://gptmarkdown.com/docs/installation" },
   openGraph: {
     ...sharedOpenGraph,
     title: "Install gpt_markdown — Flutter Markdown Package",
     description:
-      "Add gpt_markdown to your Flutter project in one command: flutter pub add gpt_markdown. No extra dependencies needed — LaTeX rendering is bundled automatically.",
+      "Add gpt_markdown to your Flutter project in one command: flutter pub add gpt_markdown. Render Markdown and LaTeX immediately, then use a builder only when you need custom math UI.",
     url: "https://gptmarkdown.com/docs/installation",
   },
   twitter: {
     card: "summary_large_image",
     title: "Install gpt_markdown — Flutter Markdown Package",
     description:
-      "Add gpt_markdown to your Flutter project in one command: flutter pub add gpt_markdown. No extra dependencies needed — LaTeX rendering is bundled automatically.",
+      "Add gpt_markdown to your Flutter project in one command: flutter pub add gpt_markdown. Render Markdown and LaTeX immediately, then use a builder only when you need custom math UI.",
     images: ["/twitter-image"],
   },
 };
@@ -40,7 +40,7 @@ export default function InstallationPage() {
         <h1 className="scroll-m-20 text-4xl font-bold tracking-tight mb-3">Installation</h1>
         <p className="text-muted-foreground leading-7">
           Add <code className="bg-muted rounded px-1 text-sm">gpt_markdown</code> to your Flutter project.
-          No extra dependencies required — LaTeX rendering is bundled automatically.
+          Markdown and LaTeX rendering work immediately; use a LaTeX builder only to replace the default math widget.
         </p>
       </div>
 
@@ -70,14 +70,15 @@ export default function InstallationPage() {
       <div className="rounded-lg border border-blue-200 dark:border-blue-900 bg-blue-50 dark:bg-blue-950/30 p-4 text-sm">
         <p className="font-medium text-blue-800 dark:text-blue-300 mb-1">Requirements</p>
         <ul className="text-blue-700 dark:text-blue-400 space-y-1 text-xs">
-          <li>Flutter SDK 3.0.0 or higher</li>
-          <li>Dart SDK 2.17.0 or higher</li>
+          <li>A Flutter SDK that includes Dart 3.7.0 or newer</li>
+          <li>Dart SDK 3.7.0 or higher, below 4.0.0</li>
+          <li>No platform plugins are required. For WebAssembly, ensure the rest of your app&apos;s dependencies are also WASM-compatible.</li>
         </ul>
       </div>
 
       <div className="flex justify-end pt-2">
         <Link href="/docs/usage" className="inline-flex items-center gap-1 text-sm text-primary hover:underline font-medium">
-          Basic Usage <ArrowRight className="h-4 w-4" />
+          Render a response <ArrowRight className="h-4 w-4" />
         </Link>
       </div>
     </div>

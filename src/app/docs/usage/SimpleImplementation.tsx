@@ -1,85 +1,173 @@
 import { CodeBlock } from "@/components/ui/components/ui/code-block";
 
-const minimalCode = `import 'package:gpt_markdown/gpt_markdown.dart';
+const installCode = `# pubspec.yaml
+dependencies:
+  gpt_markdown: ^1.2.0`;
 
-// Minimal — just pass your string
-GptMarkdown('**Hello!** Inline math: \\\\( E = mc^2 \\\\)')`;
+const importCode = `import 'package:gpt_markdown/gpt_markdown.dart';`;
+
+const minimalCode = `// Minimum: one positional argument — the markdown string.
+GptMarkdown('# Hello\\n\\nSome **bold** text and \`inline code\`.')`;
 
 const scrollableCode = `import 'package:flutter/material.dart';
 import 'package:gpt_markdown/gpt_markdown.dart';
 
-class MarkdownScreen extends StatelessWidget {
-  final String content;
-  const MarkdownScreen({super.key, required this.content});
+/// GptMarkdown sizes itself to its content and does not scroll.
+/// Wrap it whenever the reply may exceed the screen height.
+class ReplyView extends StatelessWidget {
+  final String reply;
+  const ReplyView({super.key, required this.reply});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Response')),
+      appBar: AppBar(title: const Text('Reply')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
-        child: GptMarkdown(content),
+        child: GptMarkdown(reply),
       ),
     );
   }
 }`;
 
-const streamingCode = `import 'package:flutter/material.dart';
-import 'package:gpt_markdown/gpt_markdown.dart';
+const chatListCode = `// One GptMarkdown per bubble — no scroll wrapper needed
+// because the ListView itself scrolls.
+ListView.builder(
+  itemCount: messages.length,
+  itemBuilder: (context, i) => Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+    child: GptMarkdown(messages[i].text),
+  ),
+)`;
 
-class StreamingChat extends StatefulWidget {
-  const StreamingChat({super.key});
+const selectionCode = `// Wrap in SelectionArea to make all text inside selectable.
+SelectionArea(
+  child: SingleChildScrollView(
+    padding: const EdgeInsets.all(16),
+    child: GptMarkdown(reply),
+  ),
+)`;
 
-  @override
-  State<StreamingChat> createState() => _StreamingChatState();
-}
+const linkTapCode = `// Links do nothing unless you handle them.
+// The package does not depend on a URL launcher — that choice is yours.
+GptMarkdown(
+  reply,
+  onLinkTap: (url, title) {
+    final uri = Uri.tryParse(url);
+    if (uri == null) return;
+    if (uri.scheme != 'https' && uri.scheme != 'mailto') return;
+    launchUrl(uri);
+  },
+)`;
 
-class _StreamingChatState extends State<StreamingChat> {
-  String _buffer = '';
+const rtlCode = `GptMarkdown(
+  reply,
+  textDirection: TextDirection.rtl,
+)`;
 
-  void _onChunk(String chunk) {
-    setState(() => _buffer += chunk);
-  }
+const textScaleCode = `// Base text style — component sizes derive from this.
+// Set it once here; do not set sizes in individual style classes.
+GptMarkdown(
+  reply,
+  style: const TextStyle(fontSize: 16, height: 1.6),
+)
 
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
-      child: GptMarkdown(_buffer),
-    );
-  }
-}`;
+// Or pull from the theme:
+GptMarkdown(
+  reply,
+  style: Theme.of(context).textTheme.bodyMedium,
+)`;
 
 export function SimpleImplementation() {
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
+      {/* Header */}
       <div>
         <h1 className="scroll-m-20 text-4xl font-bold tracking-tight mb-3">Basic Usage</h1>
         <p className="text-muted-foreground leading-7">
-          <code className="bg-muted rounded px-1 text-sm">GptMarkdown</code> takes a single required positional argument — the markdown string.
-          Everything else is optional.
+          Everything from install to a production-ready render, with{" "}
+          <code className="bg-muted rounded px-1 text-sm">GptMarkdown</code> v1.2.0.
         </p>
       </div>
 
+      {/* Install */}
       <div className="space-y-3">
-        <h2 className="text-2xl font-semibold border-b pb-2">Minimal example</h2>
+        <h2 className="text-2xl font-semibold border-b pb-2">Install</h2>
+        <CodeBlock language="yaml" code={installCode} filename="pubspec.yaml" />
+        <CodeBlock language="dart" code={importCode} filename="import" />
+        <p className="text-muted-foreground text-sm">
+          One import brings in the widget, every style class, all builder typedefs, and{" "}
+          <code className="bg-muted rounded px-1 text-xs">GptMarkdownConfig</code>.
+        </p>
+      </div>
+
+      {/* Minimal render */}
+      <div className="space-y-3">
+        <h2 className="text-2xl font-semibold border-b pb-2">Minimal render</h2>
+        <p className="text-muted-foreground text-sm">
+          One positional argument — the markdown string. Everything else is optional.
+        </p>
         <CodeBlock language="dart" code={minimalCode} filename="main.dart" />
       </div>
 
+      {/* Scroll */}
       <div className="space-y-3">
-        <h2 className="text-2xl font-semibold border-b pb-2">Inside a Scaffold</h2>
+        <h2 className="text-2xl font-semibold border-b pb-2">Scrollable replies</h2>
+        <div className="rounded-lg border border-amber-200 bg-amber-50 dark:border-amber-900 dark:bg-amber-950/30 p-3 text-sm text-amber-900 dark:text-amber-200">
+          <strong>Important:</strong>{" "}
+          <code className="bg-amber-100 dark:bg-amber-900/50 rounded px-1 text-xs">GptMarkdown</code>{" "}
+          sizes itself to its content. Put it inside something scrollable for anything longer than a sentence —
+          otherwise a long reply overflows the screen.
+        </div>
+        <CodeBlock language="dart" code={scrollableCode} filename="reply_view.dart" />
         <p className="text-muted-foreground text-sm">
-          Wrap in <code className="bg-muted rounded px-1 text-xs">SingleChildScrollView</code> when content may overflow the screen.
+          In a chat list where the <code className="bg-muted rounded px-1 text-xs">ListView</code> already scrolls:
         </p>
-        <CodeBlock language="dart" code={scrollableCode} filename="markdown_screen.dart" />
+        <CodeBlock language="dart" code={chatListCode} filename="chat_list.dart" />
       </div>
 
+      {/* SelectionArea */}
       <div className="space-y-3">
-        <h2 className="text-2xl font-semibold border-b pb-2">Streaming AI output</h2>
+        <h2 className="text-2xl font-semibold border-b pb-2">Text selection</h2>
         <p className="text-muted-foreground text-sm">
-          Append chunks to a string buffer and pass it directly — the widget re-renders on each update.
+          Wrap in <code className="bg-muted rounded px-1 text-xs">SelectionArea</code> the same way you would any Flutter text.
+          Inline code stays on the text baseline and is selectable. Copying across a list or table currently yields
+          cells run together with no separators — prose, headings, links, and inline code copy correctly.
         </p>
-        <CodeBlock language="dart" code={streamingCode} filename="streaming_chat.dart" />
+        <CodeBlock language="dart" code={selectionCode} filename="selectable.dart" />
+      </div>
+
+      {/* Link tap */}
+      <div className="space-y-3">
+        <h2 className="text-2xl font-semibold border-b pb-2">Handling link taps</h2>
+        <p className="text-muted-foreground text-sm">
+          Links render as tappable but do nothing on their own — opening a URL is your decision.
+          LLM output can contain any URL, so validate before launching.
+        </p>
+        <CodeBlock language="dart" code={linkTapCode} filename="link_tap.dart" />
+      </div>
+
+      {/* RTL */}
+      <div className="space-y-3">
+        <h2 className="text-2xl font-semibold border-b pb-2">Right-to-left</h2>
+        <p className="text-muted-foreground text-sm">
+          Inline widgets — LaTeX, images, links — are placed in the correct visual order in mixed-direction
+          paragraphs, working around{" "}
+          <a href="https://github.com/flutter/flutter/issues/54400" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">flutter#54400</a>{" "}
+          which the framework does not handle on its own.
+        </p>
+        <CodeBlock language="dart" code={rtlCode} filename="rtl.dart" />
+      </div>
+
+      {/* Text scaling */}
+      <div className="space-y-3">
+        <h2 className="text-2xl font-semibold border-b pb-2">Text scaling</h2>
+        <p className="text-muted-foreground text-sm">
+          Set the base font size once via <code className="bg-muted rounded px-1 text-xs">style</code>.
+          Heading sizes, inline code, and list bullets all derive from it proportionally.
+          Components rendered as inline widgets scale correctly at any system font setting.
+        </p>
+        <CodeBlock language="dart" code={textScaleCode} filename="text_style.dart" />
       </div>
     </div>
   );

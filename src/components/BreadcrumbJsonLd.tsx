@@ -5,13 +5,14 @@ import { usePathname } from "next/navigation";
 const PAGE_TITLES: Record<string, string> = {
   "/docs": "Getting Started",
   "/docs/installation": "Installation",
-  "/docs/usage": "Basic Usage",
-  "/docs/markdown-features": "Markdown Features",
-  "/docs/latex-support": "LaTeX Support",
-  "/docs/syntax-highlighting": "Syntax Highlighting",
-  "/docs/themes": "Themes",
-  "/docs/style-configuration": "Style & Parameters",
-  "/docs/custom-components": "Custom Components",
+  "/docs/usage": "Render a response",
+  "/docs/markdown-features": "Markdown & AI output",
+  "/docs/latex-support": "LaTeX",
+  "/docs/syntax-highlighting": "Code blocks",
+  "/docs/streaming": "Streaming",
+  "/docs/themes": "Themes & styles",
+  "/docs/style-configuration": "Widget API & builders",
+  "/docs/custom-components": "Custom inline UI",
   "/playground": "Playground",
 };
 

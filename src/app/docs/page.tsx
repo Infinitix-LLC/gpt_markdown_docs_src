@@ -5,22 +5,22 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Getting Started — Flutter Markdown & LaTeX Renderer",
+  title: "Documentation — The Flutter Renderer for AI Output",
   description:
-    "Get started with gpt_markdown, the Flutter package for rendering Markdown and LaTeX. One widget renders AI-generated content from ChatGPT, Gemini, and Claude beautifully.",
+    "Build production Flutter AI interfaces with gpt_markdown. Learn rendering, streaming, Markdown, LaTeX, styles, builders, inline patterns, and custom components.",
   alternates: { canonical: "https://gptmarkdown.com/docs" },
   openGraph: {
     ...sharedOpenGraph,
-    title: "Getting Started — Flutter Markdown & LaTeX Renderer",
+    title: "Documentation — The Flutter Renderer for AI Output",
     description:
-      "Get started with gpt_markdown, the Flutter package for rendering Markdown and LaTeX. One widget renders AI-generated content from ChatGPT, Gemini, and Claude beautifully.",
+      "Learn rendering, streaming, Markdown, LaTeX, styles, builders, inline patterns, and custom components.",
     url: "https://gptmarkdown.com/docs",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Getting Started — Flutter Markdown & LaTeX Renderer",
+    title: "Documentation — The Flutter Renderer for AI Output",
     description:
-      "Get started with gpt_markdown, the Flutter package for rendering Markdown and LaTeX. One widget renders AI-generated content from ChatGPT, Gemini, and Claude beautifully.",
+      "Learn rendering, streaming, Markdown, LaTeX, styles, builders, inline patterns, and custom components.",
     images: ["/twitter-image"],
   },
 };
@@ -31,15 +31,36 @@ GptMarkdown(
   r'**Hello!** Inline math: \\( E = mc^2 \\)',
 )`;
 
-const sections = [
-  { href: "/docs/installation",        title: "Installation",         desc: "Add the package to your project in one command." },
-  { href: "/docs/usage",               title: "Basic Usage",          desc: "Simple and advanced usage examples." },
-  { href: "/docs/markdown-features",   title: "Markdown Features",    desc: "Full list of supported Markdown elements." },
-  { href: "/docs/latex-support",       title: "LaTeX Support",        desc: "Inline and block math, dollar-sign syntax, custom builder." },
-  { href: "/docs/syntax-highlighting", title: "Syntax Highlighting",  desc: "Built-in code highlighting and custom codeBuilder." },
-  { href: "/docs/themes",              title: "Themes",               desc: "Dark/light theming with GptMarkdownTheme." },
-  { href: "/docs/style-configuration", title: "Style & Params",       desc: "Complete reference for every widget parameter." },
-  { href: "/docs/custom-components",   title: "Custom Components",    desc: "Register your own block and inline Markdown elements." },
+const guideGroups = [
+  {
+    title: "Get started",
+    guides: [
+      { href: "/docs/installation", title: "Install", desc: "Add the package and verify your first render." },
+      { href: "/docs/usage", title: "Render a response", desc: "Put a real AI response in a scrollable Flutter screen." },
+    ],
+  },
+  {
+    title: "Core guides",
+    guides: [
+      { href: "/docs/markdown-features", title: "Markdown & AI output", desc: "See the supported Markdown, citations, links, lists, tables, and more." },
+      { href: "/docs/streaming", title: "Streaming", desc: "Reveal a reply as it arrives, then finish cleanly." },
+      { href: "/docs/latex-support", title: "LaTeX", desc: "Render equations, choose delimiters, and handle wide formulas." },
+      { href: "/docs/syntax-highlighting", title: "Code blocks", desc: "Control fenced code, copy actions, and incomplete streamed fences." },
+    ],
+  },
+  {
+    title: "Customize",
+    guides: [
+      { href: "/docs/themes", title: "Themes & styles", desc: "Change appearance locally or across your entire app." },
+      { href: "/docs/custom-components", title: "Custom inline UI", desc: "Turn mentions, citations, and custom syntax into native app UI." },
+    ],
+  },
+  {
+    title: "Reference",
+    guides: [
+      { href: "/docs/style-configuration", title: "Widget API & builders", desc: "Look up every parameter, callback, and supported replacement hook." },
+    ],
+  },
 ];
 
 export default function DocsPage() {
@@ -47,11 +68,10 @@ export default function DocsPage() {
     <div className="space-y-10">
       <div>
         <h1 className="scroll-m-20 text-4xl font-bold tracking-tight mb-3">
-          GPT Markdown
+          gpt_markdown documentation
         </h1>
         <p className="text-lg text-muted-foreground leading-7">
-          A Flutter widget for rendering Markdown and LaTeX — optimized for AI-generated content from ChatGPT, Gemini, and Claude.
-          Drop it in anywhere you display text from an LLM.
+          The Flutter renderer for AI output. Start with one widget, then choose exactly how every part of a streamed Markdown response looks and behaves.
         </p>
       </div>
 
@@ -62,27 +82,38 @@ export default function DocsPage() {
           <CodeBlock language="dart" code={quickStart} filename="main.dart" />
         </div>
         <p className="mt-3 text-sm text-muted-foreground">
-          That&apos;s it. LaTeX, bold, tables, code blocks, and more work out of the box — no extra configuration needed.
+          This renders common Markdown and LaTeX immediately. Use a <code>latexBuilder</code> only when your app needs to replace the default math widget.
         </p>
       </div>
 
-      <div>
-        <h2 className="scroll-m-20 text-2xl font-semibold mb-4">Documentation</h2>
-        <div className="grid gap-3 sm:grid-cols-2">
-          {sections.map(({ href, title, desc }) => (
-            <Link
-              key={href}
-              href={href}
-              className="group rounded-lg border p-4 hover:border-foreground transition-colors">
-              <div className="flex items-center justify-between mb-1">
-                <span className="font-medium text-sm">{title}</span>
-                <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-foreground transition-colors" />
-              </div>
-              <p className="text-xs text-muted-foreground">{desc}</p>
-            </Link>
-          ))}
-        </div>
+      <div className="rounded-xl border border-blue-200 bg-blue-50/60 p-5 dark:border-blue-900 dark:bg-blue-950/20">
+        <h2 className="mt-0 text-xl font-semibold">Three ways to customize</h2>
+        <ol className="mb-0 mt-3 space-y-2 text-sm text-muted-foreground">
+          <li><strong className="text-foreground">Style sheets and themes</strong> change appearance without replacing the renderer.</li>
+          <li><strong className="text-foreground">Builders and callbacks</strong> replace supported structures or connect interactions to your app.</li>
+          <li><strong className="text-foreground">Patterns and components</strong> turn app-specific tokens such as <code>@mentions</code> into native inline UI.</li>
+        </ol>
       </div>
+
+      {guideGroups.map(({ title, guides }) => (
+        <section key={title}>
+          <h2 className="scroll-m-20 text-2xl font-semibold mb-4">{title}</h2>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {guides.map(({ href, title: guideTitle, desc }) => (
+              <Link
+                key={href}
+                href={href}
+                className="group rounded-lg border p-4 hover:border-blue-400 hover:shadow-sm transition-all">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="font-medium text-sm">{guideTitle}</span>
+                  <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-blue-600 transition-colors" />
+                </div>
+                <p className="text-xs text-muted-foreground">{desc}</p>
+              </Link>
+            ))}
+          </div>
+        </section>
+      ))}
     </div>
   );
 }

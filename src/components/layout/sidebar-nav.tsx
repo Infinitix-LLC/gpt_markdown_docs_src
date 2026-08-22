@@ -13,6 +13,7 @@ import {
   Palette,
   SlidersHorizontal,
   Puzzle,
+  Waves,
   type LucideIcon,
 } from "lucide-react";
 
@@ -26,6 +27,7 @@ const iconMap: Record<string, LucideIcon> = {
   Palette,
   SlidersHorizontal,
   Puzzle,
+  Waves,
 };
 
 interface NavItem {
@@ -70,8 +72,10 @@ export function SidebarNav({ items }: SidebarNavProps) {
                 <li key={item.href}>
                   <Link
                     href={item.href}
+                    prefetch
+                    aria-current={active ? "page" : undefined}
                     className={cn(
-                      "group flex items-center gap-2.5 rounded-md px-2.5 py-2 text-sm transition-colors",
+                      "group flex items-center gap-2.5 rounded-md px-2.5 py-2 text-sm transition-all active:scale-[0.98] active:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
                       active
                         ? "bg-primary/8 text-primary font-semibold border-l-2 border-primary ml-[-1px]"
                         : "text-muted-foreground hover:text-foreground hover:bg-muted/60 font-medium border-l-2 border-transparent ml-[-1px]"

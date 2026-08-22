@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
+import { PACKAGE_VERSION } from "@/lib/package-version";
 
-export const alt = "GPT Markdown — Markdown & LaTeX for Flutter";
+export const alt = "GPT Markdown — the Flutter renderer for AI output";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -59,7 +60,7 @@ export default function OGImage() {
                 display: "flex",
                 alignItems: "center",
               }}>
-                <span style={{ color: "#666", fontSize: 12, fontFamily: "sans-serif", letterSpacing: "0.06em" }}>Flutter Package · pub.dev</span>
+                <span style={{ color: "#666", fontSize: 12, fontFamily: "sans-serif", letterSpacing: "0.06em" }}>v{PACKAGE_VERSION} · Flutter Package</span>
               </div>
             </div>
 
@@ -78,16 +79,16 @@ export default function OGImage() {
             {/* Subtitle */}
             <div style={{ display: "flex", flexDirection: "column", marginBottom: 38 }}>
               <span style={{ fontSize: 20, color: "#555", fontFamily: "sans-serif", lineHeight: 1.5 }}>
-                Markdown &amp; LaTeX renderer for Flutter.
+                The Flutter renderer for AI output.
               </span>
               <span style={{ fontSize: 20, color: "#555", fontFamily: "sans-serif", lineHeight: 1.5 }}>
-                Optimized for AI-generated content.
+                Built for production Flutter AI interfaces.
               </span>
             </div>
 
             {/* Stats */}
             <div style={{ display: "flex", gap: 10 }}>
-              {[["160 / 160", "pub points"], ["75K+", "downloads/mo"], ["WASM", "ready"]].map(([val, label]) => (
+              {[["310", "pub likes"], ["150K+", "downloads"], ["175", "GitHub stars"]].map(([val, label]) => (
                 <div
                   key={label}
                   style={{

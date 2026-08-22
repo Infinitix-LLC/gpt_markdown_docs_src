@@ -4,9 +4,9 @@ import { JsonLd } from "@/components/JsonLd";
 import { PACKAGE_VERSION } from "@/lib/package-version";
 
 export const metadata: Metadata = {
-  title: "GPT Markdown — Flutter Markdown & LaTeX Renderer",
+  title: "GPT Markdown — Flutter Renderer for AI Output",
   description:
-    "The best Flutter package for rendering Markdown and LaTeX. One widget renders ChatGPT, Gemini, and Claude output beautifully. 160/160 pub points, 75K+ downloads/mo, WASM ready.",
+    "Render streaming AI output, Markdown, LaTeX, code, tables, citations, and custom inline UI in production Flutter apps with one widget.",
   keywords: [
     "flutter markdown",
     "markdown flutter",
@@ -16,6 +16,8 @@ export const metadata: Metadata = {
     "flutter markdown renderer",
     "flutter latex renderer",
     "flutter ai markdown",
+    "flutter ai renderer",
+    "flutter streaming markdown",
     "flutter chatgpt",
     "render markdown flutter",
     "flutter markdown latex",
@@ -35,12 +37,12 @@ const softwareAppSchema = {
   applicationSubCategory: "Flutter Package",
   operatingSystem: "iOS, Android, Web, macOS, Windows, Linux",
   description:
-    "A Flutter package for rendering Markdown and LaTeX content in your apps. Optimized for AI-generated text from ChatGPT, Gemini, and Claude. Supports full Markdown syntax, inline and block LaTeX math, syntax-highlighted code blocks, and custom builder callbacks.",
+    "The Flutter renderer for AI output. Render streaming assistant replies, Markdown, LaTeX, code, tables, citations, and custom inline UI with production-ready styling and extension points.",
   url: "https://gptmarkdown.com",
   downloadUrl: "https://pub.dev/packages/gpt_markdown",
   softwareVersion: PACKAGE_VERSION,
   datePublished: "2024-03-01",
-  dateModified: "2025-05-23",
+  dateModified: "2026-08-22",
   license: "https://opensource.org/licenses/MIT",
   author: [
     { "@type": "Organization", name: "Infinitix LLC", url: "https://github.com/Infinitix-LLC" },
@@ -58,7 +60,7 @@ const websiteSchema = {
   "@type": "WebSite",
   name: "GPT Markdown",
   url: "https://gptmarkdown.com",
-  description: "Flutter Markdown & LaTeX renderer — documentation and playground",
+  description: "The Flutter renderer for AI output — documentation and playground",
 };
 
 export default function Home() {
