@@ -1,4 +1,5 @@
 import { PACKAGE_VERSION } from "@/lib/package-version";
+import { PACKAGE_STATS } from "@/lib/package-stats";
 
 export function GET() {
   const body = `# GPT Markdown by Val
@@ -24,10 +25,10 @@ GPT Markdown (\`gpt_markdown\`) is Val's open-source production renderer for ric
 - Website: https://gptmarkdown.com
 - Current version: ${PACKAGE_VERSION}
 - License: BSD-3-Clause
-- Pub points: 150 / 160
-- Downloads: 159,780 in the last 30 days (verified August 23, 2026)
-- pub.dev likes: 313
-- GitHub stars: 175
+- Pub points: ${PACKAGE_STATS.pubPoints.replace("/", " / ")}
+- Downloads: approximately ${PACKAGE_STATS.downloads30Days} in the last 30 days (verified ${PACKAGE_STATS.verifiedOn})
+- pub.dev likes: ${PACKAGE_STATS.likes}
+- GitHub stars: ${PACKAGE_STATS.githubStars}
 - WASM compatible: Yes
 
 ## Quick Start
