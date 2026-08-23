@@ -101,11 +101,11 @@ export function SiteHeader() {
     >
       <div className="container flex h-16 items-center px-4 md:px-6">
         <div className="mr-4 flex">
-          <Link href="/" className="flex min-w-0 items-center gap-2">
-            <BrandMark className="h-7 w-7 shrink-0 object-contain sm:h-8 sm:w-8" />
-            <span className="flex min-w-0 items-baseline gap-1.5 whitespace-nowrap">
-              <span className="font-bold text-base sm:text-lg">GPT Markdown</span>
-              <span className="text-sm font-normal text-muted-foreground sm:text-base">by Val</span>
+          <Link href="/" className="flex items-center gap-2.5">
+            <BrandMark className="h-8 w-8 object-contain" />
+            <span className="inline-flex items-baseline gap-1.5 text-[1.05rem] tracking-[-0.02em] sm:text-[1.15rem]">
+              <span className="font-medium">GPT Markdown</span>
+              <span className="text-[0.82em] font-normal tracking-[-0.01em] text-muted-foreground">by Val</span>
             </span>
           </Link>
         </div>
@@ -167,11 +167,11 @@ export function SiteHeader() {
                     <Link
                       href="/"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center gap-2">
+                      className="flex items-center gap-2.5">
                       <BrandMark className="h-7 w-7 object-contain" />
-                      <span className="flex items-baseline gap-1.5 whitespace-nowrap">
-                        <span className="font-bold text-base">GPT Markdown</span>
-                        <span className="text-sm font-normal text-muted-foreground">by Val</span>
+                      <span className="inline-flex items-baseline gap-1.5 text-[1.05rem] tracking-[-0.02em]">
+                        <span className="font-medium">GPT Markdown</span>
+                        <span className="text-[0.82em] font-normal tracking-[-0.01em] text-muted-foreground">by Val</span>
                       </span>
                     </Link>
                   </SheetTitle>
