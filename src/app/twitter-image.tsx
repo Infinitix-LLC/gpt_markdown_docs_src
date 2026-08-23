@@ -1,6 +1,5 @@
 import { ImageResponse } from "next/og";
 import { PACKAGE_VERSION } from "@/lib/package-version";
-import { PACKAGE_STATS } from "@/lib/package-stats";
 
 export const alt = "GPT Markdown — the Flutter renderer for AI output";
 export const size = { width: 1200, height: 630 };
@@ -89,7 +88,7 @@ export default function TwitterImage() {
 
             {/* Stats */}
             <div style={{ display: "flex", gap: 10 }}>
-              {[[PACKAGE_STATS.likes, "pub likes"], [PACKAGE_STATS.downloads30Days, "30-day downloads"], [PACKAGE_STATS.githubStars, "GitHub stars"]].map(([val, label]) => (
+              {[["310", "pub likes"], ["150K+", "30-day downloads"], ["175", "GitHub stars"]].map(([val, label]) => (
                 <div
                   key={label}
                   style={{

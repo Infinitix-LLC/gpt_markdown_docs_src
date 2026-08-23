@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import { ArrowRight, GitFork, Sparkles, Copy, Check, Star, Download, Award, Heart, Cpu, Palette, Radio, RotateCcw } from "lucide-react";
 import { useEffect, useState } from "react";
 import { PACKAGE_VERSION } from "@/lib/package-version";
-import { PACKAGE_STATS } from "@/lib/package-stats";
 
 import { Button } from "@/components/ui/button";
 import { SiteHeader } from "@/components/layout/site-header";
@@ -39,10 +38,10 @@ function InstallCommand() {
 }
 
 const stats = [
-  { icon: Heart,    label: "pub.dev likes",       value: PACKAGE_STATS.likes,          href: "https://pub.dev/packages/gpt_markdown" },
-  { icon: Download, label: "30-day downloads",    value: PACKAGE_STATS.downloads30Days, href: "https://pub.dev/packages/gpt_markdown" },
-  { icon: Award,    label: "pub points",          value: PACKAGE_STATS.pubPoints,       href: "https://pub.dev/packages/gpt_markdown/score" },
-  { icon: Star,     label: "GitHub stars",        value: PACKAGE_STATS.githubStars,     href: "https://github.com/Infinitix-LLC/gpt_markdown" },
+  { icon: Heart,    label: "pub.dev likes",     value: "310",     href: "https://pub.dev/packages/gpt_markdown" },
+  { icon: Download, label: "downloads / 30 days", value: "150K+",  href: "https://pub.dev/packages/gpt_markdown" },
+  { icon: Award,    label: "pub points",        value: "150/160", href: "https://pub.dev/packages/gpt_markdown/score" },
+  { icon: Star,     label: "GitHub stars",      value: "175",     href: "https://github.com/Infinitix-LLC/gpt_markdown" },
 ];
 
 const demoScenarios = [
@@ -385,17 +384,13 @@ export function HomeWrapper() {
 
       {/* Stats Bar */}
       <section className="w-full border-b bg-muted/40">
-        <div className="container mx-auto max-w-[64rem] px-4 py-5">
-          <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
-            <span className="inline-flex items-center gap-2 text-xs font-medium text-muted-foreground">
-              <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-center pt-4">
+            <span className="text-xs font-medium text-muted-foreground">
               Open-source rendering for production Flutter AI interfaces.
             </span>
-            <span className="text-[11px] text-muted-foreground/70">
-              Verified snapshot · {PACKAGE_STATS.verifiedOn}
-            </span>
           </div>
-          <div className="grid grid-cols-2 gap-px overflow-hidden rounded-xl border bg-border md:grid-cols-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-border">
             {stats.map(({ icon: Icon, label, value, href }, i) => (
               <motion.a
                 key={label}
@@ -405,10 +400,10 @@ export function HomeWrapper() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.1 * i }}
-                className="flex cursor-pointer flex-col items-center gap-1 bg-background/80 px-4 py-5 text-center transition-colors hover:bg-background">
-                <Icon className="mb-1 h-4 w-4 text-muted-foreground" />
-                <span className="text-2xl font-bold tracking-tight md:text-3xl">{value}</span>
-                <span className="text-[11px] font-medium tracking-wide text-muted-foreground">{label}</span>
+                className="flex flex-col items-center gap-1 py-6 px-4 text-center hover:bg-muted/60 transition-colors cursor-pointer">
+                <Icon className="h-5 w-5 text-muted-foreground mb-1" />
+                <span className="text-3xl font-bold tracking-tight">{value}</span>
+                <span className="text-xs text-muted-foreground uppercase tracking-wide">{label}</span>
               </motion.a>
             ))}
           </div>
