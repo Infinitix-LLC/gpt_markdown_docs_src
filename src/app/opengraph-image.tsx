@@ -88,7 +88,7 @@ export default function OGImage() {
 
             {/* Stats */}
             <div style={{ display: "flex", gap: 10 }}>
-              {[["310", "pub likes"], ["150K+", "downloads"], ["175", "GitHub stars"]].map(([val, label]) => (
+              {[["313", "pub likes"], ["159.8K", "30-day downloads"], ["175", "GitHub stars"]].map(([val, label]) => (
                 <div
                   key={label}
                   style={{

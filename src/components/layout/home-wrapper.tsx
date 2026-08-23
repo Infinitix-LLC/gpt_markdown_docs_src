@@ -8,6 +8,7 @@ import { PACKAGE_VERSION } from "@/lib/package-version";
 
 import { Button } from "@/components/ui/button";
 import { SiteHeader } from "@/components/layout/site-header";
+import { SiteFooter } from "@/components/layout/site-footer";
 function InstallCommand() {
   const [copied, setCopied] = useState(false);
   const cmd = "flutter pub add gpt_markdown";
@@ -37,9 +38,9 @@ function InstallCommand() {
 }
 
 const stats = [
-  { icon: Heart,    label: "pub.dev likes",     value: "310",     href: "https://pub.dev/packages/gpt_markdown" },
-  { icon: Download, label: "downloads",         value: "150K+",   href: "https://pub.dev/packages/gpt_markdown" },
-  { icon: Award,    label: "pub points",        value: "160/160", href: "https://pub.dev/packages/gpt_markdown/score" },
+  { icon: Heart,    label: "pub.dev likes",     value: "313",     href: "https://pub.dev/packages/gpt_markdown" },
+  { icon: Download, label: "downloads / 30 days", value: "159,780", href: "https://pub.dev/packages/gpt_markdown" },
+  { icon: Award,    label: "pub points",        value: "150/160", href: "https://pub.dev/packages/gpt_markdown/score" },
   { icon: Star,     label: "GitHub stars",      value: "175",     href: "https://github.com/Infinitix-LLC/gpt_markdown" },
 ];
 
@@ -386,7 +387,7 @@ export function HomeWrapper() {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-center pt-4">
             <span className="text-xs font-medium text-muted-foreground">
-              Trusted in production by Flutter apps reaching millions of users.
+              Open-source rendering for production Flutter AI interfaces.
             </span>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-border">
@@ -633,6 +634,7 @@ export function HomeWrapper() {
           </div>
         </div>
       </section>
+      <SiteFooter />
     </div>
   );
 }

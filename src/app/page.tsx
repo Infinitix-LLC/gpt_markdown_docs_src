@@ -43,7 +43,7 @@ const softwareAppSchema = {
   softwareVersion: PACKAGE_VERSION,
   datePublished: "2024-03-01",
   dateModified: "2026-08-22",
-  license: "https://opensource.org/licenses/MIT",
+  license: "https://opensource.org/licenses/BSD-3-Clause",
   author: [
     { "@type": "Organization", name: "Infinitix LLC", url: "https://github.com/Infinitix-LLC" },
     { "@type": "Person", name: "Mohammad Asfour" },

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import sharedOpenGraph from "@/lib/og";
 import { SiteHeader } from "@/components/layout/site-header";
+import { SiteFooter } from "@/components/layout/site-footer";
 import { BreadcrumbJsonLd } from "@/components/BreadcrumbJsonLd";
 import PlaygroundClient from "./PlaygroundClient";
 
@@ -33,6 +34,7 @@ export default function PlaygroundPage() {
       <main className="flex-1 flex flex-col">
         <PlaygroundClient />
       </main>
+      <SiteFooter />
     </div>
   );
 }

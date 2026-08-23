@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { PACKAGE_VERSION } from "@/lib/package-version";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
+import { BrandMark } from "@/components/layout/brand-mark";
 import {
   Sheet,
   SheetContent,
@@ -100,8 +101,11 @@ export function SiteHeader() {
     >
       <div className="container flex h-16 items-center px-4 md:px-6">
         <div className="mr-4 flex">
-          <Link href="/" className="flex items-center space-x-2">
-            <span className="font-bold inline-block text-xl">GPT Markdown</span>
+          <Link href="/" className="flex items-center gap-2.5">
+            <BrandMark className="h-8 w-8 object-contain" />
+            <span className="font-bold inline-block text-lg sm:text-xl">
+              GPT Markdown <span className="font-normal text-muted-foreground">by Val</span>
+            </span>
           </Link>
         </div>
         <div className="flex flex-1 items-center justify-end space-x-2 md:justify-between">
@@ -162,8 +166,11 @@ export function SiteHeader() {
                     <Link
                       href="/"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center gap-2">
-                      <span className="font-bold text-lg">GPT Markdown</span>
+                      className="flex items-center gap-2.5">
+                      <BrandMark className="h-7 w-7 object-contain" />
+                      <span className="font-bold text-lg">
+                        GPT Markdown <span className="font-normal text-muted-foreground">by Val</span>
+                      </span>
                     </Link>
                   </SheetTitle>
                   <SheetDescription className="text-xs">

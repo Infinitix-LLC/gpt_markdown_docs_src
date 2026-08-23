@@ -1,11 +1,11 @@
 import { PACKAGE_VERSION } from "@/lib/package-version";
 
 export function GET() {
-  const body = `# GPT Markdown
+  const body = `# GPT Markdown by Val
 
 > The Flutter renderer for AI output. Built for production Flutter AI interfaces.
 
-GPT Markdown (\`gpt_markdown\`) is an open-source Flutter/Dart package published on pub.dev. Its \`GptMarkdown\` widget renders streaming assistant replies, Markdown, LaTeX, code, tables, citations, autolinks, and custom inline UI in Flutter mobile, desktop, and web applications.
+GPT Markdown (\`gpt_markdown\`) is Val's open-source production renderer for rich AI output in Flutter. Its \`GptMarkdown\` widget renders streaming assistant replies, Markdown, LaTeX, code, tables, citations, autolinks, and custom inline UI in Flutter mobile, desktop, and web applications.
 
 ## Team
 
@@ -23,11 +23,10 @@ GPT Markdown (\`gpt_markdown\`) is an open-source Flutter/Dart package published
 - GitHub: https://github.com/Infinitix-LLC/gpt_markdown
 - Website: https://gptmarkdown.com
 - Current version: ${PACKAGE_VERSION}
-- License: MIT
-- Pub points: 160 / 160
-- Monthly downloads: 75,000+
-- Downloads: 150,000+
-- pub.dev likes: 310
+- License: BSD-3-Clause
+- Pub points: 150 / 160
+- Downloads: 159,780 in the last 30 days (verified August 23, 2026)
+- pub.dev likes: 313
 - GitHub stars: 175
 - WASM compatible: Yes
 
