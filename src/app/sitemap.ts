@@ -1,4 +1,5 @@
 import { MetadataRoute } from "next";
+import { defaultComponents } from "@/lib/default-components";
 
 const base = "https://gptmarkdown.com";
 
@@ -17,6 +18,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/docs/themes`,                  changeFrequency: "monthly", priority: 0.7 },
     { url: `${base}/docs/style-configuration`,     changeFrequency: "monthly", priority: 0.7 },
     { url: `${base}/docs/custom-components`,       changeFrequency: "monthly", priority: 0.7 },
+    { url: `${base}/docs/components`,              changeFrequency: "monthly", priority: 0.8 },
+    ...defaultComponents.map(({ slug }) => ({
+      url: `${base}/docs/components/${slug}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    })),
     { url: `${base}/docs/testing`,                 changeFrequency: "monthly", priority: 0.7 },
     { url: `${base}/docs/migration`,               changeFrequency: "monthly", priority: 0.7 },
     { url: `${base}/playground`,                   changeFrequency: "monthly", priority: 0.8 },

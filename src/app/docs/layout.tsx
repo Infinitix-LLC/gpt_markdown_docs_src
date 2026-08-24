@@ -15,6 +15,7 @@ const sidebarNavItems = [
   { title: "Customization",   href: "/docs/customization",         icon: "Palette",            section: "Customize" },
   { title: "Themes & styles", href: "/docs/themes",                icon: "Palette" },
   { title: "Custom inline UI", href: "/docs/custom-components",    icon: "Puzzle" },
+  { title: "Default components", href: "/docs/components",         icon: "Blocks" },
   { title: "Widget API & builders", href: "/docs/style-configuration", icon: "SlidersHorizontal", section: "Reference" },
   { title: "Testing",         href: "/docs/testing",               icon: "FlaskConical" },
   { title: "Migration to 1.2", href: "/docs/migration",             icon: "History" },

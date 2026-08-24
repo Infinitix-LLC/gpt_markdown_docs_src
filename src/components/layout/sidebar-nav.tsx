@@ -17,6 +17,7 @@ import {
   AtSign,
   FlaskConical,
   History,
+  Blocks,
   type LucideIcon,
 } from "lucide-react";
 
@@ -34,6 +35,7 @@ const iconMap: Record<string, LucideIcon> = {
   AtSign,
   FlaskConical,
   History,
+  Blocks,
 };
 
 interface NavItem {
