@@ -4,7 +4,7 @@ import { BrandMark } from "@/components/layout/brand-mark";
 
 export function SiteFooter() {
   return (
-    <footer className="w-full border-t bg-muted/20">
+    <footer className="w-full border-t border-border/40 bg-transparent">
       <div className="flex w-full flex-col gap-6 px-5 py-10 sm:flex-row sm:items-end sm:justify-between md:px-8 lg:px-10">
         <div className="space-y-3">
           <Link href="/" className="inline-flex items-center gap-2.5 font-semibold">
