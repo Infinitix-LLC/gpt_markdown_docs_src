@@ -4,7 +4,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { notFound } from "next/navigation";
 import sharedOpenGraph from "@/lib/og";
 import { CodeBlock } from "@/components/ui/components/ui/code-block";
-import { ComponentVisualPreview } from "@/components/docs/component-visual-preview";
+import { FlutterComponentPreview } from "@/components/docs/flutter-component-preview";
 import { defaultComponentBySlug, defaultComponents, type DefaultComponent } from "@/lib/default-components";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -114,9 +114,9 @@ export default async function DefaultComponentDetailPage({ params }: Props) {
         <h2 className="border-b pb-2 text-2xl font-semibold">What it renders</h2>
         <div className="grid gap-4 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,.95fr)]">
           <div>
-            <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Visual preview</p>
-            <ComponentVisualPreview kind={component.preview} className="min-h-[210px]" />
-            <p className="mt-2 text-xs text-muted-foreground">Illustrative HTML preview — the exact output follows your Flutter theme and platform.</p>
+            <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Live Flutter preview</p>
+            <FlutterComponentPreview componentName={component.name} markdown={component.markdown} />
+            <p className="mt-2 text-xs text-muted-foreground">This is the real GptMarkdown Flutter widget, rendered with the exact Markdown input shown here.</p>
           </div>
           <div>
             <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Markdown input</p>

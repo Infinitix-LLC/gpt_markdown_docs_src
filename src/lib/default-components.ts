@@ -459,7 +459,7 @@ export const defaultComponents: DefaultComponent[] = [
     category: "Links & media",
     preview: "image",
     summary: "Renders Markdown images, with optional dimensions parsed from the alt label.",
-    markdown: "![240x120](https://example.com/chart.png)",
+    markdown: "![120x120](/component-preview/icons/Icon-192.png)",
     behavior: "A WxH alt label supplies requested dimensions. The default renderer applies ImageStyle borderRadius and padding; use imageBuilder for fit or size constraints.",
     accessibility: "Use descriptive alt text when the image communicates information, and provide a useful error state if replacing the renderer.",
     style: {
