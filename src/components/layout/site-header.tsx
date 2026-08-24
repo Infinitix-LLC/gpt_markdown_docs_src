@@ -96,21 +96,31 @@ export function SiteHeader() {
 
   return (
     <header
-      className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+      className="sticky top-0 z-50 w-full border-b border-border/70 bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/60"
       aria-busy={pendingHref !== null}
     >
       <div className="container flex h-16 items-center px-4 md:px-6">
-        <div className="mr-4 flex">
-          <Link href="/" className="flex items-center gap-2.5">
-            <BrandMark className="h-8 w-8 object-contain" />
-            <span className="inline-flex items-baseline gap-1.5 text-[1.05rem] tracking-[-0.02em] sm:text-[1.15rem]">
-              <span className="font-medium">GPT Markdown</span>
-              <span className="text-[0.82em] font-normal tracking-[-0.01em] text-muted-foreground">by Val</span>
-            </span>
-          </Link>
+        <div className="mr-4 flex shrink-0">
+          <div className="flex items-baseline gap-1.5">
+            <Link href="/" className="group flex items-center gap-2">
+              <BrandMark className="h-7 w-7 object-contain transition-opacity group-hover:opacity-85" />
+              <span className="text-base font-medium leading-none tracking-[-0.02em] sm:text-[1.05rem]">
+                GPT Markdown
+              </span>
+            </Link>
+            <a
+              href="https://useval.io"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[0.78rem] font-normal leading-none tracking-[-0.01em] text-muted-foreground transition-colors hover:text-foreground sm:text-[0.82rem]"
+              aria-label="Visit Val"
+            >
+              by Val
+            </a>
+          </div>
         </div>
         <div className="flex flex-1 items-center justify-end space-x-2 md:justify-between">
-          <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
+          <nav className="hidden items-center space-x-6 text-sm font-normal md:flex">
             {mainNav.map((item) => (
               <Link
                 key={item.href}
@@ -122,7 +132,7 @@ export function SiteHeader() {
                   "relative flex items-center gap-1.5 rounded px-1 py-0.5 transition-all hover:text-foreground/80 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4",
                   pendingHref === item.href && "text-foreground",
                   pathname?.startsWith(item.href)
-                    ? "text-foreground font-semibold"
+                    ? "font-medium text-foreground"
                     : "text-foreground/60"
                 )}>
                 {item.title}
@@ -131,7 +141,7 @@ export function SiteHeader() {
                 )}
                 {pathname?.startsWith(item.href) && (
                   <div
-                    className="absolute -bottom-[19px] left-0 right-0 h-[2px] bg-foreground"
+                    className="absolute -bottom-[19px] left-0 right-0 h-[2px] rounded-full bg-primary/80"
                   />
                 )}
               </Link>
@@ -167,13 +177,19 @@ export function SiteHeader() {
                     <Link
                       href="/"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center gap-2.5">
+                      className="flex items-center gap-2">
                       <BrandMark className="h-7 w-7 object-contain" />
-                      <span className="inline-flex items-baseline gap-1.5 text-[1.05rem] tracking-[-0.02em]">
-                        <span className="font-medium">GPT Markdown</span>
-                        <span className="text-[0.82em] font-normal tracking-[-0.01em] text-muted-foreground">by Val</span>
-                      </span>
+                      <span className="text-base font-medium leading-none tracking-[-0.02em]">GPT Markdown</span>
                     </Link>
+                    <a
+                      href="https://useval.io"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[0.78rem] font-normal leading-none tracking-[-0.01em] text-muted-foreground transition-colors hover:text-foreground"
+                      aria-label="Visit Val"
+                    >
+                      by Val
+                    </a>
                   </SheetTitle>
                   <SheetDescription className="text-xs">
                     The Flutter renderer for AI output.
