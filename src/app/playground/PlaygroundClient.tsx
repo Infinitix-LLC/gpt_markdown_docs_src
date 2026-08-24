@@ -117,16 +117,19 @@ export default function PlaygroundClient() {
       </section>
 
       <section className="flex-1 px-4 pb-6" aria-label="Live demo">
-        <div className="container mb-3 flex max-w-5xl items-end justify-between gap-4 px-0">
+        <div className="container mb-3 flex max-w-5xl items-start gap-4 px-0">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
-              Interactive demo
-            </p>
+            <div className="flex flex-wrap items-center gap-2">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+                Interactive demo
+              </p>
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/5 px-2 py-0.5 text-[10px] font-medium text-primary">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 shadow-[0_0_0_3px_hsl(var(--primary)/0.12)]" />
+                Live Flutter
+              </span>
+            </div>
             <h2 className="mt-1 text-lg font-semibold">Run it yourself</h2>
           </div>
-          <span className="hidden rounded-full border bg-muted/40 px-3 py-1 text-xs text-muted-foreground sm:inline-flex">
-            Flutter · live
-          </span>
         </div>
 
         <div
