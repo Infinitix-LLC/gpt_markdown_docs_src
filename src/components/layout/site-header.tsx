@@ -101,7 +101,7 @@ export function SiteHeader() {
     >
       <div className="container flex h-16 items-center px-4 md:px-6">
         <div className="mr-4 flex shrink-0">
-          <div className="flex items-baseline gap-1.5">
+          <div className="flex items-center gap-2">
             <Link href="/" className="group flex items-center gap-2">
               <BrandMark className="h-7 w-7 object-contain transition-opacity group-hover:opacity-85" />
               <span className="text-base font-medium leading-none tracking-[-0.02em] sm:text-[1.05rem]">
@@ -112,7 +112,7 @@ export function SiteHeader() {
               href="https://useval.io"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[0.78rem] font-normal leading-none tracking-[-0.01em] text-muted-foreground transition-colors hover:text-foreground sm:text-[0.82rem]"
+              className="inline-flex whitespace-nowrap items-center rounded-full border border-border/80 bg-muted/20 px-2 py-0.5 text-[0.72rem] font-normal leading-none tracking-[-0.01em] text-muted-foreground transition-colors hover:border-primary/40 hover:bg-primary/5 hover:text-foreground sm:text-[0.76rem]"
               aria-label="Visit Val"
             >
               by Val
@@ -185,7 +185,7 @@ export function SiteHeader() {
                       href="https://useval.io"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[0.78rem] font-normal leading-none tracking-[-0.01em] text-muted-foreground transition-colors hover:text-foreground"
+                      className="inline-flex whitespace-nowrap items-center rounded-full border border-border/80 bg-muted/20 px-2 py-0.5 text-[0.72rem] font-normal leading-none tracking-[-0.01em] text-muted-foreground transition-colors hover:border-primary/40 hover:bg-primary/5 hover:text-foreground"
                       aria-label="Visit Val"
                     >
                       by Val
