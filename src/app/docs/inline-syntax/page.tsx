@@ -108,6 +108,54 @@ InlinePattern.delimited(
   builder: buildTemplateSpan,
 )`;
 
+const buildPrefixedCode = `// Same boundary rules as InlinePattern.prefixed, your own pattern object —
+// here to opt a TextSpan-only mention into every scope, including link labels:
+InlinePattern(
+  pattern: InlinePattern.buildPrefixedPattern(
+    prefix: '@',
+    knownNames: userDirectory.handles,
+  ),
+  builder: (context, match, style) => TextSpan(
+    text: match.group(0),
+    style: style.copyWith(color: Colors.indigo, fontWeight: FontWeight.w600),
+    recognizer: TapGestureRecognizer()
+      ..onTap = () => openProfile(match.group(0)!.substring(1)),
+  ),
+  scopes: MarkdownComponent.allScopes, // safe: builder returns a TextSpan
+)`;
+
+const buildDelimitedCode = `// The delimited regex inside a custom MarkdownComponent — Discord-style
+// ||spoiler|| text, with the token available as the named group 'name':
+class SpoilerMd extends InlineMd {
+  @override
+  RegExp get exp => InlinePattern.buildDelimitedPattern(
+        open: '||',
+        genericTokenPattern: r'[^|\\n]+', // tight, non-capturing
+      );
+
+  // Returns a WidgetSpan — keep it out of link labels (iOS paint safety).
+  @override
+  Set<MarkdownScope> get scopes => MarkdownComponent.allScopesExceptLinkLabel;
+
+  @override
+  InlineSpan span(BuildContext context, String text, GptMarkdownConfig config) {
+    final hidden = exp.firstMatch(text)?.namedGroup('name') ?? text;
+    return WidgetSpan(
+      alignment: PlaceholderAlignment.baseline,
+      baseline: TextBaseline.alphabetic,
+      child: SpoilerChip(text: hidden, style: config.style),
+    );
+  }
+}`;
+
+const neverMatchCode = `// Empty inputs produce a regex that can never match, so an app with no
+// channels yet renders its text untouched — no guard needed at the call site:
+InlinePattern.prefixed(
+  prefix: '#',
+  knownNames: channelsFromServer, // may be empty
+  builder: buildChannelSpan,
+)`;
+
 const safeWidgetCode = `// A TextSpan wraps, remains selectable, and stays on the text baseline.
 builder: (context, match, style) => TextSpan(
   text: match.group(0),
@@ -211,6 +259,31 @@ export default function InlineSyntaxPage() {
           includes its own groups. Boundaries prevent <code>:tada:xyz</code> from matching while adjacent
           <code> :fire::fire:</code> tokens still match twice. Return the raw match for an unknown name so author text
           never becomes an empty gap.
+        </p>
+      </section>
+
+      <section className="space-y-4">
+        <h2 className="text-2xl font-semibold border-b pb-2">Helper methods: reuse the boundary rules</h2>
+        <p className="text-muted-foreground text-sm leading-6">
+          The regexes behind the two factories are exposed as static helpers —{" "}
+          <code>InlinePattern.buildPrefixedPattern</code> and <code>InlinePattern.buildDelimitedPattern</code> — for
+          consumers that build their own <code>InlinePattern</code> or <code>MarkdownComponent</code>. You keep the
+          fiddly parts (the email/URL-fragment boundaries, longest-name-first matching, case-insensitivity) while
+          supplying your own builder, scopes, or component.
+        </p>
+        <CodeBlock language="dart" code={buildPrefixedCode} filename="build_prefixed_pattern.dart" />
+        <CodeBlock language="dart" code={buildDelimitedCode} filename="build_delimited_pattern.dart" />
+        <p className="text-sm leading-6 text-muted-foreground">
+          In a delimited pattern the token name is captured as the named group <code>name</code> (and as group 1)
+          before any group inside your <code>genericTokenPattern</code>, whatever that pattern contains. Write the
+          generic pattern as tightly as the syntax allows and use non-capturing groups in it — a loose pattern such as{" "}
+          <code>.+</code> runs past the closing delimiter and swallows the rest of the line.
+        </p>
+        <CodeBlock language="dart" code={neverMatchCode} filename="never_match.dart" />
+        <p className="text-sm leading-6 text-muted-foreground">
+          Both helpers return a regex that can never match when <code>knownNames</code> is empty and{" "}
+          <code>genericTokenPattern</code> is null, and the renderer skips such a pattern entirely — so lists that
+          load from a server can be passed straight through.
         </p>
       </section>
 

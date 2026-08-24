@@ -6,20 +6,20 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Custom Components — Block, Inline & InlinePattern (GptMarkdown v1.2.1)",
   description:
-    "Register custom block and inline Markdown components without wiping built-ins. InlinePattern and InlinePattern.prefixed for @mention and #channel. MarkdownScope safety, source tags, TextSpan vs WidgetSpan guidance, ordering and matching caveats.",
+    "Register custom block and inline Markdown components without wiping built-ins. InlinePattern, prefixed/delimited factories, and the buildPrefixedPattern/buildDelimitedPattern helpers for @mention, #channel, and :emoji:. MarkdownScope safety, source tags, TextSpan vs WidgetSpan guidance, ordering and matching caveats.",
   alternates: { canonical: "https://gptmarkdown.com/docs/custom-components" },
   openGraph: {
     ...sharedOpenGraph,
     title: "Custom Components — Block, Inline & InlinePattern (GptMarkdown v1.2.1)",
     description:
-      "Register custom block and inline Markdown components without wiping built-ins. InlinePattern and InlinePattern.prefixed for @mention and #channel. MarkdownScope safety, source tags, TextSpan vs WidgetSpan guidance, ordering and matching caveats.",
+      "Register custom block and inline Markdown components without wiping built-ins. InlinePattern, prefixed/delimited factories, and the buildPrefixedPattern/buildDelimitedPattern helpers for @mention, #channel, and :emoji:. MarkdownScope safety, source tags, TextSpan vs WidgetSpan guidance, ordering and matching caveats.",
     url: "https://gptmarkdown.com/docs/custom-components",
   },
   twitter: {
     card: "summary_large_image",
     title: "Custom Components — Block, Inline & InlinePattern (GptMarkdown v1.2.1)",
     description:
-      "Register custom block and inline Markdown components without wiping built-ins. InlinePattern and InlinePattern.prefixed for @mention and #channel. MarkdownScope safety, source tags, TextSpan vs WidgetSpan guidance, ordering and matching caveats.",
+      "Register custom block and inline Markdown components without wiping built-ins. InlinePattern, prefixed/delimited factories, and the buildPrefixedPattern/buildDelimitedPattern helpers for @mention, #channel, and :emoji:. MarkdownScope safety, source tags, TextSpan vs WidgetSpan guidance, ordering and matching caveats.",
     images: ["/twitter-image"],
   },
 };
@@ -180,6 +180,99 @@ GptMarkdown(
 // Leave genericTokenPattern null to match ONLY known names.
 // A generic fallback chips #2959 when the author meant issue 2959 — a real
 // production bug. Only supply one when you genuinely want every #token.`;
+
+const inlinePatternDelimitedCode = `// InlinePattern.delimited — for tokens with a CLOSING delimiter.
+// prefixed cannot express :tada: — it would match :tada and leave a
+// stray colon behind. The token name is the named group 'name' (and group 1).
+
+const emoji = {'tada': '🎉', 'rocket': '🚀', 'fire': '🔥'};
+
+GptMarkdown(
+  text,
+  inlinePatterns: [
+    InlinePattern.delimited(
+      open: ':',              // close defaults to open
+      knownNames: emoji.keys,
+      builder: (context, match, style) {
+        final name = match.namedGroup('name');
+        final glyph = name == null ? null : emoji[name];
+        // Unknown name → return the raw match, never an empty span.
+        return TextSpan(text: glyph ?? match.group(0), style: style);
+      },
+    ),
+    // Asymmetric, multi-character delimiters work too:
+    InlinePattern.delimited(
+      open: '{{',
+      close: '}}',
+      knownNames: templateNames,
+      builder: buildTemplateSpan,
+    ),
+  ],
+)
+
+// Boundaries are handled: 10:30:45 and http://host:8080/x are not claimed,
+// :tada:xyz does not match, but adjacent :fire::fire: matches twice.`;
+
+const buildPatternHelpersCode = `// The regexes behind both factories are exposed as static helpers, for
+// building your own InlinePattern or MarkdownComponent while keeping the
+// fiddly boundary rules, longest-name-first matching, and case-insensitivity.
+
+// 1. buildPrefixedPattern — same rules as prefixed, your own pattern object.
+//    Here: a TextSpan-only mention opted into EVERY scope, link labels included.
+InlinePattern(
+  pattern: InlinePattern.buildPrefixedPattern(
+    prefix: '@',
+    knownNames: userDirectory.handles,
+    // genericTokenPattern: r'[A-Za-z0-9_]+', // optional fallback
+  ),
+  builder: (context, match, style) => TextSpan(
+    text: match.group(0),
+    style: style.copyWith(color: Colors.indigo, fontWeight: FontWeight.w600),
+    recognizer: TapGestureRecognizer()
+      ..onTap = () => openProfile(match.group(0)!.substring(1)),
+  ),
+  scopes: MarkdownComponent.allScopes, // safe: builder returns a TextSpan
+)
+
+// 2. buildDelimitedPattern — the delimited regex inside a custom component.
+//    Discord-style ||spoiler||, hidden text available as named group 'name'.
+class SpoilerMd extends InlineMd {
+  @override
+  RegExp get exp => InlinePattern.buildDelimitedPattern(
+        open: '||',
+        genericTokenPattern: r'[^|\\n]+', // tight, non-capturing
+      );
+
+  @override
+  Set<MarkdownScope> get scopes => MarkdownComponent.allScopesExceptLinkLabel;
+
+  @override
+  InlineSpan span(BuildContext context, String text, GptMarkdownConfig config) {
+    final hidden = exp.firstMatch(text)?.namedGroup('name') ?? text;
+    return WidgetSpan(
+      alignment: PlaceholderAlignment.baseline,
+      baseline: TextBaseline.alphabetic,
+      child: SpoilerChip(text: hidden, style: config.style),
+    );
+  }
+}
+
+// Register the component — keep the built-ins:
+GptMarkdown(
+  text,
+  inlineComponents: [SpoilerMd(), ...MarkdownComponent.inlineComponents],
+)
+
+// Write genericTokenPattern as tightly as the syntax allows and use
+// non-capturing groups — a loose .+ runs past the closing delimiter and
+// swallows the rest of the line.
+
+// Empty inputs return a regex that can never match, and the renderer skips
+// the pattern entirely — server-loaded lists need no guard at the call site:
+InlinePattern.buildPrefixedPattern(
+  prefix: '#',
+  knownNames: channelsFromServer, // may be empty
+)`;
 
 const markdownScopeCode = `// MarkdownScope — where a component is allowed to render.
 //
@@ -355,6 +448,34 @@ export default function CustomComponentsPage() {
           Longer names win over shorter ones (longest-first matching).
         </p>
         <CodeBlock language="dart" code={inlinePatternPrefixedCode} filename="inline_pattern_prefixed.dart" />
+      </div>
+
+      {/* InlinePattern.delimited */}
+      <div className="space-y-3">
+        <h2 className="text-2xl font-semibold border-b pb-2">InlinePattern.delimited — :emoji: &amp; ::spoiler::</h2>
+        <p className="text-muted-foreground text-sm">
+          The <code className="bg-muted rounded px-1 text-xs">InlinePattern.delimited</code> factory handles tokens
+          with a closing delimiter, which <code className="bg-muted rounded px-1 text-xs">prefixed</code> cannot
+          express. <code className="bg-muted rounded px-1 text-xs">knownNames</code> and{" "}
+          <code className="bg-muted rounded px-1 text-xs">genericTokenPattern</code> behave exactly as they do on{" "}
+          <code className="bg-muted rounded px-1 text-xs">prefixed</code>: known names match exactly, longest first,
+          and leaving the generic pattern null matches only those names.
+        </p>
+        <CodeBlock language="dart" code={inlinePatternDelimitedCode} filename="inline_pattern_delimited.dart" />
+      </div>
+
+      {/* Static pattern helpers */}
+      <div className="space-y-3">
+        <h2 className="text-2xl font-semibold border-b pb-2">Static helpers — buildPrefixedPattern &amp; buildDelimitedPattern</h2>
+        <p className="text-muted-foreground text-sm">
+          When a factory is not flexible enough — you need custom{" "}
+          <code className="bg-muted rounded px-1 text-xs">scopes</code> reasoning, or the regex inside your own{" "}
+          <code className="bg-muted rounded px-1 text-xs">MarkdownComponent</code> subclass —{" "}
+          <code className="bg-muted rounded px-1 text-xs">InlinePattern.buildPrefixedPattern</code> and{" "}
+          <code className="bg-muted rounded px-1 text-xs">InlinePattern.buildDelimitedPattern</code> return the exact
+          regexes the factories use, so the boundary rules stay correct without re-deriving them.
+        </p>
+        <CodeBlock language="dart" code={buildPatternHelpersCode} filename="pattern_helpers.dart" />
       </div>
 
       {/* Inline component — subclass */}
