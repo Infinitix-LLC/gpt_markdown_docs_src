@@ -149,11 +149,18 @@ export default function InlineSyntaxPage() {
               <tr><td className="px-4 py-3 font-mono text-xs">see https://x.com.</td><td className="px-4 py-3">The period stays outside the link.</td></tr>
               <tr><td className="px-4 py-3 font-mono text-xs">(https://x.com)</td><td className="px-4 py-3">The unbalanced closing parenthesis stays outside.</td></tr>
               <tr><td className="px-4 py-3 font-mono text-xs">https://en.wikipedia.org/wiki/Foo_(bar)</td><td className="px-4 py-3">Balanced parentheses stay inside.</td></tr>
+              <tr><td className="px-4 py-3 font-mono text-xs">www.example.com</td><td className="px-4 py-3">Links as <code>http://www.example.com</code>.</td></tr>
               <tr><td className="px-4 py-3 font-mono text-xs">ada@example.com</td><td className="px-4 py-3">Links as <code>mailto:ada@example.com</code>.</td></tr>
+              <tr><td className="px-4 py-3 font-mono text-xs">**https://x.com**</td><td className="px-4 py-3">Renders as a bold link; the bold markers never enter the destination.</td></tr>
               <tr><td className="px-4 py-3 font-mono text-xs">`https://x.com`</td><td className="px-4 py-3">Remains code, not a link.</td></tr>
             </tbody>
           </table>
         </div>
+        <p className="text-sm leading-6 text-muted-foreground">
+          Angle autolinks such as <code>&lt;https://x.com&gt;</code>, <code>&lt;mailto:a@b.com&gt;</code>, and
+          <code> &lt;a@b.com&gt;</code> follow CommonMark&apos;s deliberate-author syntax and accept any scheme. Bare
+          links remain limited to the allowlist shown above.
+        </p>
         <CodeBlock language="dart" code={schemesCode} filename="links.dart" />
         <div className="rounded-lg border border-amber-200 bg-amber-50/60 p-4 text-sm dark:border-amber-900 dark:bg-amber-950/20">
           <strong className="text-amber-900 dark:text-amber-200">Avoid a URL pre-processor.</strong>
@@ -199,6 +206,12 @@ export default function InlineSyntaxPage() {
           It keeps ordinary times such as <code>10:30:45</code> and URLs with ports from becoming shortcodes.
         </p>
         <CodeBlock language="dart" code={emojiPatternCode} filename="emoji.dart" />
+        <p className="text-sm leading-6 text-muted-foreground">
+          The token is available as the named <code>name</code> group (and group 1), even when a generic token pattern
+          includes its own groups. Boundaries prevent <code>:tada:xyz</code> from matching while adjacent
+          <code> :fire::fire:</code> tokens still match twice. Return the raw match for an unknown name so author text
+          never becomes an empty gap.
+        </p>
       </section>
 
       <section className="space-y-4">
@@ -213,6 +226,7 @@ export default function InlineSyntaxPage() {
           <p className="mt-1 text-red-800 dark:text-red-300">
             A widget inside a Markdown link label becomes a nested placeholder and can disappear on iOS. Patterns
             default to <code>MarkdownComponent.allScopesExceptLinkLabel</code>; keep that default for widget-based UI.
+            Without it, <code>[#design](https://example.com)</code> can become blank on iOS with no visible error.
             Opt into <code>MarkdownComponent.allScopes</code> only when returning a safe <code>TextSpan</code>.
           </p>
         </div>

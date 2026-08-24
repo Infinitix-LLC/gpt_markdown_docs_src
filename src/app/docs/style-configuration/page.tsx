@@ -140,7 +140,8 @@ typedef LatexBuilder =
 typedef LinkBuilder =
     Widget Function(BuildContext context, InlineSpan text, String url, TextStyle style);
 
-// Returns InlineSpan — keeps inline code on the baseline, selectable, wrappable.
+// Returns InlineSpan. Return CodeTextSpan to keep the package's painted,
+// baseline-aligned, selectable, wrappable chip; another TextSpan drops the chip.
 typedef InlineCodeBuilder =
     InlineSpan Function(BuildContext context, String code, TextStyle style,
                         InlineCodeStyle codeStyle);
@@ -225,7 +226,7 @@ const params: Param[] = [
   // Code blocks
   { name: "codeBuilder", type: "CodeBlockBuilder?", req: false, group: "Code", desc: "Replace the fenced code block renderer. closed is false while still streaming." },
   // Inline code
-  { name: "inlineCodeBuilder", type: "InlineCodeBuilder?", req: false, group: "Code", desc: "Replace inline `code` span. Returns InlineSpan — keeps it baseline-aligned, selectable, wrappable." },
+  { name: "inlineCodeBuilder", type: "InlineCodeBuilder?", req: false, group: "Code", desc: "Replace inline `code` span. Return CodeTextSpan to retain the painted chip, baseline alignment, selection, and wrapping; another TextSpan drops the chip." },
   { name: "highlightBuilder ⚠️", type: "HighlightBuilder? (deprecated)", req: false, group: "Code", desc: "Deprecated. Returns Widget, causing baseline/selection/iOS issues. Use inlineCodeStyle or inlineCodeBuilder." },
   // Images
   { name: "imageBuilder", type: "ImageBuilder?", req: false, group: "Images", desc: "Replace the image renderer. width/height come from alt text parsed as WxH." },
@@ -348,7 +349,9 @@ export default function StyleConfigurationPage() {
             Builder arguments depend on the component. Builders that accept a style receive the resolved style; other
             builders receive component data such as code, dimensions, or the streaming <code>closed</code> flag.
             <code className="bg-muted rounded px-1 text-xs">inlineCodeBuilder</code> returns an{" "}
-            <code className="bg-muted rounded px-1 text-xs">InlineSpan</code> so inline code stays selectable and wrappable.
+            <code className="bg-muted rounded px-1 text-xs">InlineSpan</code>. Return a{" "}
+            <code className="bg-muted rounded px-1 text-xs">CodeTextSpan</code> to preserve the package&apos;s painted
+            chip, baseline alignment, selection, and wrapping; a different <code className="bg-muted rounded px-1 text-xs">TextSpan</code> deliberately drops the chip.
           </p>
           <CodeBlock language="dart" code={builderSignaturesCode} filename="typedefs.dart" />
         </div>

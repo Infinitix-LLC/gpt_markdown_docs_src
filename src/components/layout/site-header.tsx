@@ -46,6 +46,7 @@ const docsNav = [
   {
     title: "Customize",
     links: [
+      { title: "Customization", href: "/docs/customization" },
       { title: "Themes & styles", href: "/docs/themes" },
       { title: "Custom inline UI", href: "/docs/custom-components" },
     ],

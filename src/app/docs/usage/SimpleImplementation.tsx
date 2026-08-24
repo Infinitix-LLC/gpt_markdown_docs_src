@@ -78,6 +78,25 @@ GptMarkdown(
   style: Theme.of(context).textTheme.bodyMedium,
 )`;
 
+const interactionCode = `GptMarkdown(
+  reply,
+  onImageTap: (url) => openLightbox(url),
+  onCodeCopy: (code) => analytics.log('code_copied'),
+  onSourceTagTap: (content) => showSource(content),
+  // Requires CheckboxStyle(interactive: true).
+  onCheckboxChanged: (value) => persistCheckbox(value),
+)`;
+
+const supportedRows = [
+  ["Headings", "# through ######"],
+  ["Emphasis", "**bold**, *italic*, ~~strike~~, <u>underline</u>"],
+  ["Code", "`inline` and fenced code blocks"],
+  ["Lists", "Bulleted, ordered, nested, task lists, and radio options"],
+  ["Tables", "GFM-style tables, including :---: alignment"],
+  ["Blocks", "Quotes, rules, images, links, citations, and bare autolinks"],
+  ["Math", "\\( inline \\) and \\[ block \\]; dollar signs are opt-in"],
+];
+
 export function SimpleImplementation() {
   return (
     <div className="space-y-10">
@@ -108,6 +127,26 @@ export function SimpleImplementation() {
           One positional argument — the markdown string. Everything else is optional.
         </p>
         <CodeBlock language="dart" code={minimalCode} filename="main.dart" />
+      </div>
+
+      <div className="space-y-3">
+        <h2 className="text-2xl font-semibold border-b pb-2">What it supports</h2>
+        <div className="overflow-x-auto rounded-xl border" role="region" aria-label="Supported gpt markdown syntax" tabIndex={0}>
+          <table className="w-full min-w-[560px] text-sm">
+            <thead className="border-b bg-muted/40 text-left text-muted-foreground">
+              <tr><th className="px-4 py-3 font-medium">Feature</th><th className="px-4 py-3 font-medium">Syntax or behavior</th></tr>
+            </thead>
+            <tbody className="divide-y">
+              {supportedRows.map(([feature, syntax]) => (
+                <tr key={feature}><td className="px-4 py-3 font-medium">{feature}</td><td className="px-4 py-3 font-mono text-xs text-muted-foreground">{syntax}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="text-sm leading-6 text-muted-foreground">
+          The package has no platform-specific plugins and is suitable for Flutter Web, including WebAssembly-targeted
+          builds. Your app&apos;s other dependencies must still support the WebAssembly target.
+        </p>
       </div>
 
       {/* Scroll */}
@@ -145,6 +184,16 @@ export function SimpleImplementation() {
           LLM output can contain any URL, so validate before launching.
         </p>
         <CodeBlock language="dart" code={linkTapCode} filename="link_tap.dart" />
+      </div>
+
+      <div className="space-y-3">
+        <h2 className="text-2xl font-semibold border-b pb-2">Image, code, citation, and checkbox callbacks</h2>
+        <p className="text-muted-foreground text-sm leading-6">
+          The remaining interactions are opt-in too. Markdown checkboxes are read-only by default; when enabling
+          <code className="bg-muted rounded px-1 text-xs">CheckboxStyle(interactive: true)</code>, persist a rewritten
+          source string or the visible state will revert during the next rebuild.
+        </p>
+        <CodeBlock language="dart" code={interactionCode} filename="interactions.dart" />
       </div>
 
       {/* RTL */}

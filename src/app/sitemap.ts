@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/docs/latex-support`,           changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/docs/syntax-highlighting`,     changeFrequency: "monthly", priority: 0.7 },
     { url: `${base}/docs/streaming`,                changeFrequency: "monthly", priority: 0.8 },
+    { url: `${base}/docs/customization`,            changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/docs/themes`,                  changeFrequency: "monthly", priority: 0.7 },
     { url: `${base}/docs/style-configuration`,     changeFrequency: "monthly", priority: 0.7 },
     { url: `${base}/docs/custom-components`,       changeFrequency: "monthly", priority: 0.7 },

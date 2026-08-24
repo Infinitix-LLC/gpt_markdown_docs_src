@@ -477,6 +477,40 @@ export default function CustomComponentsPage() {
         </div>
       </details>
 
+      <div className="space-y-3">
+        <h2 className="text-2xl font-semibold border-b pb-2">Test a custom component, including a link label</h2>
+        <p className="text-muted-foreground text-sm leading-6">
+          Markdown output is a span tree, so assert on the rendered <code>RichText</code> content. Also include a
+          fixture inside a link label: that is where an unsafe <code>WidgetSpan</code> silently fails on iOS.
+          With <code>MarkdownComponent.allScopesExceptLinkLabel</code>, <code>[!!loud!!](https://x.com)</code> must
+          remain literal inside the label rather than becoming a nested chip.
+        </p>
+        <CodeBlock language="dart" filename="custom_component_test.dart" code={`testWidgets('renders in caps', (tester) async {
+  await tester.pumpWidget(
+    MaterialApp(
+      home: Scaffold(
+        body: GptMarkdown(
+          'a !!loud!! word',
+          inlineComponents: [ShoutMd(), ...MarkdownComponent.inlineComponents],
+        ),
+      ),
+    ),
+  );
+  await tester.pumpAndSettle();
+
+  final buffer = StringBuffer();
+  for (final richText in tester.widgetList<RichText>(
+    find.byWidgetPredicate((widget) => widget is RichText),
+  )) {
+    buffer.write(richText.text.toPlainText(includePlaceholders: false));
+  }
+  expect(buffer.toString(), contains('LOUD'));
+
+  // Also test '[!!loud!!](https://x.com)': with
+  // allScopesExceptLinkLabel it stays literal rather than becoming a nested chip.
+})`} />
+      </div>
+
       {/* Navigation */}
       <div className="flex justify-start pt-2">
         <Link href="/docs/style-configuration" className="inline-flex items-center gap-1 text-sm text-primary hover:underline">

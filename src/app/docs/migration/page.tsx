@@ -28,13 +28,14 @@ export const metadata: Metadata = {
 const inlineCodeMigration = `// Before: highlightBuilder returned a Widget.
 highlightBuilder: (context, text, style) => MyChip(text, style),
 
-// After: use InlineCodeStyle for appearance. It keeps the default wrapping,
-// selectable text-chip behavior:
+// After: use InlineCodeStyle for appearance. Every field is optional; unset
+// values derive from ColorScheme and keep the default text-chip behavior:
 styleSheet: const GptMarkdownStyleSheet(
   inlineCode: InlineCodeStyle(fontFamily: 'GeistMono'),
 ),
 
-// If a builder must keep the package's text-chip behavior, return CodeTextSpan:
+// inlineCodeBuilder receives the resolved InlineCodeStyle. Return CodeTextSpan
+// to keep the painted chip; any other TextSpan deliberately drops it:
 inlineCodeBuilder: (context, code, style, codeStyle) =>
     CodeTextSpan(text: code, style: style, codeStyle: codeStyle),
 
@@ -74,19 +75,23 @@ find.byWidgetPredicate((widget) => widget is RichText)`;
 const changes = [
   {
     title: "Inline code is a real text chip",
-    body: "Inline code now uses the bundled mono style with a tinted background, outline, and padding. It wraps across lines and remains selectable. If you need the earlier plain appearance, remove the chip background, border, and padding with InlineCodeStyle.",
+    body: "Inline code now uses bundled JetBrains Mono, a tinted fill, hairline outline, 4px radius, and per-line painting. It wraps across lines and remains selectable. If you need the earlier plain appearance, remove the chip background, border, and padding with InlineCodeStyle.",
   },
   {
     title: "Text scaling is proportional",
-    body: "Inline widgets no longer reserve inflated space at raised system text scales. Layouts tuned around the old overflow may look tighter; custom WidgetSpan content should use baselineWidgetSpan or MediaQuery.withNoTextScaling.",
+    body: "Inline widgets no longer reserve inflated space at raised system text scales: the old 2× measurements were 17× for a heading, 10× for a list, and 39× for a checkbox. Layouts tuned around that overflow may look tighter; custom WidgetSpan content should use baselineWidgetSpan or MediaQuery.withNoTextScaling.",
   },
   {
     title: "Malformed text stays visible",
-    body: "Malformed links and syntax that no component claims now render as source text instead of silently disappearing. Debug builds can report a warning, so treat it as recoverable author input rather than an empty render.",
+    body: "Malformed links such as [[a](http://x) and [label](http://x, plus syntax no component claims, now render as source text instead of silently disappearing. Debug builds print a warning. If an app relied on malformed Markdown vanishing, that behavior has changed.",
   },
   {
-    title: "Alternation and case-insensitive patterns are corrected",
-    body: "Custom component patterns with top-level alternatives are now grouped before anchoring, and case-insensitive component patterns receive their matches. Re-check any component that previously depended on an accidental match or non-match.",
+    title: "Alternation patterns are grouped before anchoring",
+    body: "A top-level | is now dispatched as ^(?:pattern)$ rather than ^pattern$. Re-check custom components whose alternatives may previously have claimed text from a later component.",
+  },
+  {
+    title: "Case-insensitive patterns now receive matches",
+    body: "The combined component regex now honors caseSensitive: false. A component that did not receive case-insensitive matches before may begin matching author text after the upgrade.",
   },
 ];
 
@@ -107,7 +112,12 @@ export default function MigrationPage() {
         <p className="text-muted-foreground text-sm leading-6">
           <code>highlightBuilder</code> still works but is scheduled for removal in 2.0. Use
           <code> InlineCodeStyle</code> for appearance, or <code>inlineCodeBuilder</code> when structure must change.
-          A <code>CodeTextSpan</code> preserves the package&apos;s wrapping and selection behavior; use
+          <code>InlineCodeStyle</code> covers <code>fontFamily</code>, <code>fontFamilyPackage</code>,
+          <code>fontFamilyFallback</code>, <code>fontSizeFactor</code>, <code>fontWeight</code>, <code>color</code>,
+          <code>backgroundColor</code>, <code>borderColor</code>, <code>borderWidth</code>, <code>borderRadius</code>,
+          <code>padding</code>, and <code>boxHeightStyle</code>.
+          Every field is optional and an unset field follows the active <code>ColorScheme</code>. A
+          <code>CodeTextSpan</code> preserves the package&apos;s wrapping and selection behavior; use
           <code> baselineWidgetSpan</code> only when a genuine inline widget is worth the usual WidgetSpan trade-offs.
         </p>
         <CodeBlock language="dart" code={inlineCodeMigration} filename="migration.dart" />
@@ -116,9 +126,11 @@ export default function MigrationPage() {
       <section className="space-y-4">
         <h2 className="text-2xl font-semibold border-b pb-2">Autolinking is now on</h2>
         <p className="text-muted-foreground text-sm leading-6">
-          Bare URLs, <code>www.</code> hosts, email addresses, and angle autolinks are recognized automatically. Remove
-          any pre-processor that rewrites URLs into Markdown links; keeping both can produce duplicate or malformed
-          results. Disable autolinking when preserving legacy behavior is more important than the new defaults.
+          Bare URLs, <code>www.</code> hosts, and email addresses use the GFM autolink extension; angle autolinks use
+          CommonMark §6.5. Remove any pre-processor that rewrites URLs into Markdown links—the renderer sees URLs only
+          after surrounding syntax is consumed, so it avoids the raw-Markdown bug where
+          <code> **https://example.com**</code> produces an href ending in <code>**</code>. Keeping both systems can
+          duplicate or corrupt links. Disable autolinking only when legacy plain-text behavior is required.
         </p>
         <CodeBlock language="dart" code={autolinkMigration} filename="links.dart" />
       </section>
@@ -126,11 +138,18 @@ export default function MigrationPage() {
       <section className="space-y-4">
         <h2 className="text-2xl font-semibold border-b pb-2">Components no longer render inside link labels by default</h2>
         <p className="text-muted-foreground text-sm leading-6">
-          Widget-based inline content nested inside a link label can fail to paint on iOS. Built-in image, table, and
-          mention-like components now avoid link-label scope. Apply the same rule to custom components that return a
+          Widget-based inline content nested inside a link label can fail to paint on iOS. The built-in
+          <code> ImageMd</code>, <code>TableMd</code>, and <code>ATagMd</code> components now use
+          <code> MarkdownComponent.allScopesExceptLinkLabel</code>. Custom components still render in link labels
+          unless they declare that same safe scope, so apply it to any custom component returning a
           <code>WidgetSpan</code>.
         </p>
         <CodeBlock language="dart" code={scopeMigration} filename="scopes.dart" />
+        <p className="text-sm leading-6 text-muted-foreground">
+          <code>InlinePattern.prefixed</code> is the first-class alternative: it excludes link labels by default and
+          needs no subclass. Leave <code>genericTokenPattern</code> null to match only the supplied
+          <code> knownNames</code>; then <code>#2959</code> remains an issue number instead of becoming a channel chip.
+        </p>
       </section>
 
       <section className="space-y-4">
@@ -157,9 +176,12 @@ export default function MigrationPage() {
       <section className="rounded-xl border bg-muted/20 p-5">
         <h2 className="text-xl font-semibold">What is additive</h2>
         <p className="mt-2 text-sm leading-6 text-muted-foreground">
-          Style sheets, the theme extension, builders, callbacks, MarkdownScope, InlinePattern, and autolink controls
-          are additive. Existing heading, link-color, and rule-style theme fields keep working; a style-sheet value
-          wins only where you set it.
+          <code>GptMarkdownStyleSheet</code> and all twelve per-component style classes, existing builders
+          (<code>blockQuoteBuilder</code>, <code>headingBuilder</code>, <code>checkboxBuilder</code>,
+          <code>radioOptionBuilder</code>, <code>hrBuilder</code>), callbacks (<code>onCheckboxChanged</code>,
+          <code>onCodeCopy</code>, <code>onImageTap</code>, <code>onSourceTagTap</code>), <code>MarkdownScope</code>,
+          <code>InlinePattern</code>, <code>autolink</code>, and <code>autolinkSchemes</code> are additive. Existing
+          heading, link-color, and rule-style theme fields keep working; a style-sheet value wins only where you set it.
         </p>
       </section>
 

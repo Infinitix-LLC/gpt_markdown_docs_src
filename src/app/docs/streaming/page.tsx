@@ -107,7 +107,7 @@ GptMarkdown(
   charactersPerSecond: 220,   // calmer default; adaptation still applies
 )`;
 
-const reducedMotionCode = `// The widget honours MediaQuery.disableAnimations.
+const reducedMotionCode = `// The widget checks MediaQuery.disableAnimationsOf(context).
 // When true, the reveal is skipped and the document renders immediately.
 // No ticker runs — the fast path is taken regardless of 'animation'.
 //
@@ -319,7 +319,7 @@ export default function StreamingPage() {
       <div className="space-y-3">
         <h2 className="text-2xl font-semibold border-b pb-2">Reduced motion</h2>
         <p className="text-muted-foreground text-sm">
-          When <code className="bg-muted rounded px-1 text-xs">MediaQuery.disableAnimations</code> is true, the reveal is
+          When <code className="bg-muted rounded px-1 text-xs">MediaQuery.disableAnimationsOf(context)</code> is true, the reveal is
           skipped and the finished document renders immediately. No ticker runs.
           Nothing to configure — but test it, because it is the path users with motion sensitivity get:
         </p>
@@ -387,6 +387,17 @@ export default function StreamingPage() {
       </div>
         </div>
       </details>
+
+      <div className="space-y-3">
+        <h2 className="text-2xl font-semibold border-b pb-2">Run the streaming demo</h2>
+        <p className="text-muted-foreground text-sm leading-6">
+          The package example includes a simulated reply with independent model-speed and reveal-speed sliders. Set the
+          model faster than the reveal to watch lag adaptation catch up, press Stop mid-reply to see fast-forward, and
+          switch to <code>none</code> to compare the non-animation path.
+        </p>
+        <CodeBlock language="bash" filename="terminal" code={`cd example
+flutter run -d macos -t lib/streaming_demo.dart`} />
+      </div>
 
       {/* Bottom nav */}
       <div className="flex justify-between pt-2">

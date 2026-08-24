@@ -107,6 +107,11 @@ export default function TestingPage() {
           rendered through a <code>RichText</code> subclass.
         </p>
         <CodeBlock language="dart" code={plainTextCode} filename="gpt_markdown_test.dart" />
+        <p className="text-sm leading-6 text-muted-foreground">
+          <code>find.text</code> still works for content deliberately rendered in a <code>WidgetSpan</code>—such as a
+          custom chip, code block, or table cell—because those contain actual <code>Text</code> widgets. It is span
+          content inside a Markdown paragraph that requires the helper.
+        </p>
       </section>
 
       <section className="space-y-4">
@@ -122,8 +127,8 @@ export default function TestingPage() {
       <section className="space-y-4">
         <h2 className="text-2xl font-semibold border-b pb-2">Text scale and expected overflow</h2>
         <p className="text-muted-foreground text-sm leading-6">
-          Long code lines, wide tables, and block math can overflow horizontally at raised text scales. That is an
-          expected scroll affordance, not necessarily a rendering regression. Drain the expected exception only in the
+          Long code lines and long headings cannot wrap at raised text scales. Those intentional horizontal overflows
+          are not necessarily a rendering regression. Tables and block math have their own scroll treatment. Drain the expected exception only in the
           focused test; do not silence exceptions globally or new overflow bugs will be hidden.
         </p>
         <CodeBlock language="dart" code={`await tester.pumpAndSettle();\nwhile (tester.takeException() != null) {}`} filename="overflow_test.dart" />
@@ -157,16 +162,25 @@ export default function TestingPage() {
         <div className="grid gap-3 sm:grid-cols-3 text-sm">
           <div className="rounded-xl border p-4">
             <h3 className="font-semibold">Linux goldens</h3>
-            <p className="mt-2 text-muted-foreground">Default-look goldens run on Linux because text rasterization differs by platform. Regenerate only after reviewing an intentional visual change.</p>
+            <p className="mt-2 text-muted-foreground">Default-look goldens run on Linux because text rasterization differs by platform. A tolerance was rejected because it hid real changes. Regenerate only after reviewing an intentional visual change.</p>
+            <code className="mt-3 block whitespace-pre-wrap rounded bg-muted p-2 text-[11px]">gh workflow run goldens.yml --ref my-branch{"\n"}gh run watch{"\n"}git pull</code>
           </div>
           <div className="rounded-xl border p-4">
             <h3 className="font-semibold">README images</h3>
-            <p className="mt-2 text-muted-foreground">Showcase images are documentation assets. Regenerate them separately, commit the PNGs, and bump their cache-busting URL version in the README.</p>
+            <p className="mt-2 text-muted-foreground">Showcase images are documentation assets made through the widget test harness, not goldens. Regenerate them with <code>./scripts/screenshots.sh</code>, commit the PNGs, and bump every README image&apos;s <code>?v=</code> URL version because GitHub caches proxied images by URL.</p>
           </div>
           <div className="rounded-xl border p-4">
             <h3 className="font-semibold">Compiled docs</h3>
-            <p className="mt-2 text-muted-foreground">Package documentation snippets are compiled by the test suite, so an API rename cannot quietly leave the source guides stale.</p>
+            <p className="mt-2 text-muted-foreground">Package documentation snippets live in <code>test/docs/snippets_test.dart</code> and compile in the test suite, so an API rename cannot quietly leave the source guides stale. Add a snippet fixture whenever package documentation gains a new API example.</p>
           </div>
+        </div>
+        <div className="rounded-lg border border-amber-200 bg-amber-50/60 p-4 text-sm dark:border-amber-900 dark:bg-amber-950/20">
+          <strong className="text-amber-900 dark:text-amber-200">Never refresh a red golden blindly.</strong>
+          <p className="mt-1 text-amber-800 dark:text-amber-300">
+            <code>--update-goldens</code> records the current pixels, including regressions. Inspect the expected,
+            actual, and diff images first; on CI they are in the <code>golden-failures</code> artifact. Use
+            <code> -f commit=false</code> when the workflow should return images as artifacts instead of committing them.
+          </p>
         </div>
       </section>
 

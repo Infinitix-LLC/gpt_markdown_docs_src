@@ -91,6 +91,7 @@ gpt_markdown is designed for mixed AI output: it renders Markdown and LaTeX by d
 - LaTeX Support: https://gptmarkdown.com/docs/latex-support
 - Syntax Highlighting: https://gptmarkdown.com/docs/syntax-highlighting
 - Streaming: https://gptmarkdown.com/docs/streaming
+- Customization: https://gptmarkdown.com/docs/customization
 - Theme Customization: https://gptmarkdown.com/docs/themes
 - Style & Parameters (full API): https://gptmarkdown.com/docs/style-configuration
 - Custom Components: https://gptmarkdown.com/docs/custom-components

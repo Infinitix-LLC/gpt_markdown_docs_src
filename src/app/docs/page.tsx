@@ -52,6 +52,7 @@ const guideGroups = [
   {
     title: "Customize",
     guides: [
+      { href: "/docs/customization", title: "Customization", desc: "The complete guide to style objects, builders, callbacks, dark mode, and text-scale-safe inline UI." },
       { href: "/docs/themes", title: "Themes & styles", desc: "Change appearance locally or across your entire app." },
       { href: "/docs/custom-components", title: "Custom inline UI", desc: "Turn mentions, citations, and custom syntax into native app UI." },
     ],
@@ -106,6 +107,26 @@ export default function DocsPage() {
           customization, streaming, inline syntax, custom components, testing, and migration—alongside focused
           rendering and API references.
         </p>
+      </div>
+
+      <div className="rounded-xl border p-5">
+        <h2 className="mt-0 text-xl font-semibold">How to choose a customization tool</h2>
+        <div className="mt-3 overflow-x-auto" role="region" aria-label="Customization overview" tabIndex={0}>
+          <table className="min-w-[560px] w-full text-sm">
+            <thead className="border-b text-left text-muted-foreground">
+              <tr><th className="pb-2 font-medium">Need</th><th className="pb-2 font-medium">Use</th><th className="pb-2 font-medium">Why</th></tr>
+            </thead>
+            <tbody className="divide-y">
+              <tr><td className="py-2">Change colour, size, padding, or font</td><td className="py-2 font-mono text-xs">Style object</td><td className="py-2 text-muted-foreground">Keeps the package structure and future component improvements.</td></tr>
+              <tr><td className="py-2">Replace a component&apos;s widget structure</td><td className="py-2 font-mono text-xs">Builder</td><td className="py-2 text-muted-foreground">Use only when the default structure is genuinely not enough.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <ul className="mt-4 space-y-1 text-sm text-muted-foreground">
+          <li>A WidgetSpan inside a link label does not paint on iOS; declare safe scopes for custom components.</li>
+          <li>Changing a builder at runtime needs a remount because closures are not compared for span caching.</li>
+          <li>Markdown text lives in spans, so <code>find.text</code> is not the normal widget-test assertion.</li>
+        </ul>
       </div>
 
       {guideGroups.map(({ title, guides }) => (

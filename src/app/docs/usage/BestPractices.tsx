@@ -38,6 +38,14 @@ export function BestPractices() {
             Always put a <code className="bg-red-100 dark:bg-red-900/50 rounded px-1 text-xs">SingleChildScrollView</code> between them.
           </div>
 
+          <div className="rounded-lg border border-blue-200 bg-blue-50 dark:border-blue-900 dark:bg-blue-950/30 p-3 text-sm text-blue-900 dark:text-blue-200">
+            <strong>Streaming a long response without the streaming path.</strong>{" "}
+            The package&apos;s measured 7.7 kB / 120-append case is 14.6 ms per token with{" "}
+            <code className="bg-blue-100 dark:bg-blue-900/50 rounded px-1 text-xs">animation: none</code> versus 11.0 ms
+            with the split/cached fade path, which stays flat as the reply grows. Use the{" "}
+            <Link href="/docs/streaming" className="underline">streaming guide</Link> for generated replies.
+          </div>
+
           <div className="rounded-lg border border-red-200 bg-red-50 dark:border-red-900 dark:bg-red-950/30 p-3 text-sm text-red-900 dark:text-red-200">
             <strong>Rebuilding builder closures on every frame.</strong>{" "}
             Builders (<code className="bg-red-100 dark:bg-red-900/50 rounded px-1 text-xs">latexBuilder</code>,{" "}
