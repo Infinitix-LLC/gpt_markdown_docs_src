@@ -11,7 +11,7 @@ export function ComponentVisualPreview({
   className?: string;
 }) {
   const frame = cn(
-    "not-prose overflow-hidden rounded-lg border border-border/70 bg-background/70 text-sm text-foreground",
+    "not-prose overflow-hidden rounded-lg border border-border/70 bg-muted/45 shadow-inner text-sm text-foreground",
     compact ? "min-h-28 p-3" : "min-h-52 p-6",
     className,
   );
