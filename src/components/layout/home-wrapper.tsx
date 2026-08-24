@@ -40,7 +40,7 @@ function InstallCommand() {
 const stats = [
   { icon: Heart,    label: "pub.dev likes",     value: "310",     href: "https://pub.dev/packages/gpt_markdown" },
   { icon: Download, label: "downloads / 30 days", value: "150K+",  href: "https://pub.dev/packages/gpt_markdown" },
-  { icon: Award,    label: "pub points",        value: "150/160", href: "https://pub.dev/packages/gpt_markdown/score" },
+  { icon: Award,    label: "pub points",        value: "160/160", href: "https://pub.dev/packages/gpt_markdown/score" },
   { icon: Star,     label: "GitHub stars",      value: "175",     href: "https://github.com/Infinitix-LLC/gpt_markdown" },
 ];
 

@@ -24,7 +24,7 @@ GPT Markdown (\`gpt_markdown\`) is Val's open-source production renderer for ric
 - Website: https://gptmarkdown.com
 - Current version: ${PACKAGE_VERSION}
 - License: BSD-3-Clause
-- Pub points: 150 / 160
+- Pub points: 160 / 160
 - Downloads: 150K+ in the last 30 days
 - pub.dev likes: 310
 - GitHub stars: 175
