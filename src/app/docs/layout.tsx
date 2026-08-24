@@ -8,12 +8,15 @@ const sidebarNavItems = [
   { title: "Installation",    href: "/docs/installation",          icon: "Package" },
   { title: "Render a response", href: "/docs/usage",               icon: "Code2" },
   { title: "Markdown & AI output", href: "/docs/markdown-features", icon: "FileText",           section: "Core guides" },
+  { title: "Inline syntax",   href: "/docs/inline-syntax",          icon: "AtSign" },
   { title: "LaTeX",           href: "/docs/latex-support",         icon: "Sigma" },
   { title: "Code blocks",     href: "/docs/syntax-highlighting",   icon: "Braces" },
   { title: "Streaming",       href: "/docs/streaming",             icon: "Waves" },
   { title: "Themes & styles", href: "/docs/themes",                icon: "Palette",            section: "Customize" },
   { title: "Custom inline UI", href: "/docs/custom-components",    icon: "Puzzle" },
   { title: "Widget API & builders", href: "/docs/style-configuration", icon: "SlidersHorizontal", section: "Reference" },
+  { title: "Testing",         href: "/docs/testing",               icon: "FlaskConical" },
+  { title: "Migration to 1.2", href: "/docs/migration",             icon: "History" },
 ];
 
 export default function DocsLayout({ children }: { children: React.ReactNode }) {

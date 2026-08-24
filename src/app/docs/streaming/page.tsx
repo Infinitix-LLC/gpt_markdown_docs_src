@@ -7,20 +7,20 @@ import { ArrowRight } from "lucide-react";
 export const metadata: Metadata = {
   title: "Streaming — Animate AI Replies in Flutter with GptMarkdown",
   description:
-    "Render AI replies as they stream with gpt_markdown v1.2.0. Covers accumulating text, GptMarkdownAnimation.fade, isStreaming lifecycle, charactersPerSecond pacing, reduced motion, selection after reveal, incomplete code fences, fast-forward, and chat-list scroll pitfalls.",
+    "Render AI replies as they stream with gpt_markdown v1.2.1. Covers accumulating text, GptMarkdownAnimation.fade, isStreaming lifecycle, charactersPerSecond pacing, reduced motion, selection after reveal, incomplete code fences, fast-forward, and chat-list scroll pitfalls.",
   alternates: { canonical: "https://gptmarkdown.com/docs/streaming" },
   openGraph: {
     ...sharedOpenGraph,
     title: "Streaming — Animate AI Replies in Flutter with GptMarkdown",
     description:
-      "Render AI replies as they stream with gpt_markdown v1.2.0. Covers accumulating text, GptMarkdownAnimation.fade, isStreaming lifecycle, charactersPerSecond pacing, reduced motion, selection after reveal, incomplete code fences, fast-forward, and chat-list scroll pitfalls.",
+      "Render AI replies as they stream with gpt_markdown v1.2.1. Covers accumulating text, GptMarkdownAnimation.fade, isStreaming lifecycle, charactersPerSecond pacing, reduced motion, selection after reveal, incomplete code fences, fast-forward, and chat-list scroll pitfalls.",
     url: "https://gptmarkdown.com/docs/streaming",
   },
   twitter: {
     card: "summary_large_image",
     title: "Streaming — Animate AI Replies in Flutter with GptMarkdown",
     description:
-      "Render AI replies as they stream with gpt_markdown v1.2.0. Covers accumulating text, GptMarkdownAnimation.fade, isStreaming lifecycle, charactersPerSecond pacing, reduced motion, selection after reveal, incomplete code fences, fast-forward, and chat-list scroll pitfalls.",
+      "Render AI replies as they stream with gpt_markdown v1.2.1. Covers accumulating text, GptMarkdownAnimation.fade, isStreaming lifecycle, charactersPerSecond pacing, reduced motion, selection after reveal, incomplete code fences, fast-forward, and chat-list scroll pitfalls.",
     images: ["/twitter-image"],
   },
 };

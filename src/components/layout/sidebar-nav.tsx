@@ -14,6 +14,9 @@ import {
   SlidersHorizontal,
   Puzzle,
   Waves,
+  AtSign,
+  FlaskConical,
+  History,
   type LucideIcon,
 } from "lucide-react";
 
@@ -28,6 +31,9 @@ const iconMap: Record<string, LucideIcon> = {
   SlidersHorizontal,
   Puzzle,
   Waves,
+  AtSign,
+  FlaskConical,
+  History,
 };
 
 interface NavItem {

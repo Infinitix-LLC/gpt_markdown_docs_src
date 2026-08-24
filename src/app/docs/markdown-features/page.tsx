@@ -7,20 +7,20 @@ import { ArrowRight } from "lucide-react";
 export const metadata: Metadata = {
   title: "Markdown Features — Supported Constructs in GptMarkdown",
   description:
-    "Every Markdown construct supported by gpt_markdown v1.2.0: headings, emphasis, tables, code fences, task lists, radio options, citations, autolinks, images, and block quotes — with scope and limitations.",
+    "Every Markdown construct supported by gpt_markdown v1.2.1: headings, emphasis, tables, code fences, task lists, radio options, citations, autolinks, images, and block quotes — with scope and limitations.",
   alternates: { canonical: "https://gptmarkdown.com/docs/markdown-features" },
   openGraph: {
     ...sharedOpenGraph,
     title: "Markdown Features — Supported Constructs in GptMarkdown",
     description:
-      "Every Markdown construct supported by gpt_markdown v1.2.0: headings, emphasis, tables, code fences, task lists, radio options, citations, autolinks, images, and block quotes — with scope and limitations.",
+      "Every Markdown construct supported by gpt_markdown v1.2.1: headings, emphasis, tables, code fences, task lists, radio options, citations, autolinks, images, and block quotes — with scope and limitations.",
     url: "https://gptmarkdown.com/docs/markdown-features",
   },
   twitter: {
     card: "summary_large_image",
     title: "Markdown Features — Supported Constructs in GptMarkdown",
     description:
-      "Every Markdown construct supported by gpt_markdown v1.2.0: headings, emphasis, tables, code fences, task lists, radio options, citations, autolinks, images, and block quotes — with scope and limitations.",
+      "Every Markdown construct supported by gpt_markdown v1.2.1: headings, emphasis, tables, code fences, task lists, radio options, citations, autolinks, images, and block quotes — with scope and limitations.",
     images: ["/twitter-image"],
   },
 };
@@ -161,7 +161,7 @@ export default function MarkdownFeaturesPage() {
         <h1 className="scroll-m-20 text-4xl font-bold tracking-tight mb-3">Markdown Features</h1>
         <p className="text-muted-foreground leading-7">
           Every construct supported by{" "}
-          <code className="bg-muted rounded px-1 text-sm">GptMarkdown</code> v1.2.0 — what the syntax looks like,
+          <code className="bg-muted rounded px-1 text-sm">GptMarkdown</code> v1.2.1 — what the syntax looks like,
           what it renders, and what the limits are.
         </p>
       </div>

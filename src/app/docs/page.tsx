@@ -35,7 +35,7 @@ const guideGroups = [
   {
     title: "Get started",
     guides: [
-      { href: "/docs/installation", title: "Install", desc: "Add the package and verify your first render." },
+      { href: "/docs/installation", title: "Install", desc: "Add the v1.2.1 package and verify your first render." },
       { href: "/docs/usage", title: "Render a response", desc: "Put a real AI response in a scrollable Flutter screen." },
     ],
   },
@@ -43,6 +43,7 @@ const guideGroups = [
     title: "Core guides",
     guides: [
       { href: "/docs/markdown-features", title: "Markdown & AI output", desc: "See the supported Markdown, citations, links, lists, tables, and more." },
+      { href: "/docs/inline-syntax", title: "Inline syntax", desc: "Use autolinks, app URL schemes, mentions, channels, emoji, and safe text spans." },
       { href: "/docs/streaming", title: "Streaming", desc: "Reveal a reply as it arrives, then finish cleanly." },
       { href: "/docs/latex-support", title: "LaTeX", desc: "Render equations, choose delimiters, and handle wide formulas." },
       { href: "/docs/syntax-highlighting", title: "Code blocks", desc: "Control fenced code, copy actions, and incomplete streamed fences." },
@@ -59,6 +60,8 @@ const guideGroups = [
     title: "Reference",
     guides: [
       { href: "/docs/style-configuration", title: "Widget API & builders", desc: "Look up every parameter, callback, and supported replacement hook." },
+      { href: "/docs/testing", title: "Testing", desc: "Test rendered spans, streaming, text scale, style merges, goldens, and documentation snippets." },
+      { href: "/docs/migration", title: "Migration to 1.2", desc: "Upgrade from 1.1.x without missing the behavioral changes a compiler cannot catch." },
     ],
   },
 ];
@@ -71,7 +74,8 @@ export default function DocsPage() {
           gpt_markdown documentation
         </h1>
         <p className="text-lg text-muted-foreground leading-7">
-          The Flutter renderer for AI output. Start with one widget, then choose exactly how every part of a streamed Markdown response looks and behaves.
+          The complete guide to gpt_markdown. Start with one widget, then learn every supported rendering behavior,
+          customization layer, inline extension point, test strategy, and migration consideration.
         </p>
       </div>
 
@@ -93,6 +97,15 @@ export default function DocsPage() {
           <li><strong className="text-foreground">Builders and callbacks</strong> replace supported structures or connect interactions to your app.</li>
           <li><strong className="text-foreground">Patterns and components</strong> turn app-specific tokens such as <code>@mentions</code> into native inline UI.</li>
         </ol>
+      </div>
+
+      <div className="rounded-xl border bg-muted/20 p-5">
+        <h2 className="mt-0 text-xl font-semibold">Complete package coverage</h2>
+        <p className="mb-0 mt-2 text-sm leading-6 text-muted-foreground">
+          These pages cover the package&apos;s full documentation set in the website itself: getting started,
+          customization, streaming, inline syntax, custom components, testing, and migration—alongside focused
+          rendering and API references.
+        </p>
       </div>
 
       {guideGroups.map(({ title, guides }) => (

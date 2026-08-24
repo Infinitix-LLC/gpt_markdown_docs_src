@@ -5,22 +5,22 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Themes & Style Configuration — GptMarkdown v1.2.0",
+  title: "Themes & Style Configuration — GptMarkdown v1.2.1",
   description:
-    "Three-layer customization model for GptMarkdown v1.2.0: GptMarkdownStyleSheet with 12 per-component style classes, GptMarkdownThemeData for app-wide defaults, and GptMarkdownTheme for scoped overrides. Merge/precedence rules and legacy heading fields explained.",
+    "Three-layer customization model for GptMarkdown v1.2.1: GptMarkdownStyleSheet with 12 per-component style classes, GptMarkdownThemeData for app-wide defaults, and GptMarkdownTheme for scoped overrides. Merge/precedence rules and legacy heading fields explained.",
   alternates: { canonical: "https://gptmarkdown.com/docs/themes" },
   openGraph: {
     ...sharedOpenGraph,
-    title: "Themes & Style Configuration — GptMarkdown v1.2.0",
+    title: "Themes & Style Configuration — GptMarkdown v1.2.1",
     description:
-      "Three-layer customization model for GptMarkdown v1.2.0: GptMarkdownStyleSheet with 12 per-component style classes, GptMarkdownThemeData for app-wide defaults, and GptMarkdownTheme for scoped overrides. Merge/precedence rules and legacy heading fields explained.",
+      "Three-layer customization model for GptMarkdown v1.2.1: GptMarkdownStyleSheet with 12 per-component style classes, GptMarkdownThemeData for app-wide defaults, and GptMarkdownTheme for scoped overrides. Merge/precedence rules and legacy heading fields explained.",
     url: "https://gptmarkdown.com/docs/themes",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Themes & Style Configuration — GptMarkdown v1.2.0",
+    title: "Themes & Style Configuration — GptMarkdown v1.2.1",
     description:
-      "Three-layer customization model for GptMarkdown v1.2.0: GptMarkdownStyleSheet with 12 per-component style classes, GptMarkdownThemeData for app-wide defaults, and GptMarkdownTheme for scoped overrides. Merge/precedence rules and legacy heading fields explained.",
+      "Three-layer customization model for GptMarkdown v1.2.1: GptMarkdownStyleSheet with 12 per-component style classes, GptMarkdownThemeData for app-wide defaults, and GptMarkdownTheme for scoped overrides. Merge/precedence rules and legacy heading fields explained.",
     images: ["/twitter-image"],
   },
 };
@@ -117,7 +117,7 @@ export default function ThemesPage() {
       <div>
         <h1 className="scroll-m-20 text-4xl font-bold tracking-tight mb-3">Themes &amp; Styles</h1>
         <p className="text-muted-foreground leading-7">
-          GptMarkdown v1.2.0 has three customization layers. They never overlap — each serves a distinct purpose.
+          GptMarkdown v1.2.1 has three customization layers. They never overlap — each serves a distinct purpose.
         </p>
         <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
           {[

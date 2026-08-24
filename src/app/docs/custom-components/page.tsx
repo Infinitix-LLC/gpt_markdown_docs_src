@@ -4,20 +4,20 @@ import { CodeBlock } from "@/components/ui/components/ui/code-block";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Custom Components — Block, Inline & InlinePattern (GptMarkdown v1.2.0)",
+  title: "Custom Components — Block, Inline & InlinePattern (GptMarkdown v1.2.1)",
   description:
     "Register custom block and inline Markdown components without wiping built-ins. InlinePattern and InlinePattern.prefixed for @mention and #channel. MarkdownScope safety, source tags, TextSpan vs WidgetSpan guidance, ordering and matching caveats.",
   alternates: { canonical: "https://gptmarkdown.com/docs/custom-components" },
   openGraph: {
     ...sharedOpenGraph,
-    title: "Custom Components — Block, Inline & InlinePattern (GptMarkdown v1.2.0)",
+    title: "Custom Components — Block, Inline & InlinePattern (GptMarkdown v1.2.1)",
     description:
       "Register custom block and inline Markdown components without wiping built-ins. InlinePattern and InlinePattern.prefixed for @mention and #channel. MarkdownScope safety, source tags, TextSpan vs WidgetSpan guidance, ordering and matching caveats.",
     url: "https://gptmarkdown.com/docs/custom-components",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Custom Components — Block, Inline & InlinePattern (GptMarkdown v1.2.0)",
+    title: "Custom Components — Block, Inline & InlinePattern (GptMarkdown v1.2.1)",
     description:
       "Register custom block and inline Markdown components without wiping built-ins. InlinePattern and InlinePattern.prefixed for @mention and #channel. MarkdownScope safety, source tags, TextSpan vs WidgetSpan guidance, ordering and matching caveats.",
     images: ["/twitter-image"],

@@ -7,20 +7,20 @@ import { ArrowRight } from "lucide-react";
 export const metadata: Metadata = {
   title: "Code Blocks — codeBuilder, closed Flag & Selection in GptMarkdown",
   description:
-    "How gpt_markdown renders fenced code blocks: default monospace display, custom codeBuilder, the closed streaming flag, width constraints, and selection caveats in Flutter v1.2.0.",
+    "How gpt_markdown renders fenced code blocks: default monospace display, custom codeBuilder, the closed streaming flag, width constraints, and selection caveats in Flutter v1.2.1.",
   alternates: { canonical: "https://gptmarkdown.com/docs/syntax-highlighting" },
   openGraph: {
     ...sharedOpenGraph,
     title: "Code Blocks — codeBuilder, closed Flag & Selection in GptMarkdown",
     description:
-      "How gpt_markdown renders fenced code blocks: default monospace display, custom codeBuilder, the closed streaming flag, width constraints, and selection caveats in Flutter v1.2.0.",
+      "How gpt_markdown renders fenced code blocks: default monospace display, custom codeBuilder, the closed streaming flag, width constraints, and selection caveats in Flutter v1.2.1.",
     url: "https://gptmarkdown.com/docs/syntax-highlighting",
   },
   twitter: {
     card: "summary_large_image",
     title: "Code Blocks — codeBuilder, closed Flag & Selection in GptMarkdown",
     description:
-      "How gpt_markdown renders fenced code blocks: default monospace display, custom codeBuilder, the closed streaming flag, width constraints, and selection caveats in Flutter v1.2.0.",
+      "How gpt_markdown renders fenced code blocks: default monospace display, custom codeBuilder, the closed streaming flag, width constraints, and selection caveats in Flutter v1.2.1.",
     images: ["/twitter-image"],
   },
 };

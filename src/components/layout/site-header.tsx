@@ -37,6 +37,7 @@ const docsNav = [
     title: "Core guides",
     links: [
       { title: "Markdown & AI output", href: "/docs/markdown-features" },
+      { title: "Inline syntax", href: "/docs/inline-syntax" },
       { title: "LaTeX", href: "/docs/latex-support" },
       { title: "Code blocks", href: "/docs/syntax-highlighting" },
       { title: "Streaming", href: "/docs/streaming" },
@@ -51,7 +52,11 @@ const docsNav = [
   },
   {
     title: "Reference",
-    links: [{ title: "Widget API & builders", href: "/docs/style-configuration" }],
+    links: [
+      { title: "Widget API & builders", href: "/docs/style-configuration" },
+      { title: "Testing", href: "/docs/testing" },
+      { title: "Migration to 1.2", href: "/docs/migration" },
+    ],
   },
 ];
 
@@ -173,7 +178,7 @@ export function SiteHeader() {
               <SheetContent side="right" className="w-72 p-0 flex flex-col">
                 {/* Header */}
                 <SheetHeader className="px-6 py-5 border-b text-left">
-                  <SheetTitle asChild>
+                  <SheetTitle className="flex items-center gap-2 text-left">
                     <Link
                       href="/"
                       onClick={() => setMobileMenuOpen(false)}

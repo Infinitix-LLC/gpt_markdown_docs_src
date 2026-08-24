@@ -2,7 +2,7 @@ import { CodeBlock } from "@/components/ui/components/ui/code-block";
 
 const installCode = `# pubspec.yaml
 dependencies:
-  gpt_markdown: ^1.2.0`;
+  gpt_markdown: ^1.2.1`;
 
 const importCode = `import 'package:gpt_markdown/gpt_markdown.dart';`;
 
@@ -86,7 +86,7 @@ export function SimpleImplementation() {
         <h1 className="scroll-m-20 text-4xl font-bold tracking-tight mb-3">Basic Usage</h1>
         <p className="text-muted-foreground leading-7">
           Everything from install to a production-ready render, with{" "}
-          <code className="bg-muted rounded px-1 text-sm">GptMarkdown</code> v1.2.0.
+          <code className="bg-muted rounded px-1 text-sm">GptMarkdown</code> v1.2.1.
         </p>
       </div>
 

@@ -5,22 +5,22 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "GptMarkdown API Reference — All Constructor Parameters v1.2.0",
+  title: "GptMarkdown API Reference — All Constructor Parameters v1.2.1",
   description:
-    "Complete v1.2.0 API reference for the GptMarkdown widget: every constructor parameter, all builder typedefs with exact signatures, callbacks, deprecated highlightBuilder, and the full builder/callback matrix.",
+    "Complete v1.2.1 API reference for the GptMarkdown widget: every constructor parameter, all builder typedefs with exact signatures, callbacks, deprecated highlightBuilder, and the full builder/callback matrix.",
   alternates: { canonical: "https://gptmarkdown.com/docs/style-configuration" },
   openGraph: {
     ...sharedOpenGraph,
-    title: "GptMarkdown API Reference — All Constructor Parameters v1.2.0",
+    title: "GptMarkdown API Reference — All Constructor Parameters v1.2.1",
     description:
-      "Complete v1.2.0 API reference for the GptMarkdown widget: every constructor parameter, all builder typedefs with exact signatures, callbacks, deprecated highlightBuilder, and the full builder/callback matrix.",
+      "Complete v1.2.1 API reference for the GptMarkdown widget: every constructor parameter, all builder typedefs with exact signatures, callbacks, deprecated highlightBuilder, and the full builder/callback matrix.",
     url: "https://gptmarkdown.com/docs/style-configuration",
   },
   twitter: {
     card: "summary_large_image",
-    title: "GptMarkdown API Reference — All Constructor Parameters v1.2.0",
+    title: "GptMarkdown API Reference — All Constructor Parameters v1.2.1",
     description:
-      "Complete v1.2.0 API reference for the GptMarkdown widget: every constructor parameter, all builder typedefs with exact signatures, callbacks, deprecated highlightBuilder, and the full builder/callback matrix.",
+      "Complete v1.2.1 API reference for the GptMarkdown widget: every constructor parameter, all builder typedefs with exact signatures, callbacks, deprecated highlightBuilder, and the full builder/callback matrix.",
     images: ["/twitter-image"],
   },
 };
